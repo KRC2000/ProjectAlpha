@@ -4,6 +4,7 @@
 #include "GUI_ItemsList.h"
 #include"Button.h"
 
+
 class UI
 {
 	vector<Texture>* texturesResourcesVec;
@@ -14,6 +15,8 @@ class UI
 
 	bool playerInventoryIsOpened = false;
 	bool playerIsInsideLocation = false;
+
+	// Button for opening backpack
 	Button backpack_b;
 
 	Font* guiFont1;
@@ -23,14 +26,20 @@ public:
 	void update(IEC& iec, RenderWindow& window);
 	void draw(RenderWindow& window);
 
-	
+	////////// SETTERS
+
 	void setPlayerInventoryIsOpened(bool isOpened);
 	void setPlayerIsInsideLocation(bool isInside);
 
-	
+	//////////////////
+
+	////////// GETTERS
+
 	bool getPlayerInventoryIsOpened();
 	GUI_Clocks* getClocks();
 	GUI_ItemsList* getInventoryItemList();
 	GUI_ItemsList* getLocationItemList();
+
+	//////////////////
 };
 

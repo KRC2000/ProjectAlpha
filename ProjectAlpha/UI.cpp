@@ -1,10 +1,7 @@
 #include "UI.h"
 
 UI::UI()
-{
-	//view.zoom(3.f);
-	//view.setCenter({1500, 1500});
-	
+{	
 }
 
 void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font* font)
