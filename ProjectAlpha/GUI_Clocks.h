@@ -10,9 +10,16 @@ class GUI_Clocks
 	
 public:
 	GUI_Clocks();
-	void update(float factor);
+
+	// Recalculating format. Basically keeps numbers manipulating as time should -
+	// only 59 minutes and 24 hours
+	void update();
+
 	void draw(RenderWindow& window);
+
+	// Needs for update() to be called after!!!
 	void addMinutes(float minutes);
+
 	void setPos(Vector2f pos);
 };
 
