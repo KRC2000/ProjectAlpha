@@ -12,22 +12,19 @@ void GUI_ItemsList::load(vector<Texture>* texturesResourcesVec, Vector2f pos, Fo
 
 	s_border.setTexture(resourcesVec->at(ResourcesEnum::GUI_T));
 
+	// load() underlying objects: buttons, slider, items-list items(if they are)
 	upListButton.load("res/upListButton.png");
 	downListButton.load("res/downListButton.png");
-	setPosition(pos);
-	
-	slider.load({ s_border.getPosition().x + s_border.getGlobalBounds().width + 3, 
-		s_border.getPosition().y + upListButton.getGlobalBounds().height},
-		s_border.getGlobalBounds().height - 
+	slider.load({ (float)resourcesVec->at(ResourcesEnum::GUI_T).getSize().x + 3, upListButton.getGlobalBounds().height},
+		(float)resourcesVec->at(ResourcesEnum::GUI_T).getSize().y -
 		(upListButton.getGlobalBounds().height + downListButton.getGlobalBounds().height ));
 
-
-	//s_border window.getSize().x
 	for (int i = 0; i < itemsVec.size(); i++)
 	{
 		itemsVec[i].load(*resourcesVec, font);
 	}
 	
+	setPosition(pos);
 }
 
 
@@ -35,12 +32,10 @@ void GUI_ItemsList::assignStorage(Storage* storage)
 {
 	assignedStorage = storage;
 
-	//cout << "Items - " << assignedStorage->getItemsVec()->size() << endl;
-
-
-
+	// Clear items-list items vector from items-list items that represent items from past assigned storage
 	itemsVec.clear();
 
+	// For each item in new storage create related items-list item 
 	for (int i = 0; i < assignedStorage->getItemsVec()->size(); i++)
 	{
 		itemsVec.push_back(GUI_ItemsListItem(assignedStorage->getItemsVec()->at(i).getId(), assignedStorage->getItemsVec()->at(i).getAmount(),
@@ -48,17 +43,17 @@ void GUI_ItemsList::assignStorage(Storage* storage)
 
 	}
 
-	//if (itemsVec)
-
+	// initializing and load() of all just created items-list items
 	for (int i = 0; i < itemsVec.size(); i++)
 	{
 		itemsVec[i].load(*resourcesVec, guiFont1);
 		itemsVec[i].setPos({ s_border.getPosition().x + 6, 
 			s_border.getPosition().y + i * (resourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y + distanceBetweenItems) + 21});
 	}
-	cout << resourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y << endl;
+
+	
 	recalculateItemListLenght();
-	cout << "Items list lenght: " << itemListLenght << endl;
+	
 }
 
 void GUI_ItemsList::moveItems(Vector2f factor)
@@ -74,6 +69,8 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 {
 	if (active)
 	{
+		// Moving content according to slider, and slider according to content
+		// Reading and updating buttons
 		if (itemsVec.size() > 1)
 		{
 			if (!isBorderIntersectsWithItem(0) || !isBorderIntersectsWithItem(itemsVec.size() - 1))
@@ -89,14 +86,7 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 			}
 		}
 		
-
-
-		//cout << slider.getPositionPercent() << endl;
-
-
-		//cout << getPositionPercent() << endl;
-		//cout << itemsVec[0].getSpriteBox()->getGlobalBounds().height << endl;
-
+		// Updating every items-list item
 		for (int i = 0; i < itemsVec.size(); i++)
 		{
 			itemsVec[i].update(iec);
@@ -104,7 +94,7 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 		
 		
 
-
+		// Pretty retarded system of moving content on mouse scroll
 		if (s_border.getGlobalBounds().contains(iec.getMousePos(window, view)))
 		{
 			if (itemsVec.size() > 1)
@@ -115,7 +105,12 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 				{
 					moveItems({ 0, iec.mouseWheelDelta * 15.f });
 
-				
+					
+					// This piece of crap kind of stabilizing items if they were
+					// scrolled down/up not enough, and few pixels out so that
+					// these items is not fading in, but they are on the edge,
+					// so it's too easy to visually lose them. This code pops
+					// them back little bit, but enough for them to fade in
 					if (isBorderIntersectsWithItem(0))
 					{
 						while (isBorderIntersectsWithItem(0))
@@ -152,7 +147,6 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 
 			}
 			
-
 			iec.mouseWheelDelta = 0;
 
 			
@@ -160,6 +154,8 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 			
 		}
 
+		// If items-list items are intersect with background sprite - fade in
+		// otherwise - fade out
 		for (int i = 0; i < itemsVec.size(); i++)
 		{
 			if (!isBorderIntersectsWithItem(i))
@@ -185,6 +181,7 @@ void GUI_ItemsList::draw(RenderWindow& window)
 			itemsVec[i].draw(window);
 		}
 
+		// Drawing slider and buttons only if they are not fitting in background sprite
 		if (itemsVec.size() > 1)
 		{
 			if (!isBorderIntersectsWithItem(0) || !isBorderIntersectsWithItem(itemsVec.size() - 1))
@@ -273,7 +270,7 @@ void GUI_ItemsList::addItem(Item newItem)
 {
 	if (newItem.getId() >= ItemsEnum::UNKNOWN && newItem.getId() < ItemsEnum::ITEMS_AMOUNT)
 	{
-		assignedStorage->addItem(newItem);
+		//assignedStorage->addItem(newItem);
 
 		GUI_ItemsListItem item(newItem.getId(), newItem.getAmount(), newItem.getIsReusable(), newItem.getCondition());
 		item.load(*resourcesVec, guiFont1);
@@ -312,6 +309,8 @@ void GUI_ItemsList::setPosition(Vector2f pos)
 	downListButton.setPosition({ 
 		s_border.getPosition().x + s_border.getGlobalBounds().width + 3, 
 		s_border.getPosition().y + s_border.getGlobalBounds().height - downListButton.getGlobalBounds().height });
+	slider.setPosition({ pos.x + s_border.getGlobalBounds().width + 3,
+		pos.y + upListButton.getGlobalBounds().height});
 }
 
 void GUI_ItemsList::setActive(bool active)
@@ -352,25 +351,6 @@ void GUI_ItemsList::setPositionPercent(float percent)
 		if(!isBorderIntersectsWithItem(itemsVec.size() - 1)) moveItems({ 0, -1 });
 	}
 
-	/*if (isBorderIntersectsWithItem(0))
-	{
-		while (isBorderIntersectsWithItem(0))
-		{
-			moveItems({ 0, -1 });
-		}
-
-		moveItems({ 0, 1 });
-	}
-	if (isBorderIntersectsWithItem(itemsVec.size() - 1))
-	{
-
-		while (isBorderIntersectsWithItem(itemsVec.size() - 1))
-		{
-			moveItems({ 0, +1 });
-
-		}
-		moveItems({ 0, -1 });
-	}*/
 
 }
 

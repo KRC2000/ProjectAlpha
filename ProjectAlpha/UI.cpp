@@ -61,6 +61,7 @@ void UI::update(IEC& iec, RenderWindow& window)
 			Item item = inventoryItemsList.deleteItem(texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
 				iec.getMousePos(window, view));
 			locationItemsList.addItem(item);
+			locationItemsList.getAssignedStorage()->addItem(item);
 		}
 		if (locationItemsList.getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, view)) &&
 			locationItemsList.getAssignedStorage()->getItemsVec()->size() >= 1)
@@ -68,6 +69,8 @@ void UI::update(IEC& iec, RenderWindow& window)
 			Item item = locationItemsList.deleteItem(texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
 				iec.getMousePos(window, view));
 			inventoryItemsList.addItem(item);
+			inventoryItemsList.getAssignedStorage()->addItem(item);
+
 		}
 	}
 

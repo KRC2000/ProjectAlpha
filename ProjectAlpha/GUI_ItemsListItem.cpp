@@ -6,27 +6,6 @@ GUI_ItemsListItem::GUI_ItemsListItem(ItemsEnum itemId, int amount, bool reusable
 	
 }
 
-//GUI_ItemsListItem::GUI_ItemsListItem(const GUI_ItemsListItem& item) : 
-//	itemId(item.itemId), amount(item.amount), reusable(item.reusable), condition(item.condition)
-//{
-//	itemNameText.setFont(*font);
-//	itemNameText.setString(getItemNameString(itemId));
-//	itemNameText.setCharacterSize(100);
-//	itemNameText.setScale({ 0.3, 0.3 });
-//	itemNameText.setFillColor(sf::Color::White);
-//
-//	amountText.setFont(f);
-//	amountText.setString("x" + to_string(amount));
-//	amountText.setCharacterSize(100);
-//	amountText.setScale({ 0.25, 0.25 });
-//	amountText.setFillColor(sf::Color::White);
-//
-//	conditionText.setFont(f);
-//	conditionText.setString(to_string(condition) + "%");
-//	conditionText.setCharacterSize(100);
-//	conditionText.setScale({ 0.2, 0.2 });
-//	conditionText.setFillColor(sf::Color::White);
-//}
 
 void GUI_ItemsListItem::load(vector<Texture>& textureResourcesVec, Font* font)
 {
