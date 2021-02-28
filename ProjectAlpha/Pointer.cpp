@@ -78,6 +78,11 @@ Vector2f Pointer::getPos()
 	return pos;
 }
 
+bool Pointer::getPlayerIsInside()
+{
+	return playerIsInside;
+}
+
 void Pointer::setPlayerIsInside(bool isInside)
 {
 	playerIsInside = isInside;

@@ -21,6 +21,8 @@ public:
 	Storage* getStorage();
 	FloatRect getBackSpriteBoundaries();
 	Vector2f getPos();
+	bool getPlayerIsInside();
+
 
 	void setPlayerIsInside(bool isInside);
 };
