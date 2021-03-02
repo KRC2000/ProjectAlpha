@@ -65,129 +65,95 @@ void Player::load(vector<Texture>& textureResourcesVec, UI& ui)
 
 void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 {
-	float dx, dy;
-	if (iec._LMB && !ui.getPlayerInventoryIsOpened()) 
-	{
-		targetIsInside = false;
+	setSpeedToPixel(&map);
 
-		//cout << map.getPointersVec()->at(0).getBackSpriteBoundaries().left << endl;
-		for (int i = 0; i < map.getPointersVec()->size(); i++)
+	// If LMB clicked
+	if (iec._LMB)
+	{
+		// If inventory is closed
+		if (!ui.getPlayerInventoryIsOpened())
 		{
-			if (map.getPointersVec()->at(i).getBackSpriteBoundaries().contains(iec.getMousePos(window, window.getView())))
+			int pointerIndex;
+			// If clicked on or out of any pointer 
+			if (isCursorOnPointer(pointerIndex, map, iec, window))
 			{
-				targetIsInside = true;
-				goalPos = map.getPointersVec()->at(i).getPos();
-				if (relatedPointer != NULL) relatedPointer->setPlayerIsInside(false);
-				relatedPointer = &map.getPointersVec()->at(i);
-
-				//cout << map.getPointersVec()->at(i).getStorage()->getItemsVec()->size() << endl;
-				//cout << relatedPointer->getStorage()->getItemsVec()->size() << endl; 
-				break;
-			}
-		}
-		
-		if (!targetIsInside)
-		{
-			goalPos = iec.getMousePos(window, window.getView());
-		}
-
-		moving = true;
-		playerSprite.setTextureRect(IntRect(0 * 100, 0, 100, 120));
-
-		//Calculations 
-		
-		dx = goalPos.x - pos.x;
-		dy = goalPos.y - pos.y;
-		leftToTravel = sqrt(dx * dx + dy * dy);
-		normilizedTravelVec.x = dx / leftToTravel;
-		normilizedTravelVec.y = dy / leftToTravel;
-		//Debug
-		//cout << normilizedTravelVec.x << endl;
-		//cout << normilizedTravelVec.y << endl << endl;
-
-		targetPointSprite.setPosition(goalPos);
-		targetPointSprite.setColor({ 255, 255, 255, 255 });
-
-		
-	}
-	
-	if (ui.getPlayerInventoryIsOpened())
-	{
-		playerSprite.setTextureRect(IntRect(1 * 100, 0, 100, 120));
-		moving = false;
-
-		targetPointSprite.setColor({ 255, 255, 255, 0 });
-	}
-
-	if (moving)
-	{
-		inside = false;
-
-		dx = goalPos.x - pos.x;
-		dy = goalPos.y - pos.y;
-		leftToTravel = sqrt(dx * dx + dy * dy);
-		pos.x += normilizedTravelVec.x * speed * (float)iec.cycleTime.asMicroseconds();
-		pos.y += normilizedTravelVec.y * speed * (float)iec.cycleTime.asMicroseconds();
-		//cout << iec.cycleTime.asMilliseconds() << endl;
-		//cout << pos.x << endl;
-		//cout << pos.y << endl << endl;
-		playerSprite.setPosition(pos);
-
-		if (timeIncreaseTimer.getElapsedTime().asSeconds() >= 0.5)
-		{
-			timeIncreaseTimer.restart();
-			ui.getClocks()->addMinutes(5);
-		}
-	}
-
-	if (leftToTravel <= 1)
-	{
-		playerSprite.setTextureRect(IntRect(1 * 100, 0, 100, 120));
-		moving = false;
-
-		targetPointSprite.setColor({ 255, 255, 255, 0 });
-
-		if (targetIsInside) 
-		{
-			inside = true;
-
-			if (relatedPointer != NULL)
-			{
-				if (ui.getLocationItemList()->getAssignedStorage() != relatedPointer->getStorage())
+				// If clicked on other/same pointer as that one that player is in
+				if (!map.getPointersVec()->at(pointerIndex).getPlayerIsInside())
 				{
-					cout << "Items - " << relatedPointer->getStorage()->getItemsVec()->size() << endl;
-					ui.getLocationItemList()->assignStorage(relatedPointer->getStorage());
-					//cout << "A";
+					targetIsInside = true;
+					if (inside) relatedPointer->setPlayerIsInside(false);
+					relatedPointer = &map.getPointersVec()->at(pointerIndex);
+					goalPos = map.getPointersVec()->at(pointerIndex).getPos();
+
+					recalculateNormalizedTravelVec();
+					ableToTravel = true;
 				}
 			}
+			else
+			{
+				targetIsInside = false;
+				goalPos = iec.getMousePos(window, window.getView());
+				if (inside) relatedPointer->setPlayerIsInside(false);
+
+				recalculateNormalizedTravelVec();
+				ableToTravel = true;
+			}
 		}
-
-		
 	}
 
-	if (inside)
+	// Target sprite manipulations
+	if (ableToTravel)
 	{
-		playerSprite.setColor({ 255, 255, 255, 0 });
-		if (relatedPointer != NULL) relatedPointer->setPlayerIsInside(true);
+		targetPointSprite.setPosition(goalPos);
+		targetPointSprite.setColor({ 255, 255, 255, 255 });
 	}
-	else
+	else targetPointSprite.setColor({ 255, 255, 255, 0 });
+
+	if (ableToTravel) travel(&iec);
+	if (traveling) inside = false;
+
+	// Travel stop conditions
+	if (iec._Space) stopTravel();
+	if (ui.getPlayerInventoryIsOpened()) stopTravel();
+
+	// Time control
+	if (traveling)
 	{
-		playerSprite.setColor({ 255, 255, 255, 255 });
-		if (relatedPointer != NULL) relatedPointer->setPlayerIsInside(false);
+		if (timeIncreaseTimer.getElapsedTime().asSeconds() >= 0.5)
+		{
+			ui.getClocks()->addMinutes(1);
+			timeIncreaseTimer.restart();
+		}
 	}
-	
+
+	// Player sprite change when moving or not, inside or not
+	if (traveling) playerSprite.setTextureRect(IntRect(0 * 100, 0, 100, 120));
+		else playerSprite.setTextureRect(IntRect(1 * 100, 0, 100, 120));
+	if (inside) playerSprite.setColor({ 255, 255, 255, 0 });
+		else playerSprite.setColor({ 255, 255, 255, 255 });
+
+	// Reaching the target point
+	if (traveling && leftToTravel <= 5)
+	{
+		stopTravel();
+
+		// Snap player to the exact goal position
+		setPos(goalPos);
+
+		if (targetIsInside)
+		{
+			inside = true;
+			relatedPointer->setPlayerIsInside(true);
+			ui.getLocationItemList()->assignStorage(relatedPointer->getStorage());
+		}
+	}
+
+	// Mouse wheel scaling
 	if (iec.mouseWheelDelta != 0)
 	{
 		playerSprite.scale({ 1 - iec.mouseWheelDelta / 10.f, 1 -(float)iec.mouseWheelDelta / 10.f });
 		targetPointSprite.scale({ 1 - iec.mouseWheelDelta / 10.f, 1 -(float)iec.mouseWheelDelta / 10.f });
 	}
-
-	pickedColor = map.getMapImage()->getPixel(pos.x, pos.y);
-	if (pickedColor == c_ground) speed = groundWalkingSpeed;
-	if (pickedColor == c_forest) speed = forestWalkingSpeed;
-	if (pickedColor == c_dirtRoad) speed = dirtRoadWalkingSpeed;
-	if (pickedColor == c_building) speed = buildingWalkingSpeed;
-	if (pickedColor == c_water) speed = waterWalkingSpeed;
 
 	ui.setPlayerIsInsideLocation(inside);
 
@@ -195,15 +161,80 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 
 void Player::draw(RenderWindow& window)
 {
-	if (pos.y > goalPos.y) window.draw(targetPointSprite);
+	if (pos.y >= goalPos.y) window.draw(targetPointSprite);
 	window.draw(playerSprite);
-	if (pos.y < goalPos.y) window.draw(targetPointSprite);
+	if (pos.y <= goalPos.y) window.draw(targetPointSprite);
+
+}
+
+void Player::setPos(Vector2f newPos)
+{
+	pos = newPos;
+	playerSprite.setPosition(pos);
 }
 
 Vector2f Player::getPos()
 {
 	return pos;
 
+}
+
+void Player::travel(IEC* iec)
+{
+	traveling = true;
+	pos.x += normilizedTravelVec.x * speed * (float)iec->cycleTime.asMicroseconds();
+	pos.y += normilizedTravelVec.y * speed * (float)iec->cycleTime.asMicroseconds();
+
+	playerSprite.setPosition(pos);
+
+	recalculateLeftToTraveDist();
+}
+
+void Player::stopTravel()
+{
+	traveling = false;
+	ableToTravel = false;
+}
+
+void Player::recalculateLeftToTraveDist()
+{
+	float dx, dy;
+	dx = goalPos.x - pos.x;
+	dy = goalPos.y - pos.y;
+	leftToTravel = sqrt(dx * dx + dy * dy);
+}
+
+void Player::recalculateNormalizedTravelVec()
+{
+	float dx, dy;
+	dx = goalPos.x - pos.x;
+	dy = goalPos.y - pos.y;
+	leftToTravel = sqrt(dx * dx + dy * dy);
+	normilizedTravelVec.x = dx / leftToTravel;
+	normilizedTravelVec.y = dy / leftToTravel;
+}
+
+void Player::setSpeedToPixel(Map* map)
+{
+	pickedColor = map->getMapImage()->getPixel(pos.x, pos.y);
+	if (pickedColor == c_ground) speed = groundWalkingSpeed;
+	if (pickedColor == c_forest) speed = forestWalkingSpeed;
+	if (pickedColor == c_dirtRoad) speed = dirtRoadWalkingSpeed;
+	if (pickedColor == c_building) speed = buildingWalkingSpeed;
+	if (pickedColor == c_water) speed = waterWalkingSpeed;
+}
+
+bool Player::isCursorOnPointer(int& returnedPointerIndex, Map& map, IEC& iec, RenderWindow& window)
+{
+	for (int i = 0; i < map.getPointersVec()->size(); i++)
+	{
+		if (map.getPointersVec()->at(i).getBackSpriteBoundaries().contains(iec.getMousePos(window, window.getView())))
+		{
+			returnedPointerIndex = i;
+			return true;
+		}
+	}
+	return false;
 }
 
 

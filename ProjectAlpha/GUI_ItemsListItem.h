@@ -5,7 +5,6 @@ class GUI_ItemsListItem
 {
 	Sprite boxSprite;
 	Text itemNameText, amountText, conditionText;
-	//Font f;
 
 	Clock fadeTimer;
 
@@ -23,7 +22,11 @@ public:
 
 	void setPos(Vector2f pos);
 	void move(Vector2f vector);
+
+	// Basically sets alpha RGBA component, but in percents
 	void setTransparencyFade(int percent);
+
+	// Basically increments alpha RGBA component, but in percents
 	void increaseTransparencyFade(int percent);
 
 	int getAlpha();

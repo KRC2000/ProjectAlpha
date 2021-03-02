@@ -65,6 +65,12 @@ void Slider::setPositionPercent(float percent)
 	
 }
 
+void Slider::setPosition(Vector2f newPos)
+{
+	s_slider.setPosition(newPos);
+	basePoint = newPos;
+}
+
 
 float Slider::getPositionPercent()
 { 

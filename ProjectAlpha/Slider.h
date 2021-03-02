@@ -19,7 +19,8 @@ public:
 	void draw(RenderWindow& window);
 
 	void setPositionPercent(float percent);
-
+	void setPosition(Vector2f newPos);
+	
 	float getPositionPercent();
 	Sprite* getS_slider();
 };

@@ -2,34 +2,29 @@
 
 GUI_Clocks::GUI_Clocks()
 {
+	// Loading font and initializing 
 	if (!font.loadFromFile("res/VintageOne.ttf")) cout << ">>>>>Font loading failed!" << endl;
 	timeText.setFont(font);
-	if (hours < 10) hoursStr = "0" + to_string((int)hours); else hoursStr = to_string((int)hours);
-	if (minutes < 10) minutesStr = "0" + to_string((int)minutes); else minutesStr = to_string((int)minutes);
-	dayStr = "Day: " + to_string((int)day);
-
-	str = dayStr + "\n" +hoursStr + " : " + minutesStr;
-	cout << str << endl;
-	timeText.setString(str);
 	timeText.setCharacterSize(100);
 	timeText.setScale({0.3, 0.3});
 	timeText.setFillColor(sf::Color::Black);
-	//timeText.setPosition({0 , 0});
 
+	update();
 }
 
-void GUI_Clocks::update(float factor)
+void GUI_Clocks::update()
 {
-	int dif;
-	if (minutes >= 60) { dif = minutes - 60; hours++; minutes = 0 + dif; }
+	//Forming dayStr, hoursStr and minutesStr,
+	//keeping numbers legit for time displaying
+	int difference;
+	if (minutes >= 60) { difference = minutes - 60; hours++; minutes = 0 + difference; }
 	if (hours >= 24) { hours = 0; day++; }
 
 	if (hours < 10) hoursStr = "0" + to_string((int)hours); else hoursStr = to_string((int)hours);
 	if (minutes < 10) minutesStr = "0" + to_string((int)minutes); else minutesStr = to_string((int)minutes);
 	dayStr = "Day: " + to_string((int)day);
-
+	
 	str = dayStr + "\n" + hoursStr + " : " + minutesStr;
-	//cout << str << endl;
 	timeText.setString(str);
 
 }
