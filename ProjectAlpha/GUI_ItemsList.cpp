@@ -238,7 +238,7 @@ void GUI_ItemsList::recalculateItemListLenght()
 	if (itemListLenght < 0) itemListLenght = 0;
 }
 
-Item GUI_ItemsList::deleteItem(float itemSizeY, Vector2f mousePos)
+bool GUI_ItemsList::deleteItem(Item* item, float itemSizeY, Vector2f mousePos)
 {
 
 	if (itemsVec.size() >= 1)
@@ -250,7 +250,7 @@ Item GUI_ItemsList::deleteItem(float itemSizeY, Vector2f mousePos)
 			if (itemsVec[i].getSpriteBox()->getGlobalBounds().contains(mousePos))
 			{
 				itemsVec.erase(itemsVec.begin() + i);
-				Item tempItem(*assignedStorage->getItem(i));
+				*item = *assignedStorage->getItem(i);
 				assignedStorage->deleteItem(i);
 
 				for (int k = i; k < itemsVec.size(); k++)
@@ -258,12 +258,11 @@ Item GUI_ItemsList::deleteItem(float itemSizeY, Vector2f mousePos)
 					itemsVec[k].move({ 0, -(itemSizeY + distanceBetweenItems) });
 				}
 				recalculateItemListLenght();
-				return tempItem;
+				return true;
 			}
 		}
 	}
-
-	
+	return false;
 }
 
 void GUI_ItemsList::addItem(Item newItem)

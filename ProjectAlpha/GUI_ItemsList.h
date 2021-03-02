@@ -66,7 +66,7 @@ public:
 	void recalculateItemListLenght();
 
 	// Returns same item as deleted one.
-	Item deleteItem(float itemSizeY, Vector2f mousePos);
+	bool deleteItem(Item* item, float itemSizeY, Vector2f mousePos);
 
 	void addItem(Item newItem);
 

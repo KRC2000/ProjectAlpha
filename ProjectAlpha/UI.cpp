@@ -58,18 +58,24 @@ void UI::update(IEC& iec, RenderWindow& window)
 		if (inventoryItemsList.getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, view)) &&
 			inventoryItemsList.getAssignedStorage()->getItemsVec()->size() >= 1)
 		{
-			Item item = inventoryItemsList.deleteItem(texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
-				iec.getMousePos(window, view));
-			locationItemsList.addItem(item);
-			locationItemsList.getAssignedStorage()->addItem(item);
+			Item tempItem;
+			if (inventoryItemsList.deleteItem(&tempItem, texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
+				iec.getMousePos(window, view)))
+			{
+				locationItemsList.addItem(tempItem);
+				locationItemsList.getAssignedStorage()->addItem(tempItem);
+			}
 		}
 		if (locationItemsList.getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, view)) &&
 			locationItemsList.getAssignedStorage()->getItemsVec()->size() >= 1)
 		{
-			Item item = locationItemsList.deleteItem(texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
-				iec.getMousePos(window, view));
-			inventoryItemsList.addItem(item);
-			inventoryItemsList.getAssignedStorage()->addItem(item);
+			Item tempItem;
+			if (locationItemsList.deleteItem(&tempItem, texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
+				iec.getMousePos(window, view)))
+			{
+				inventoryItemsList.addItem(tempItem);
+				inventoryItemsList.getAssignedStorage()->addItem(tempItem);
+			}
 
 		}
 	}
