@@ -2,6 +2,7 @@
 #include "PrecompiledHeaders.h"
 #include "GUI_Clocks.h"
 #include "GUI_ItemsList.h"
+#include "GUI_IndicatorLine.h"
 #include"Button.h"
 
 
@@ -21,6 +22,8 @@ class UI
 	GUI_Clocks clock;
 
 	GUI_ItemsList inventoryItemsList, locationItemsList;
+
+	GUI_IndicatorLine line;
 
 	bool playerInventoryIsOpened = false;
 	bool playerIsInsideLocation = false;

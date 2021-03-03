@@ -13,6 +13,11 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	view.setSize({ 1920, 1080 });
 	view.setCenter(0, 0);
 
+	line.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	line.setMaxLength(900);
+	line.setMaxValue(1);
+	line.setValue(0);
+
 	// In-game clocks initializing
 	clock.setPos({ -view.getSize().x / 2 , -view.getSize().y / 2 });
 	
@@ -32,6 +37,7 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 void UI::update(IEC& iec, RenderWindow& window)
 {
 	clock.update();
+	//line.update();
 
 	inventoryItemsList.update(iec, window, view);
 	locationItemsList.update(iec, window, view);
@@ -113,6 +119,8 @@ void UI::draw(RenderWindow& window)
 
 	inventoryItemsList.draw(window);
 	locationItemsList.draw(window);
+
+	line.draw(window);
 
 	backpack_b.draw(window);
 

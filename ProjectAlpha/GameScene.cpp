@@ -78,7 +78,7 @@ void GameScene::loadResources()
 	textureResourcesVec[POINTERS_T].loadFromFile("res/buildings.png");
 	textureResourcesVec[GUI_T].loadFromFile("res/GUI.png");
 	textureResourcesVec[ITEMSLISTITEM_T].loadFromFile("res/ItemBar.png");
-	textureResourcesVec[HAND_ZOMBIE_BACK_T].loadFromFile("res/backHandZombie.png");
+	textureResourcesVec[INDICATORLINE_T].loadFromFile("res/IndicatorLine.png");
 	textureResourcesVec[LEGS_T].loadFromFile("res/legs.png");
 	textureResourcesVec[LEGS_ZOMBIE_T].loadFromFile("res/legsZombie.png");
 	textureResourcesVec[PISTOL_TT_T].loadFromFile("res/pistol.png");

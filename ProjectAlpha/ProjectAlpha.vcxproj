@@ -149,6 +149,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GUIelement.cpp" />
+    <ClCompile Include="GUI_IndicatorLine.cpp" />
     <ClCompile Include="GUI_ItemsList.cpp" />
     <ClCompile Include="GUI_ItemsListItem.cpp" />
     <ClCompile Include="IEC.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GUIelement.h" />
+    <ClInclude Include="GUI_IndicatorLine.h" />
     <ClInclude Include="GUI_ItemsList.h" />
     <ClInclude Include="GUI_ItemsListItem.h" />
     <ClInclude Include="IEC.h" />
