@@ -3,8 +3,12 @@
 
 class GUI_IndicatorLine
 {
-	Sprite stamp;
-	Texture* t;
+	Sprite s_line, s_picture;
+	Texture* t_line, *t_pic;
+
+	IntRect pictureRect;
+
+	bool pictureTitle = false;
 
 	Vector2f pos{0, 0};
 	int maxLength = 100;
@@ -16,6 +20,7 @@ class GUI_IndicatorLine
 public:
 	GUI_IndicatorLine();
 	void load(Texture* t);
+	void setPictureTitle(Texture* t, IntRect rect);
 	void update();
 	void draw(RenderWindow& window);
 	void increaseValue(float value);
@@ -27,5 +32,6 @@ public:
 
 	float getValue();
 	float getMaxValue();
+	Sprite* getPictureSprite();
 };
 

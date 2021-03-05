@@ -13,10 +13,28 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	view.setSize({ 1920, 1080 });
 	view.setCenter(0, 0);
 
-	line.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
-	line.setMaxLength(900);
-	line.setMaxValue(1);
-	line.setValue(0);
+	healthLine.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	sleepLine.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	temperatureLine.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	thirstLine.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	hungerLine.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	
+	healthLine.setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), {100 * 0, 0, 100, 100});
+	sleepLine.setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), {100 * 1, 0, 100, 100});
+	temperatureLine.setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 2, 0, 100, 100});
+	thirstLine.setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 3, 0, 100, 100});
+	hungerLine.setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 4, 0, 100, 100});
+	//window.setView(view);
+	healthLine.setPos({ -view.getSize().x / 2 + healthLine.getPictureSprite()->getGlobalBounds().width,
+		-view.getSize().y / 2 + clock.getTextObj()->getGlobalBounds().height + 30});
+	sleepLine.setPos({ -view.getSize().x / 2 + healthLine.getPictureSprite()->getGlobalBounds().width,
+		-view.getSize().y / 2 + clock.getTextObj()->getGlobalBounds().height + 30 + 1 * healthLine.getPictureSprite()->getGlobalBounds().height});
+	temperatureLine.setPos({ -view.getSize().x / 2 + temperatureLine.getPictureSprite()->getGlobalBounds().width,
+		-view.getSize().y / 2 + clock.getTextObj()->getGlobalBounds().height + 30 + 2 * healthLine.getPictureSprite()->getGlobalBounds().height });
+	thirstLine.setPos({ -view.getSize().x / 2 + thirstLine.getPictureSprite()->getGlobalBounds().width,
+		-view.getSize().y / 2 + clock.getTextObj()->getGlobalBounds().height + 30 + 3 * healthLine.getPictureSprite()->getGlobalBounds().height });
+	hungerLine.setPos({ -view.getSize().x / 2 + hungerLine.getPictureSprite()->getGlobalBounds().width,
+		-view.getSize().y / 2 + clock.getTextObj()->getGlobalBounds().height + 30 + 4 * healthLine.getPictureSprite()->getGlobalBounds().height });
 
 	// In-game clocks initializing
 	clock.setPos({ -view.getSize().x / 2 , -view.getSize().y / 2 });
@@ -120,7 +138,11 @@ void UI::draw(RenderWindow& window)
 	inventoryItemsList.draw(window);
 	locationItemsList.draw(window);
 
-	line.draw(window);
+	healthLine.draw(window);
+	sleepLine.draw(window);
+	temperatureLine.draw(window);
+	thirstLine.draw(window);
+	hungerLine.draw(window);
 
 	backpack_b.draw(window);
 

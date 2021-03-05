@@ -23,7 +23,7 @@ class UI
 
 	GUI_ItemsList inventoryItemsList, locationItemsList;
 
-	GUI_IndicatorLine line;
+	GUI_IndicatorLine healthLine, sleepLine, temperatureLine, thirstLine, hungerLine;
 
 	bool playerInventoryIsOpened = false;
 	bool playerIsInsideLocation = false;

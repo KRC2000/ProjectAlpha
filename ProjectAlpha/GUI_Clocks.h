@@ -21,5 +21,7 @@ public:
 	void addMinutes(float minutes);
 
 	void setPos(Vector2f pos);
+
+	Text* getTextObj();
 };
 

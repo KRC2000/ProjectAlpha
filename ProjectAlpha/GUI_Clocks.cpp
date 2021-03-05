@@ -43,3 +43,8 @@ void GUI_Clocks::setPos(Vector2f pos)
 {
 	timeText.setPosition(pos);
 }
+
+Text* GUI_Clocks::getTextObj()
+{
+	return &timeText;
+}

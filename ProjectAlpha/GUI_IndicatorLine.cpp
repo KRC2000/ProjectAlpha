@@ -6,9 +6,24 @@ GUI_IndicatorLine::GUI_IndicatorLine()
 
 void GUI_IndicatorLine::load(Texture* t)
 {
-	this->t = t;
-	this->t->setRepeated(true);
-	stamp.setTexture(*t);
+	t_line = t;
+	t_line->setRepeated(true);
+
+	s_line.setTexture(*t_line);
+
+}
+
+void GUI_IndicatorLine::setPictureTitle(Texture* t, IntRect rect)
+{
+	pictureTitle = true;
+	t_pic = t;
+	pictureRect = rect;
+
+	s_picture.setTexture(*t_pic);
+	s_picture.setTextureRect(pictureRect);
+	s_picture.setScale({ 0.5, 0.5 });
+	s_picture.setPosition({ pos.x - s_picture.getGlobalBounds().width,
+			pos.y - s_picture.getGlobalBounds().height / 2 + t_line->getSize().y / 4 });
 }
 
 void GUI_IndicatorLine::update()
@@ -23,26 +38,34 @@ void GUI_IndicatorLine::update()
 
 void GUI_IndicatorLine::draw(RenderWindow& window)
 {
-	stamp.setTextureRect(IntRect(0, t->getSize().y / 2, (t->getSize().x / 4) / 2, t->getSize().y / 2));
-	stamp.setPosition(pos);
-	window.draw(stamp);
-
-	if (currentLength > t->getSize().x / 4)
+	if (pictureTitle)
 	{
-		stamp.setTextureRect(IntRect(0, 0, currentLength - t->getSize().x / 4, t->getSize().y / 2));
-		stamp.setPosition({ pos.x + (t->getSize().x / 4) / 2, pos.y });
-		window.draw(stamp);
+		window.draw(s_picture);
 	}
 
-	stamp.setTextureRect(IntRect((t->getSize().x / 4) / 2, t->getSize().y / 2, (t->getSize().x / 4) / 2, t->getSize().y / 2));
-	if (currentLength > t->getSize().x / 4) stamp.setPosition({pos.x + (t->getSize().x / 4) / 2 + (currentLength - t->getSize().x / 4), pos.y});
-	else stamp.setPosition({ pos.x + (t->getSize().x / 4) / 2, pos.y });
-	window.draw(stamp);
+	
+	s_line.setTextureRect(IntRect(0, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
+	s_line.setPosition(pos);
+	window.draw(s_line);
+
+	if (currentLength > t_line->getSize().x / 4)
+	{
+		s_line.setTextureRect(IntRect(0, 0, currentLength - t_line->getSize().x / 4, t_line->getSize().y / 2));
+		s_line.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
+		window.draw(s_line);
+	}
+
+	s_line.setTextureRect(IntRect((t_line->getSize().x / 4) / 2, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
+	if (currentLength > t_line->getSize().x / 4) s_line.setPosition({pos.x + (t_line->getSize().x / 4) / 2 + (currentLength - t_line->getSize().x / 4), pos.y});
+	else s_line.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
+	window.draw(s_line);
 }
 
 void GUI_IndicatorLine::setPos(Vector2f newPos)
 {
 	pos = newPos;
+	s_picture.setPosition({ pos.x - s_picture.getGlobalBounds().width,
+			pos.y - s_picture.getGlobalBounds().height / 2 + t_line->getSize().y / 4 });
 }
 
 void GUI_IndicatorLine::setValue(float value)
@@ -77,4 +100,9 @@ float GUI_IndicatorLine::getValue()
 float GUI_IndicatorLine::getMaxValue()
 {
 	return maxValue;
+}
+
+Sprite* GUI_IndicatorLine::getPictureSprite()
+{
+	return &s_picture;
 }
