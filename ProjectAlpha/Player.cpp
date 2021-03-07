@@ -7,7 +7,7 @@ Player::Player(Vector2f spawnPos)
 	playerSprite.setOrigin(50, 110);
 	targetPointSprite.setOrigin(50, 70);
 	targetPointSprite.setColor({ 255, 255, 255, 0 });
-	targetPointSprite.setScale({0.8, 0.8});
+	targetPointSprite.setScale({0.8f, 0.8f});
 
 	timeIncreaseTimer.restart();
 
@@ -17,11 +17,11 @@ Player::Player(Vector2f spawnPos)
 	storage.addItem(Item(ItemsEnum::KNIFE, 4));
 	storage.addItem(Item(ItemsEnum::SHIRT, 6));
 	storage.addItem(Item(ItemsEnum::BRICK, 7));
-	/*storage.addItem(Item(ItemsEnum::SHIRT, 5));
-	storage.addItem(Item(ItemsEnum::KNIFE, 8));
+	/*storage.addItem(Item(ItemsEnum::KNIFE, 8));
 	storage.addItem(Item(ItemsEnum::SHIRT, 9));
 	storage.addItem(Item(ItemsEnum::SHIRT, 10));
 	storage.addItem(Item(ItemsEnum::BRICK, 11));
+
 	storage.addItem(Item(ItemsEnum::BRICK, 12));
 	storage.addItem(Item(ItemsEnum::SHIRT, 13));
 	storage.addItem(Item(ItemsEnum::SHIRT, 14));
@@ -29,8 +29,10 @@ Player::Player(Vector2f spawnPos)
 	storage.addItem(Item(ItemsEnum::KNIFE, 2));
 	storage.addItem(Item(ItemsEnum::SHIRT, 5));
 	storage.addItem(Item(ItemsEnum::SHIRT, 5));
+	storage.addItem(Item(ItemsEnum::SHIRT, 5));
 	storage.addItem(Item(ItemsEnum::BRICK, 1, true, 75));
 	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));
+
 	storage.addItem(Item(ItemsEnum::KNIFE, 69));
 	storage.addItem(Item(ItemsEnum::SHIRT, 5));
 	storage.addItem(Item(ItemsEnum::BRICK, 1, true, 75));
@@ -41,6 +43,7 @@ Player::Player(Vector2f spawnPos)
 	storage.addItem(Item(ItemsEnum::KNIFE, 2));
 	storage.addItem(Item(ItemsEnum::SHIRT, 5));
 	storage.addItem(Item(ItemsEnum::SHIRT, 5));
+
 	storage.addItem(Item(ItemsEnum::BRICK, 1, true, 75));
 	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));
 	storage.addItem(Item(ItemsEnum::SHIRT, 5));
@@ -51,6 +54,7 @@ Player::Player(Vector2f spawnPos)
 	storage.addItem(Item(ItemsEnum::SHIRT, 5));
 	storage.addItem(Item(ItemsEnum::BRICK, 1, true, 75));
 	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));*/
+
 	
 }
 
@@ -156,7 +160,7 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 	}
 
 	ui.setPlayerIsInsideLocation(inside);
-
+	ui.updatePlayerStatusLines(health, sleep, temperature, thirst, hunger);
 }
 
 void Player::draw(RenderWindow& window)

@@ -40,6 +40,8 @@ public:
 	void update(IEC& iec, RenderWindow& window);
 	void draw(RenderWindow& window);
 
+	void updatePlayerStatusLines(float health, float sleep, float temperature, float thirst, float hunger);
+
 	////////// SETTERS
 
 	void setPlayerInventoryIsOpened(bool isOpened);

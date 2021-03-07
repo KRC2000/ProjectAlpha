@@ -23,6 +23,7 @@ bool Slider::update(IEC& iec, RenderWindow& window, View& view)
 
 		iec._LMB = false;
 	}
+
 	if (iec.LMB_) grabbed = false;
 		
 
@@ -45,23 +46,24 @@ void Slider::draw(RenderWindow& window)
 
 void Slider::setPositionPercent(float percent)
 {
-	if ((int)getPositionPercent() > (int)percent)
+	s_slider.setPosition({ basePoint.x, basePoint.y + (pathLenght / 100) * percent });
+	/*if (getPositionPercent() > percent)
 	{
 		s_slider.move(0, -1);
 	}
-	if ((int)getPositionPercent() < (int)percent)
+	if (getPositionPercent() < percent)
 	{
 		s_slider.move(0, 1);
-	}
+	}*/
 
-	if (percent < 1)
+	/*if (percent < 1)
 	{
 		s_slider.setPosition(basePoint);
 	}
 	if (percent > 99)
 	{
 		s_slider.setPosition({ basePoint.x, basePoint.y + pathLenght});
-	}
+	}*/
 	
 }
 

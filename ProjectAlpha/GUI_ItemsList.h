@@ -13,7 +13,7 @@
 class GUI_ItemsList
 {
 	// Global textures storage reference to spread among object's load() functions
-	vector<Texture> * resourcesVec;
+	vector<Texture> * resourcesVec = nullptr;
 
 	// Items list background canvas sprite
 	Sprite s_border;
@@ -22,7 +22,7 @@ class GUI_ItemsList
 	// if items list item is intersects with s_border. It exists so 
 	// items list items fade-in and fad-out not on the edge, but inside of s_boder
 	// So far used only in isBorderIntersectsWithItem()
-	float fadeGap = 80;
+	float fadeGap = 10;
 
 	// If "true" - item list allowed to update and draw itself
 	bool active = false;
@@ -31,8 +31,10 @@ class GUI_ItemsList
 	Button upListButton, downListButton;
 	Slider slider;
 
+	float onePercentLenght{ 0 };
+
 	// Font reference to spread among object's load() functions(those who got drawable Text objects)
-	Font* guiFont1;
+	Font* guiFont1 = nullptr;
 
 	// Reference to Storage object that contains items that should be displayed by items list
 	// If == nullptr then items list display nothing
@@ -40,12 +42,14 @@ class GUI_ItemsList
 
 	vector<GUI_ItemsListItem> itemsVec;
 
+	Vector2f baseUpperEdgePoint, baseDownEdgePoint;
+
 	// Gap between items-list items background sprites
 	float distanceBetweenItems = 2;
 
 	// Pixel length from top of first items-list item to bottom of last one
 	// including distanceBetweenItems gaps
-	float itemListLenght;
+	float itemListLenght{0};
 public:
 	GUI_ItemsList();
 	void load(vector<Texture>* texturesResourcesVec, Vector2f pos, Font* font);
@@ -54,6 +58,7 @@ public:
 	void assignStorage(Storage* storage);
 
 	void moveItems(Vector2f factor);
+	void setItemsPos(Vector2f newPos);
 
 	void update(IEC & iec, RenderWindow& window, View& view);
 	void draw(RenderWindow& window);

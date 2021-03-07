@@ -15,6 +15,12 @@ class Player
 	bool ableToTravel = false;
 	Vector2f normilizedTravelVec;
 
+	float health = 100;
+	float sleep = 0;
+	float temperature = 50;
+	float thirst = 0;
+	float hunger = 0;
+
 	float groundWalkingSpeed = 0.8f / 10000;
 	float dirtRoadWalkingSpeed = 1.f / 10000;
 	float forestWalkingSpeed = 0.6f / 10000;
