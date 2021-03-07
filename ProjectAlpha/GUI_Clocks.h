@@ -7,6 +7,7 @@ class GUI_Clocks
 	Text timeText;
 	float hours = 14, minutes = 0, day = 0;
 	string str, hoursStr, minutesStr, dayStr;
+
 	
 public:
 	GUI_Clocks();
@@ -23,5 +24,6 @@ public:
 	void setPos(Vector2f pos);
 
 	Text* getTextObj();
+	int getMinutesOverall();
 };
 

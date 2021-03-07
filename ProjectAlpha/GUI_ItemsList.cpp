@@ -28,13 +28,6 @@ void GUI_ItemsList::load(vector<Texture>* texturesResourcesVec, Vector2f pos, Fo
 	
 	baseUpperEdgePoint = { s_border.getPosition().x + 6, s_border.getPosition().y + fadeGap };
 	baseDownEdgePoint = { s_border.getPosition().x + 6, s_border.getPosition().y + s_border.getGlobalBounds().height - fadeGap };
-	//cout << baseUpperEdgePoint.y << endl;
-	//cout << baseDownEdgePoint.y << endl;
-	//cout << s_border.getPosition().y << endl;
-	//cout << s_border.getPosition().y + s_border.getGlobalBounds().height << endl;
-	//cout << s_border.getGlobalBounds().height << endl;
-	//cout << baseDownEdgePoint.y << endl;
-
 }
 
 
@@ -61,10 +54,7 @@ void GUI_ItemsList::assignStorage(Storage* storage)
 			baseUpperEdgePoint.y + i * (resourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y + distanceBetweenItems)});
 	}
 
-
-	
 	recalculateItemListLenght();
-	
 }
 
 void GUI_ItemsList::moveItems(Vector2f factor)
@@ -115,7 +105,7 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 		}
 		
 		
-
+		// System of moving content on mouse scroll
 		if (s_border.getGlobalBounds().contains(iec.getMousePos(window, view)))
 		{
 			if (itemsVec.size() > 1)
@@ -136,12 +126,12 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 							moveItems({ 0, -15 });
 						}
 					}
-					//iec.mouseWheelDelta = 0;
 				}
 			}
 			iec.mouseWheelDelta = 0;
 		}
 
+		// Can't scroll out of bounds, stables
 		if (itemsVec.size() > 1)
 		{
 			if (itemListLenght > baseDownEdgePoint.y - baseUpperEdgePoint.y)
@@ -157,67 +147,6 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 				}
 			}
 		}
-
-
-		//// Pretty retarded system of moving content on mouse scroll
-		//if (s_border.getGlobalBounds().contains(iec.getMousePos(window, view)))
-		//{
-		//	if (itemsVec.size() > 1)
-		//	{
-		//		if (iec.mouseWheelDelta != 0 &&
-		//			!(isBorderIntersectsWithItem(0) &&
-		//				isBorderIntersectsWithItem(itemsVec.size() - 1)))
-		//		{
-		//			moveItems({ 0, iec.mouseWheelDelta * 15 });
-
-		//			
-		//			// This piece of crap kind of stabilizing items if they were
-		//			// scrolled down/up not enough, and few pixels out so that
-		//			// these items is not fading in, but they are on the edge,
-		//			// so it's too easy to visually lose them. This code pops
-		//			// them back little bit, but enough for them to fade in
-		//			if (isBorderIntersectsWithItem(0))
-		//			{
-		//				while (isBorderIntersectsWithItem(0))
-		//				{
-		//					moveItems({ 0, -1 });
-		//				}
-
-		//				moveItems({ 0, 1 });
-		//			}
-		//			else if (isBorderIntersectsWithItem(itemsVec.size() - 1))
-		//			{
-		//				while (isBorderIntersectsWithItem(itemsVec.size() - 1))
-		//				{
-		//					moveItems({ 0, +1 });
-
-		//				}
-		//				moveItems({ 0, -1 });
-		//			}
-
-		//			
-		//			
-		//		}
-
-
-		//		if (isBorderIntersectsWithItem(0) && isBorderIntersectsWithItem(itemsVec.size() - 1))
-		//		{
-		//			while (isBorderIntersectsWithItem(0))
-		//			{
-		//				moveItems({ 0, -1 });
-		//			}
-
-		//			moveItems({ 0, 1 });
-		//		}
-
-		//	}
-		//	
-		//	iec.mouseWheelDelta = 0;
-
-		//	
-
-		//	
-		//}
 
 		// If items-list items are intersect with background sprite - fade in
 		// otherwise - fade out
@@ -256,7 +185,6 @@ void GUI_ItemsList::draw(RenderWindow& window)
 				slider.draw(window);
 			}
 		}
-		
 	}
 }
 
@@ -335,8 +263,6 @@ void GUI_ItemsList::addItem(Item newItem)
 {
 	if (newItem.getId() >= ItemsEnum::UNKNOWN && newItem.getId() < ItemsEnum::ITEMS_AMOUNT)
 	{
-		//assignedStorage->addItem(newItem);
-
 		GUI_ItemsListItem item(newItem.getId(), newItem.getAmount(), newItem.getIsReusable(), newItem.getCondition());
 		item.load(*resourcesVec, guiFont1);
 
@@ -349,8 +275,6 @@ void GUI_ItemsList::addItem(Item newItem)
 		else
 		{
 			item.setPos({ s_border.getPosition().x + 6, s_border.getPosition().y + 21 });
-			/*itemsVec[itemsVec.size() - 1].getSpriteBox()->getPosition().y + item.getSpriteBox()->getGlobalBounds().height
-			+ distanceBetweenItems });*/
 		}
 
 		itemsVec.push_back(item);
@@ -359,7 +283,6 @@ void GUI_ItemsList::addItem(Item newItem)
 		cout << itemListLenght << endl;
 		recalculateItemListLenght();
 		cout << itemListLenght << endl;
-
 	}
 
 

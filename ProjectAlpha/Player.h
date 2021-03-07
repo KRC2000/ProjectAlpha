@@ -15,17 +15,24 @@ class Player
 	bool ableToTravel = false;
 	Vector2f normilizedTravelVec;
 
+	int lastSleepIncreaseTime{0};
+	int sleepIncreaseMinFreq = 40;
+	int lastThirstIncreaseTime{0};
+	int thirstIncreaseMinFreq = 40;
+	int lastHungerIncreaseTime{0};
+	int hungerIncreaseMinFreq = 300;
+
 	float health = 100;
 	float sleep = 0;
 	float temperature = 50;
 	float thirst = 0;
 	float hunger = 0;
 
-	float groundWalkingSpeed = 0.8f / 10000;
-	float dirtRoadWalkingSpeed = 1.f / 10000;
-	float forestWalkingSpeed = 0.6f / 10000;
-	float buildingWalkingSpeed = 0.5f / 10000;
-	float waterWalkingSpeed = 0.2f / 10000;
+	const float groundWalkingSpeed = 0.8f / 10000;
+	const float dirtRoadWalkingSpeed = 1.f / 10000;
+	const float forestWalkingSpeed = 0.6f / 10000;
+	const float buildingWalkingSpeed = 0.5f / 10000;
+	const float waterWalkingSpeed = 0.2f / 10000;
 
 	float leftToTravel = 0, speed = groundWalkingSpeed;
 	

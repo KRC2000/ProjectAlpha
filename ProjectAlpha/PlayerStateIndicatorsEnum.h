@@ -1,0 +1,11 @@
+#pragma once
+
+enum PlayerStateIndicatorsEnum
+{
+	HEALTH,
+	SLEEP,
+	TEMPERATURE,
+	THIRST,
+	HUNGER,
+	PLAYERSTATEINDICATORS_AMOUNT
+};

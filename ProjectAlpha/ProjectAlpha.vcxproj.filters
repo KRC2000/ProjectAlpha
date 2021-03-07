@@ -149,6 +149,9 @@
     <ClInclude Include="GUI_IndicatorLine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerStateIndicatorsEnum.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\buildings.png">

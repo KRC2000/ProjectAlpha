@@ -23,7 +23,8 @@ class UI
 
 	GUI_ItemsList inventoryItemsList, locationItemsList;
 
-	GUI_IndicatorLine healthLine, sleepLine, temperatureLine, thirstLine, hungerLine;
+	vector<GUI_IndicatorLine> indicatorsVec{ PLAYERSTATEINDICATORS_AMOUNT };
+	//GUI_IndicatorLine healthLine, sleepLine, temperatureLine, thirstLine, hungerLine;
 
 	bool playerInventoryIsOpened = false;
 	bool playerIsInsideLocation = false;

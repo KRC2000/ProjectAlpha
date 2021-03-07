@@ -15,27 +15,28 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	//view.setSize({ 2000, 1800});
 	view.setCenter(view.getSize().x/2, view.getSize().y / 2);
 
-	healthLine.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
-	sleepLine.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
-	temperatureLine.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
-	thirstLine.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
-	hungerLine.load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+
+	indicatorsVec[HEALTH].load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	indicatorsVec[SLEEP].load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	indicatorsVec[TEMPERATURE].load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	indicatorsVec[THIRST].load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	indicatorsVec[HUNGER].load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
 	
-	healthLine.setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), {100 * 0, 0, 100, 100});
-	sleepLine.setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), {100 * 1, 0, 100, 100});
-	temperatureLine.setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 2, 0, 100, 100});
-	thirstLine.setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 3, 0, 100, 100});
-	hungerLine.setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 4, 0, 100, 100});
+	indicatorsVec[HEALTH].setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), {100 * 0, 0, 100, 100});
+	indicatorsVec[SLEEP].setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), {100 * 1, 0, 100, 100});
+	indicatorsVec[TEMPERATURE].setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 2, 0, 100, 100});
+	indicatorsVec[THIRST].setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 3, 0, 100, 100});
+	indicatorsVec[HUNGER].setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 4, 0, 100, 100});
 	
-	healthLine.setPos({ healthLine.getPictureSprite()->getGlobalBounds().width, clock.getTextObj()->getGlobalBounds().height + 30});
-	sleepLine.setPos({ healthLine.getPictureSprite()->getGlobalBounds().width,
-		clock.getTextObj()->getGlobalBounds().height + 30 + 1 * healthLine.getPictureSprite()->getGlobalBounds().height});
-	temperatureLine.setPos({ temperatureLine.getPictureSprite()->getGlobalBounds().width,
-		clock.getTextObj()->getGlobalBounds().height + 30 + 2 * healthLine.getPictureSprite()->getGlobalBounds().height });
-	thirstLine.setPos({ thirstLine.getPictureSprite()->getGlobalBounds().width,
-		clock.getTextObj()->getGlobalBounds().height + 30 + 3 * healthLine.getPictureSprite()->getGlobalBounds().height });
-	hungerLine.setPos({ hungerLine.getPictureSprite()->getGlobalBounds().width,
-		clock.getTextObj()->getGlobalBounds().height + 30 + 4 * healthLine.getPictureSprite()->getGlobalBounds().height });
+	indicatorsVec[HEALTH].setPos({ indicatorsVec[HEALTH].getPictureSprite()->getGlobalBounds().width, clock.getTextObj()->getGlobalBounds().height + 30});
+	indicatorsVec[SLEEP].setPos({ indicatorsVec[SLEEP].getPictureSprite()->getGlobalBounds().width,
+		clock.getTextObj()->getGlobalBounds().height + 30 + 1 * indicatorsVec[SLEEP].getPictureSprite()->getGlobalBounds().height});
+	indicatorsVec[TEMPERATURE].setPos({ indicatorsVec[TEMPERATURE].getPictureSprite()->getGlobalBounds().width,
+		clock.getTextObj()->getGlobalBounds().height + 30 + 2 * indicatorsVec[TEMPERATURE].getPictureSprite()->getGlobalBounds().height });
+	indicatorsVec[THIRST].setPos({ indicatorsVec[THIRST].getPictureSprite()->getGlobalBounds().width,
+		clock.getTextObj()->getGlobalBounds().height + 30 + 3 * indicatorsVec[THIRST].getPictureSprite()->getGlobalBounds().height });
+	indicatorsVec[HUNGER].setPos({ indicatorsVec[HUNGER].getPictureSprite()->getGlobalBounds().width,
+		clock.getTextObj()->getGlobalBounds().height + 30 + 4 * indicatorsVec[HUNGER].getPictureSprite()->getGlobalBounds().height });
 
 	// In-game clocks initializing
 	clock.setPos({ 0 , 0 });
@@ -139,11 +140,8 @@ void UI::draw(RenderWindow& window)
 	inventoryItemsList.draw(window);
 	locationItemsList.draw(window);
 
-	healthLine.draw(window);
-	sleepLine.draw(window);
-	temperatureLine.draw(window);
-	thirstLine.draw(window);
-	hungerLine.draw(window);
+	for (unsigned int i = 0; i < indicatorsVec.size(); i++)
+		indicatorsVec[i].draw(window);
 
 	backpack_b.draw(window);
 
@@ -156,11 +154,11 @@ void UI::draw(RenderWindow& window)
 
 void UI::updatePlayerStatusLines(float health, float sleep, float temperature, float thirst, float hunger)
 {
-	healthLine.setValue(health);
-	sleepLine.setValue(sleep);
-	temperatureLine.setValue(temperature);
-	thirstLine.setValue(thirst);
-	hungerLine.setValue(hunger);
+	indicatorsVec[HUNGER].setValue(hunger);
+	indicatorsVec[THIRST].setValue(thirst);
+	indicatorsVec[TEMPERATURE].setValue(temperature);
+	indicatorsVec[SLEEP].setValue(sleep);
+	indicatorsVec[HEALTH].setValue(health);
 }
 
 GUI_Clocks* UI::getClocks()

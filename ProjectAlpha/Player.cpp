@@ -123,7 +123,7 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 	// Time control
 	if (traveling)
 	{
-		if (timeIncreaseTimer.getElapsedTime().asSeconds() >= 0.5)
+		if (timeIncreaseTimer.getElapsedTime().asSeconds() >= 0.25)
 		{
 			ui.getClocks()->addMinutes(1);
 			timeIncreaseTimer.restart();
@@ -158,6 +158,27 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 		playerSprite.scale({ 1 - iec.mouseWheelDelta / 10.f, 1 -(float)iec.mouseWheelDelta / 10.f });
 		targetPointSprite.scale({ 1 - iec.mouseWheelDelta / 10.f, 1 -(float)iec.mouseWheelDelta / 10.f });
 	}
+	
+	
+	if (lastSleepIncreaseTime + sleepIncreaseMinFreq <= ui.getClocks()->getMinutesOverall())
+	{
+		if (sleep < 100) sleep += 1;
+		if (sleep > 100) sleep = 100;
+		lastSleepIncreaseTime = ui.getClocks()->getMinutesOverall();
+	}
+	if (lastThirstIncreaseTime + thirstIncreaseMinFreq <= ui.getClocks()->getMinutesOverall())
+	{
+		if (thirst < 100) thirst += 1;
+		if (thirst > 100) thirst = 100;
+		lastThirstIncreaseTime = ui.getClocks()->getMinutesOverall();
+	}
+	if (lastHungerIncreaseTime + hungerIncreaseMinFreq <= ui.getClocks()->getMinutesOverall())
+	{
+		if (hunger < 100) hunger += 1;
+		if (hunger > 100) hunger = 100;
+		lastHungerIncreaseTime = ui.getClocks()->getMinutesOverall();
+	}
+
 
 	ui.setPlayerIsInsideLocation(inside);
 	ui.updatePlayerStatusLines(health, sleep, temperature, thirst, hunger);

@@ -48,3 +48,9 @@ Text* GUI_Clocks::getTextObj()
 {
 	return &timeText;
 }
+
+int GUI_Clocks::getMinutesOverall()
+{
+	
+	return ((day * 24 * 60) + hours * 60 + minutes);
+}
