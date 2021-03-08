@@ -9,7 +9,10 @@ GUI_ItemsListItem::GUI_ItemsListItem(ItemsEnum itemId, int amount, bool reusable
 
 void GUI_ItemsListItem::load(vector<Texture>& textureResourcesVec, Font* font)
 {
-	boxSprite.setTexture(textureResourcesVec.at(ResourcesEnum::ITEMSLISTITEM_T));
+	s_box.setTexture(textureResourcesVec.at(ResourcesEnum::ITEMSLISTITEM_T));
+	s_image.setTexture(textureResourcesVec.at(ResourcesEnum::ITEMS_T));
+	s_image.setTextureRect(IntRect(itemId * 100, 0, 100, 100));
+	s_image.setScale({ 0.4, 0.4 });
 	//if (!f.loadFromFile("res/KarmaFuture.ttf")) cout << ">>>>>Font loading failed!" << endl;
 
 	itemNameText.setFont(*font);
@@ -71,26 +74,29 @@ void GUI_ItemsListItem::draw(RenderWindow& window)
 {
 	if (visible)
 	{
-		window.draw(boxSprite);
+		window.draw(s_box);
 
 		window.draw(itemNameText);
 		window.draw(amountText);
 		window.draw(conditionText);
+		window.draw(s_image);
 	}
 }
 
 void GUI_ItemsListItem::setPos(Vector2f pos)
 {
-	boxSprite.setPosition(pos);
-	itemNameText.setPosition(pos);
-	amountText.setPosition({ pos.x + boxSprite.getGlobalBounds().width - amountText.getGlobalBounds().width, pos.y});
-	conditionText.setPosition({ pos.x + boxSprite.getGlobalBounds().width - conditionText.getGlobalBounds().width, 
-								pos.y + boxSprite.getGlobalBounds().height - conditionText.getGlobalBounds().height - 6});
+	s_box.setPosition(pos);
+	s_image.setPosition(pos);
+	itemNameText.setPosition({ pos.x + s_image.getGlobalBounds().width, pos.y });
+	amountText.setPosition({ pos.x + s_box.getGlobalBounds().width - amountText.getGlobalBounds().width, pos.y});
+	conditionText.setPosition({ pos.x + s_box.getGlobalBounds().width - conditionText.getGlobalBounds().width, 
+								pos.y + s_box.getGlobalBounds().height - conditionText.getGlobalBounds().height - 6});
 }
 
 void GUI_ItemsListItem::move(Vector2f vector)
 {
-	boxSprite.move(vector);
+	s_box.move(vector);
+	s_image.move(vector);
 	itemNameText.move(vector);
 	amountText.move(vector);
 	conditionText.move(vector);
@@ -98,7 +104,7 @@ void GUI_ItemsListItem::move(Vector2f vector)
 
 void GUI_ItemsListItem::setTransparencyFade(int alpha)
 {
-	boxSprite.setColor({ 255, 255, 255, (Uint8)alpha });
+	s_box.setColor({ 255, 255, 255, (Uint8)alpha });
 	itemNameText.setFillColor({ 255, 255, 255, (Uint8)alpha });
 	amountText.setFillColor({ 255, 255, 255, (Uint8)alpha });
 	conditionText.setFillColor({ 255, 255, 255, (Uint8)alpha });
@@ -106,9 +112,9 @@ void GUI_ItemsListItem::setTransparencyFade(int alpha)
 
 void GUI_ItemsListItem::increaseTransparencyFade(int alpha)
 {
-	int res = boxSprite.getColor().a + alpha;
+	int res = s_box.getColor().a + alpha;
 	if (res > 255) res = 255; if (res < 0) res = 0;
-	boxSprite.setColor({ 255, 255, 255, (Uint8)res });
+	s_box.setColor({ 255, 255, 255, (Uint8)res });
 	itemNameText.setFillColor({ 255, 255, 255, (Uint8)res });
 	amountText.setFillColor({ 255, 255, 255, (Uint8)res });
 	conditionText.setFillColor({ 255, 255, 255, (Uint8)res });
@@ -116,12 +122,12 @@ void GUI_ItemsListItem::increaseTransparencyFade(int alpha)
 
 int GUI_ItemsListItem::getAlpha()
 {
-	return boxSprite.getColor().a;
+	return s_box.getColor().a;
 }
 
 Sprite* GUI_ItemsListItem::getSpriteBox()
 {
-	return &boxSprite;
+	return &s_box;
 }
 
 string GUI_ItemsListItem::getItemNameString(ItemsEnum itemId)
@@ -129,14 +135,20 @@ string GUI_ItemsListItem::getItemNameString(ItemsEnum itemId)
 	string str;
 	switch (itemId)
 	{
-	case ItemsEnum::KNIFE:
-		str = "Knife";
+	case ItemsEnum::TUNA:
+		str = "Canned tuna";
 		break;
-	case ItemsEnum::BRICK:
-		str = "Brick";
+	case ItemsEnum::MUSHROOM:
+		str = "Mushroom";
 		break;
-	case ItemsEnum::SHIRT:
-		str = "Shirt";
+	case ItemsEnum::CORN:
+		str = "Corn";
+		break;
+	case ItemsEnum::BEER:
+		str = "Bottle of beer";
+		break;
+	case ItemsEnum::PILLSJAR:
+		str = "Jar of pills";
 		break;
 	default:
 		str = "Unknown Item";

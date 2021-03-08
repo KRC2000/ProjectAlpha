@@ -11,12 +11,12 @@ Player::Player(Vector2f spawnPos)
 
 	timeIncreaseTimer.restart();
 
-	storage.addItem(Item(ItemsEnum::KNIFE, 1));
-	storage.addItem(Item(ItemsEnum::SHIRT, 2));
-	storage.addItem(Item(ItemsEnum::BRICK, 3));
-	storage.addItem(Item(ItemsEnum::KNIFE, 4));
-	storage.addItem(Item(ItemsEnum::SHIRT, 6));
-	storage.addItem(Item(ItemsEnum::BRICK, 7));
+	storage.addItem(Item(ItemsEnum::BEER, 1));
+	storage.addItem(Item(ItemsEnum::CORN, 2));
+	storage.addItem(Item(ItemsEnum::MUSHROOM, 3));
+	storage.addItem(Item(ItemsEnum::PILLSJAR, 4));
+	storage.addItem(Item(ItemsEnum::TUNA, 6));
+	storage.addItem(Item(ItemsEnum::UNKNOWN, 7));
 	/*storage.addItem(Item(ItemsEnum::KNIFE, 8));
 	storage.addItem(Item(ItemsEnum::SHIRT, 9));
 	storage.addItem(Item(ItemsEnum::SHIRT, 10));

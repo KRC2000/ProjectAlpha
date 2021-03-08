@@ -13,12 +13,12 @@ Pointer::Pointer()
 
 Pointer::Pointer(PointersEnum pointerType, Vector2f pos) : pointerType(pointerType), pos(pos)
 {
-	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));
-	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));
-	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));
-	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));
-	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));
-	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));
+	storage.addItem(Item(ItemsEnum::BEER, 1));
+	storage.addItem(Item(ItemsEnum::CORN, 2));
+	storage.addItem(Item(ItemsEnum::MUSHROOM, 3));
+	storage.addItem(Item(ItemsEnum::PILLSJAR, 4));
+	storage.addItem(Item(ItemsEnum::TUNA, 6));
+	storage.addItem(Item(ItemsEnum::UNKNOWN, 7));
 	/*storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));
 	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));
 	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));

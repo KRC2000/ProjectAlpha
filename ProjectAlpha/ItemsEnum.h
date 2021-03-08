@@ -3,8 +3,10 @@
 enum ItemsEnum
 {
 	UNKNOWN,
-	KNIFE,
-	BRICK,
-	SHIRT,
+	TUNA,
+	MUSHROOM,
+	CORN,
+	BEER,
+	PILLSJAR,
 	ITEMS_AMOUNT
 };

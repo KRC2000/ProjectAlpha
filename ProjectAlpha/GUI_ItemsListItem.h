@@ -3,7 +3,7 @@
 
 class GUI_ItemsListItem
 {
-	Sprite boxSprite;
+	Sprite s_box, s_image;
 	Text itemNameText, amountText, conditionText;
 
 	Clock fadeTimer;
