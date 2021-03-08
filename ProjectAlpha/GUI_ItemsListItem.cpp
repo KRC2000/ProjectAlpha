@@ -33,6 +33,7 @@ void GUI_ItemsListItem::load(vector<Texture>& textureResourcesVec, Font* font)
 
 void GUI_ItemsListItem::fadeIn()
 {
+	visible = true;
 	if (getAlpha() < 255)
 	{
 		if (fadeTimer.getElapsedTime().asMilliseconds() > 10)
@@ -46,6 +47,7 @@ void GUI_ItemsListItem::fadeIn()
 
 void GUI_ItemsListItem::fadeOut()
 {
+	
 	if (getAlpha() > 0)
 	{
 		if (fadeTimer.getElapsedTime().asMilliseconds() > 10)
@@ -54,7 +56,11 @@ void GUI_ItemsListItem::fadeOut()
 			fadeTimer.restart();
 		}
 	}
-	else setTransparencyFade(0);
+	else
+	{
+		setTransparencyFade(0);
+		visible = false;
+	}
 }
 
 void GUI_ItemsListItem::update(IEC& iec)
@@ -63,11 +69,14 @@ void GUI_ItemsListItem::update(IEC& iec)
 
 void GUI_ItemsListItem::draw(RenderWindow& window)
 {
-	window.draw(boxSprite);
+	if (visible)
+	{
+		window.draw(boxSprite);
 
-	window.draw(itemNameText);
-	window.draw(amountText);
-	window.draw(conditionText);
+		window.draw(itemNameText);
+		window.draw(amountText);
+		window.draw(conditionText);
+	}
 }
 
 void GUI_ItemsListItem::setPos(Vector2f pos)

@@ -11,7 +11,7 @@ class GUI_ItemsListItem
 	ItemsEnum itemId;
 	int amount, condition;
 	bool reusable;
-	
+	bool visible = true;
 public:
 	GUI_ItemsListItem(ItemsEnum itemId, int amount, bool reusable, int condition);
 	void load(vector<Texture>& textureResourcesVec, Font * font);
