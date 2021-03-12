@@ -229,7 +229,7 @@ void GUI_ItemsList::recalculateItemListLenght()
 	//if (itemListLenght < 0) itemListLenght = 0;
 }
 
-bool GUI_ItemsList::deleteItem(Item* item, float itemSizeY, Vector2f mousePos)
+bool GUI_ItemsList::deleteItemUnderCursor(Item& item, float itemSizeY, Vector2f mousePos)
 {
 
 	if (itemsVec.size() >= 1)
@@ -241,7 +241,7 @@ bool GUI_ItemsList::deleteItem(Item* item, float itemSizeY, Vector2f mousePos)
 			if (itemsVec[i].getSpriteBox()->getGlobalBounds().contains(mousePos))
 			{
 				itemsVec.erase(itemsVec.begin() + i);
-				*item = *assignedStorage->getItem(i);
+				item = *assignedStorage->getItem(i);
 				assignedStorage->deleteItem(i);
 
 				for (unsigned int k = i; k < itemsVec.size(); k++)
@@ -276,10 +276,7 @@ void GUI_ItemsList::addItem(Item newItem)
 
 		itemsVec.push_back(item);
 
-		cout << "VECTOR SIZE -" << itemsVec.size() << endl;
-		cout << itemListLenght << endl;
 		recalculateItemListLenght();
-		cout << itemListLenght << endl;
 	}
 
 

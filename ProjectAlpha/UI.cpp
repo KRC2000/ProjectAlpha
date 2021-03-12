@@ -101,7 +101,7 @@ void UI::update(IEC& iec, RenderWindow& window)
 			inventoryItemsList.getAssignedStorage()->getItemsVec()->size() >= 1)
 		{
 			Item tempItem;
-			if (inventoryItemsList.deleteItem(&tempItem, texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
+			if (inventoryItemsList.deleteItemUnderCursor(tempItem, texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
 				iec.getMousePos(window, view)))
 			{
 				locationItemsList.addItem(tempItem);
@@ -112,7 +112,7 @@ void UI::update(IEC& iec, RenderWindow& window)
 			locationItemsList.getAssignedStorage()->getItemsVec()->size() >= 1)
 		{
 			Item tempItem;
-			if (locationItemsList.deleteItem(&tempItem, texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
+			if (locationItemsList.deleteItemUnderCursor(tempItem, texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
 				iec.getMousePos(window, view)))
 			{
 				inventoryItemsList.addItem(tempItem);
@@ -122,10 +122,10 @@ void UI::update(IEC& iec, RenderWindow& window)
 		}
 	}
 
-	// If LMB clicked and player inventory is opened
-	// then
-	// Basically logic for closing inventory windows(items lists) when clicked outside of
-	// their sprite bounds
+	/* If LMB clicked and player inventory is opened
+	 then
+	 Basically logic for closing inventory windows(items lists) when clicked outside of
+	 their sprite bounds*/
 	if (iec._LMB && playerInventoryIsOpened)
 	{
 		if((!inventoryItemsList.getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, view))

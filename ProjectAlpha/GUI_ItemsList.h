@@ -70,8 +70,9 @@ public:
 	// scrolling and slider can work properly
 	void recalculateItemListLenght();
 
-	// Returns same item as deleted one.
-	bool deleteItem(Item* item, float itemSizeY, Vector2f mousePos);
+	/* returns true, if it was item under cursor and it was deleted
+	 passed item will be = to deleted item */
+	bool deleteItemUnderCursor(Item& item, float itemSizeY, Vector2f mousePos);
 
 	void addItem(Item newItem);
 
