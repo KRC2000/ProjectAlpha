@@ -342,25 +342,13 @@ bool GUI_ItemsList::isCursorPointingAtItem(unsigned int& itemVecIndex, Vector2f 
 float GUI_ItemsList::getPositionPercent()
 {
 	float passed = baseUpperEdgePoint.y - itemsVec[0].getSpriteBox()->getPosition().y;
-	//cout << passed << endl; // 1898 (1900 - 1endgap)
-	//cout << itemListLenght << endl; // 40 * 60 + 39 * 2 = 2478
 	onePercentLenght = (itemListLenght - (baseDownEdgePoint.y - baseUpperEdgePoint.y)) / 100;
-	//cout << baseDownEdgePoint.y - baseUpperEdgePoint.y << endl;
-	//cout << inOnePercent << endl; // 1898 / 100 = 18.98 = 19
 	float percentsPassed = passed / onePercentLenght;
-	//cout << percentsPassed << endl;
 	return percentsPassed;
 }
 
 bool GUI_ItemsList::isBorderIntersectsWithItem(int itemVectorIndex)
 {
-	/*if (itemsVec[itemVectorIndex].getSpriteBox()->getGlobalBounds().intersects(FloatRect(
-		s_border.getPosition().x,
-		s_border.getPosition().y + fadeGap,
-		s_border.getGlobalBounds().width,
-		s_border.getGlobalBounds().height - fadeGap * 2)))
-		return true;
-	else return false;*/
 	if (itemsVec[itemVectorIndex].getSpriteBox()->getPosition().y >= baseUpperEdgePoint.y
 		&& itemsVec[itemVectorIndex].getSpriteBox()->getPosition().y <= baseDownEdgePoint.y
 		&& itemsVec[itemVectorIndex].getSpriteBox()->getPosition().y + itemsVec[itemVectorIndex].getSpriteBox()->getGlobalBounds().height >= baseUpperEdgePoint.y

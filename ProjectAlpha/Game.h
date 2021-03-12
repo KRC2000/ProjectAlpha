@@ -21,8 +21,10 @@ class Game
 
 public:
 	Game();
+	/*Global game cycle*/
 	void processing();
 private:
+	/*Input registration and scene updating*/
 	void update();
 	void draw();
 

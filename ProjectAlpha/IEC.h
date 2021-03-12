@@ -4,6 +4,13 @@
 using namespace sf;
 using namespace std;
 
+/*
+Class for handling input events. 
+test _BUTTON for event on press
+test BUTTON_ for event on release
+test BUTTON for pressed
+Call eventUpdate() at the end of every cycle
+*/
 class IEC
 {
 	Mouse mouse;

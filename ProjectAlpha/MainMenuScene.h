@@ -3,6 +3,10 @@
 #include "Scene.h"
 #include "Button.h"
 
+/*
+Inherited from class Scene
+When active = true - updates and renders
+Contains main menu content like buttons to go to other scenes, like game scene or options menu scene*/
 class MainMenuScene : public Scene
 {
 

@@ -5,6 +5,10 @@
 #include "Map.h"
 #include "UI.h"
 
+/*
+Inherited from class Scene
+When active = true - updates and renders
+Contains game content like map, player, UI, resources*/
 class GameScene: public Scene
 {
 	//bool active = false;
@@ -22,6 +26,7 @@ class GameScene: public Scene
 public:
 	GameScene();
 	void load(RenderWindow& window);
+
 	SceneType update(IEC& iec, RenderWindow& window, VideoMode videoMode);
 	void draw(RenderWindow& window, VideoMode videoMode);
 
