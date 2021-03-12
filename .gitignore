@@ -340,3 +340,5 @@ ASALocalRun/
 healthchecksdb
 /.vs - Copy
 /ProjectAlpha/res/desktop.ini
+/Server/Button.cpp
+/Server/Button.h

@@ -3,6 +3,7 @@
 #include "GUI_Clocks.h"
 #include "GUI_ItemsList.h"
 #include "GUI_IndicatorLine.h"
+#include "GUI_ActionPanel.h"
 #include"Button.h"
 
 
@@ -31,6 +32,8 @@ class UI
 
 	// Button for opening backpack
 	Button backpack_b;
+
+	GUI_ActionPanel panel;
 
 	// Font reference to spread among object's load() functions(those who got drawable Text objects)
 	Font* guiFont1;

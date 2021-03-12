@@ -94,7 +94,8 @@ public:
 	Storage* getAssignedStorage();
 
 	// See setPositionPercent(). Used when content is scrolled with mouse wheel,
-	// so it's sliders turn to move on same related distance as content moved
+	// so it's sliders turn to move on same related distance as content moved.
+	// This function returns this distance in percents
 	float getPositionPercent();
 
 	// Advanced shortcut for s_border.getGlobalBounds().intersects(itemsVec[i].getSprite()->getGlobalBounds)

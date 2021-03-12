@@ -81,7 +81,7 @@ void GameScene::loadResources()
 	textureResourcesVec[INDICATORLINE_T].loadFromFile("res/IndicatorLine.png");
 	textureResourcesVec[STATUSICONS_T].loadFromFile("res/statusIcons.png");
 	textureResourcesVec[ITEMS_T].loadFromFile("res/Items.png");
-	textureResourcesVec[PISTOL_TT_T].loadFromFile("res/pistol.png");
+	textureResourcesVec[ACTIONPANEL_T].loadFromFile("res/actionPanel.png");
 	textureResourcesVec[GUN_AK_T].loadFromFile("res/gun.png");
 	textureResourcesVec[BULLET_T].loadFromFile("res/bullet.png");
 	////////////////////////////////////////////

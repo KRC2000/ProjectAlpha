@@ -13,8 +13,8 @@ void GUI_ItemsList::load(vector<Texture>* texturesResourcesVec, Vector2f pos, Fo
 	s_border.setTexture(resourcesVec->at(ResourcesEnum::GUI_T));
 
 	// load() underlying objects: buttons, slider, items-list items(if they are)
-	upListButton.load("res/upListButton.png");
-	downListButton.load("res/downListButton.png");
+	upListButton.load("res/upListButton.png", "goUpList");
+	downListButton.load("res/downListButton.png", "goDownList");
 	slider.load({ (float)resourcesVec->at(ResourcesEnum::GUI_T).getSize().x + 3, upListButton.getGlobalBounds().height},
 		(float)resourcesVec->at(ResourcesEnum::GUI_T).getSize().y -
 		(upListButton.getGlobalBounds().height + downListButton.getGlobalBounds().height ));
@@ -87,11 +87,8 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 				if (slider.update(iec, window, view))
 				{
 					setPositionPercent(slider.getPositionPercent());
-					cout << "sd";
 				}
-				cout << slider.getPositionPercent() << endl;
 				slider.setPositionPercent(getPositionPercent());
-				//cout << getPositionPercent() << endl;
 
 				if (downListButton.update(iec, window, view)) scrollDown();
 				if (upListButton.update(iec, window, view)) scrollUp();

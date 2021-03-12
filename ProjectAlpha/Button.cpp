@@ -5,13 +5,16 @@ Button::Button()
 
 }
 
-void Button::load(string texturePath)
+void Button::load(string texturePath, string name)
 {
+	this->name = name;
+	this->texturePath = texturePath;
 	t.loadFromFile(texturePath);
 	spriteIdle.setTexture(t);
 	spriteIdle.setTextureRect(IntRect(0, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
 	
 }
+
 
 bool Button::update(IEC& iec, RenderWindow &window, View &view)
 {
@@ -48,4 +51,9 @@ void Button::setPosition(Vector2f pos)
 FloatRect Button::getGlobalBounds()
 {
 	return spriteIdle.getGlobalBounds();
+}
+
+string Button::getName()
+{
+	return name;
 }

@@ -6,7 +6,7 @@ MainMenuScene::MainMenuScene()
 
 void MainMenuScene::load()
 {
-	play_b.load("res/playButton.png");
+	play_b.load("res/playButton.png", "play");
 	cout << "Main menu scene loaded!" << endl;
 }
 

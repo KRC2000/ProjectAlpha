@@ -41,6 +41,13 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	// In-game clocks initializing
 	clock.setPos({ 0 , 0 });
 	
+	panel.load(*texturesResourcesVec);
+	panel.addActionButton("res/info.png", "info");
+	panel.addActionButton("res/hand.png", "use");
+	panel.addActionButton("res/eating.png", "eat");
+	panel.setActive(true);
+
+
 	// Items lists load() 
 	inventoryItemsList.load(texturesResourcesVec,
 		{ view.getSize().x / 2 + 40, view.getSize().y / 2 -(float)texturesResourcesVec->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
@@ -49,7 +56,7 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 		view.getSize().y / 2 - (float)texturesResourcesVec->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
 
 	// Backpack opening button initializing
-	backpack_b.load("res/bagButton.png");
+	backpack_b.load("res/bagButton.png", "backpack");
 	backpack_b.setScale({ 0.2, 0.2 });
 	backpack_b.setPosition({ view.getSize().x /2 - backpack_b.getGlobalBounds().width / 2, view.getSize().y - backpack_b.getGlobalBounds().height });
 }
@@ -62,9 +69,18 @@ void UI::update(IEC& iec, RenderWindow& window)
 	inventoryItemsList.update(iec, window, view);
 	locationItemsList.update(iec, window, view);
 
-	// If backpack button was clicked and player inventory is NOT opened
-	// then
-	// set item lists as active, so they can update() and draw() themselves
+	Button* tempButton = panel.update(iec, window, view);
+	if (tempButton != nullptr)
+	{
+		if (tempButton->getName() == "eat") cout << "Player eating\n";
+		if (tempButton->getName() == "use") cout << "Player using\n";
+		if (tempButton->getName() == "info") cout << "Player getting info\n";
+	}
+	
+
+	/* If backpack button was clicked and player inventory is NOT opened
+	 then
+	 set item lists as active, so they can update() and draw() themselves*/
 	if (backpack_b.update(iec, window, view) && !playerInventoryIsOpened)
 	{
 		inventoryItemsList.setActive(true);
@@ -76,9 +92,9 @@ void UI::update(IEC& iec, RenderWindow& window)
 		}
 	}
 
-	// If RMB clicked and player is inside location
-	// then
-	// Basically logic for item swap from one item list to another
+	/*If RMB clicked and player is inside location
+	then
+	Basically logic for item swap from one item list to another*/
 	if (iec._RMB && playerIsInsideLocation)
 	{
 		if (inventoryItemsList.getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, view)) &&
@@ -142,6 +158,8 @@ void UI::draw(RenderWindow& window)
 
 	for (unsigned int i = 0; i < indicatorsVec.size(); i++)
 		indicatorsVec[i].draw(window);
+
+	panel.draw(window);
 
 	backpack_b.draw(window);
 
