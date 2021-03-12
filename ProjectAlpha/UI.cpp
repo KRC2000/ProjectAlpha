@@ -100,25 +100,20 @@ void UI::update(IEC& iec, RenderWindow& window)
 		if (inventoryItemsList.getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, view)) &&
 			inventoryItemsList.getAssignedStorage()->getItemsVec()->size() >= 1)
 		{
-			Item tempItem;
-			if (inventoryItemsList.deleteItemUnderCursor(tempItem, texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
-				iec.getMousePos(window, view)))
+			unsigned int itemVecIndex;
+			if (inventoryItemsList.isCursorPointingAtItem(itemVecIndex, iec.getMousePos(window, view)))
 			{
-				locationItemsList.addItem(tempItem);
-				locationItemsList.getAssignedStorage()->addItem(tempItem);
+				moveItemBetweenLists(inventoryItemsList, locationItemsList, itemVecIndex);
 			}
 		}
 		if (locationItemsList.getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, view)) &&
 			locationItemsList.getAssignedStorage()->getItemsVec()->size() >= 1)
 		{
-			Item tempItem;
-			if (locationItemsList.deleteItemUnderCursor(tempItem, texturesResourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y,
-				iec.getMousePos(window, view)))
+			unsigned int itemVecIndex;
+			if (locationItemsList.isCursorPointingAtItem(itemVecIndex, iec.getMousePos(window, view)))
 			{
-				inventoryItemsList.addItem(tempItem);
-				inventoryItemsList.getAssignedStorage()->addItem(tempItem);
+				moveItemBetweenLists(locationItemsList, inventoryItemsList, itemVecIndex);
 			}
-
 		}
 	}
 
@@ -144,8 +139,8 @@ void UI::update(IEC& iec, RenderWindow& window)
 
 void UI::draw(RenderWindow& window)
 {
-	// Temporary saving current view, to apply it back after 
-	// drawing UI stuff in local UI view(see end of method)
+	/*Temporary saving current view, to apply it back after 
+	drawing UI stuff in local UI view(see end of method)*/
 	tempView = window.getView();
 
 	window.setView(view);
@@ -165,8 +160,8 @@ void UI::draw(RenderWindow& window)
 
 	///////////////////////////
 
-	// Applying saved view back, so further drawing logics of other modules
-	// can't be ruined
+	/* Applying saved view back, so further drawing logics of other modules
+	 can't be ruined*/
 	window.setView(tempView);
 }
 
@@ -177,6 +172,13 @@ void UI::updatePlayerStatusLines(float health, float sleep, float temperature, f
 	indicatorsVec[TEMPERATURE].setValue(temperature);
 	indicatorsVec[SLEEP].setValue(sleep);
 	indicatorsVec[HEALTH].setValue(health);
+}
+
+void UI::moveItemBetweenLists(GUI_ItemsList& movingFromList, GUI_ItemsList& movingToList, unsigned int itemVecIndex)
+{
+	Item tempItem = movingFromList.deleteItem(itemVecIndex);
+	movingToList.addItem(tempItem);
+	movingToList.getAssignedStorage()->addItem(tempItem);
 }
 
 GUI_Clocks* UI::getClocks()

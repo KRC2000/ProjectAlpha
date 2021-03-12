@@ -47,6 +47,8 @@ class GUI_ItemsList
 	// Gap between items-list items background sprites
 	float distanceBetweenItems = 2;
 
+	float itemSizeY = 60;
+
 	// Pixel length from top of first items-list item to bottom of last one
 	// including distanceBetweenItems gaps
 	float itemListLenght{0};
@@ -60,20 +62,27 @@ public:
 	void moveItems(Vector2f factor);
 	void setItemsPos(Vector2f newPos);
 
+	/* Call after deleting item from list.
+	 Lifts all Items after deleted one by 1 * itemHeight
+	 taleStartIndex - all next, including this, will be lifted
+	 recalculateItemListLenght() called inside, no need to repeat*/
+	void liftItemsTale(unsigned int taleStartIndex);
+
 	void update(IEC & iec, RenderWindow& window, View& view);
 	void draw(RenderWindow& window);
 
 	void scrollUp();
 	void scrollDown();
 
-	// Must be called after any items-list length change: adding or deleting items so
-	// scrolling and slider can work properly
+	/* Must be called after any items-list length change: adding or deleting items so
+	 scrolling and slider can work properly*/
 	void recalculateItemListLenght();
 
-	/* returns true, if it was item under cursor and it was deleted
-	 passed item will be = to deleted item */
-	bool deleteItemUnderCursor(Item& item, float itemSizeY, Vector2f mousePos);
+	/*itemVecIndex - index of the item in both GUI_ItemsListItem and assignedStorage vectors.
+	Deletes both GUI_ItemsListItem and Item, from assigned to item list storage*/
+	Item deleteItem(unsigned int itemVecIndex);
 
+	/*Creating new GUI_ItemListItem that represents passed Item newItem*/
 	void addItem(Item newItem);
 
 	////////// SETTERS
@@ -81,12 +90,11 @@ public:
 	void setPosition(Vector2f pos);
 	void setActive(bool active);
 
-	// Scrolling content for "percent" percents of all content list length
-	// Slider passes how much percents he is scrolled, and with this function
-	// content get scrolled same amount of percents
+	/* Scrolling content for "percent" percents of all content list length
+	 Slider passes how much percents he is scrolled, and with this function
+	 content get scrolled same amount of percents*/
 	void setPositionPercent(float percent);
 
-	//////////////////
 
 	////////// GETTERS
 
@@ -94,13 +102,15 @@ public:
 	Sprite* getBorderSprite();
 	Storage* getAssignedStorage();
 
-	// See setPositionPercent(). Used when content is scrolled with mouse wheel,
-	// so it's sliders turn to move on same related distance as content moved.
-	// This function returns this distance in percents
+	bool isCursorPointingAtItem(unsigned int& itemVecIndex, Vector2f mousePos);
+
+	/* See setPositionPercent(). Used when content is scrolled with mouse wheel,
+	 so it's sliders turn to move on same related distance as content moved.
+	 This function returns this distance in percents*/
 	float getPositionPercent();
 
-	// Advanced shortcut for s_border.getGlobalBounds().intersects(itemsVec[i].getSprite()->getGlobalBounds)
-	// with a little bounds tweak
+	/* Advanced shortcut for s_border.getGlobalBounds().intersects(itemsVec[i].getSprite()->getGlobalBounds)
+	 with a little bounds tweak*/
 	bool isBorderIntersectsWithItem(int itemVectorIndex);
 
 	//////////////////

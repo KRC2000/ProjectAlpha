@@ -9,33 +9,33 @@
 
 class UI
 {
-	// Global textures storage reference to spread among object's load() functions
+	/*Global textures storage reference to spread among object's load() functions*/
 	vector<Texture>* texturesResourcesVec;
 
-	// Own view for objects, that should be aligned to center of the screen
-	// and not to global world
+	/* Own view for objects, that should be aligned to center of the screen
+	 and not to global world*/
 	View view;
 
-	// Used to store and restore window view that disconnects when assigning UI's own 
-	// view to the window to draw UI content
+	/* Used to store and restore window view that disconnects when assigning UI's own 
+	 view to the window to draw UI content*/
 	View tempView;
 
 	GUI_Clocks clock;
 
 	GUI_ItemsList inventoryItemsList, locationItemsList;
 
+	/*Player health, hunger, thirst, etc. gui indicators*/
 	vector<GUI_IndicatorLine> indicatorsVec{ PLAYERSTATEINDICATORS_AMOUNT };
-	//GUI_IndicatorLine healthLine, sleepLine, temperatureLine, thirstLine, hungerLine;
 
 	bool playerInventoryIsOpened = false;
 	bool playerIsInsideLocation = false;
 
-	// Button for opening backpack
+	/* Button for opening backpack*/
 	Button backpack_b;
 
 	GUI_ActionPanel panel;
 
-	// Font reference to spread among object's load() functions(those who got drawable Text objects)
+	/* Font reference to spread among object's load() functions(those who got drawable Text objects)*/
 	Font* guiFont1;
 
 public:
@@ -45,6 +45,11 @@ public:
 	void draw(RenderWindow& window);
 
 	void updatePlayerStatusLines(float health, float sleep, float temperature, float thirst, float hunger);
+
+	/*movingFromList - list that will lose item
+	movingToList - list that gain that item
+	itemVecIndex - index of item in both GUI_ItemListItem and assignedStorage Item vectors of "movingFromList" list */
+	void moveItemBetweenLists(GUI_ItemsList& movingFromList, GUI_ItemsList& movingToList, unsigned int itemVecIndex);
 
 	////////// SETTERS
 
@@ -64,6 +69,5 @@ public:
 
 	// Functions for use only inside the class
 private:
-
 };
 

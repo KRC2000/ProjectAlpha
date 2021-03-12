@@ -73,6 +73,15 @@ void GUI_ItemsList::setItemsPos(Vector2f newPos)
 	}
 }
 
+void GUI_ItemsList::liftItemsTale(unsigned int taleStartIndex)
+{
+	for (unsigned int i = taleStartIndex; i < itemsVec.size(); i++)
+	{
+		itemsVec[i].move({ 0, -(itemSizeY + distanceBetweenItems) });
+	}
+	recalculateItemListLenght();
+}
+
 
 void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 {
@@ -229,32 +238,17 @@ void GUI_ItemsList::recalculateItemListLenght()
 	//if (itemListLenght < 0) itemListLenght = 0;
 }
 
-bool GUI_ItemsList::deleteItemUnderCursor(Item& item, float itemSizeY, Vector2f mousePos)
+Item GUI_ItemsList::deleteItem(unsigned int itemVecIndex)
 {
+	itemsVec.erase(itemsVec.begin() + itemVecIndex);
+	Item returnItem = *assignedStorage->getItem(itemVecIndex);
+	assignedStorage->deleteItem(itemVecIndex);
 
-	if (itemsVec.size() >= 1)
-	{
-		//cout << itemsVec[0].getSpriteBox()->getGlobalBounds().contains(mousePos) << endl;
-		for (unsigned int i = 0; i < itemsVec.size(); i++)
-		{
-			//cout << itemsVec[i].getSpriteBox()->getGlobalBounds().contains(mousePos) << endl;
-			if (itemsVec[i].getSpriteBox()->getGlobalBounds().contains(mousePos))
-			{
-				itemsVec.erase(itemsVec.begin() + i);
-				item = *assignedStorage->getItem(i);
-				assignedStorage->deleteItem(i);
-
-				for (unsigned int k = i; k < itemsVec.size(); k++)
-				{
-					itemsVec[k].move({ 0, -(itemSizeY + distanceBetweenItems) });
-				}
-				recalculateItemListLenght();
-				return true;
-			}
-		}
-	}
-	return false;
+	liftItemsTale(itemVecIndex);
+	return returnItem;
 }
+
+
 
 void GUI_ItemsList::addItem(Item newItem)
 {
@@ -330,6 +324,19 @@ Sprite* GUI_ItemsList::getBorderSprite()
 Storage* GUI_ItemsList::getAssignedStorage()
 {
 	return assignedStorage;
+}
+
+bool GUI_ItemsList::isCursorPointingAtItem(unsigned int& itemVecIndex, Vector2f mousePos)
+{
+	for (unsigned int i = 0; i < itemsVec.size(); i++)
+	{
+		if (itemsVec[i].getSpriteBox()->getGlobalBounds().contains(mousePos))
+		{
+			itemVecIndex = i;
+			return true;
+		}
+	}
+	return false;
 }
 
 float GUI_ItemsList::getPositionPercent()
