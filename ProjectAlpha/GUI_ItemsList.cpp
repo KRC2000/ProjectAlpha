@@ -232,10 +232,9 @@ void GUI_ItemsList::scrollDown()
 
 void GUI_ItemsList::recalculateItemListLenght()
 {
-	itemListLenght = itemsVec.size() * (float)resourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y +
-		(itemsVec.size() - 1) * distanceBetweenItems ;
-	cout << itemsVec.size() << endl;
-	//if (itemListLenght < 0) itemListLenght = 0;
+	if (itemsVec.size() == 0) itemListLenght = 0;
+	if (itemsVec.size() == 1) itemListLenght = itemSizeY;
+	if (itemsVec.size() > 1) itemListLenght = itemsVec.back().getSpriteBox()->getPosition().y + itemsVec.back().getSpriteBox()->getGlobalBounds().height - itemsVec[0].getSpriteBox()->getPosition().y;
 }
 
 Item GUI_ItemsList::deleteItem(unsigned int itemVecIndex)
@@ -324,6 +323,11 @@ Sprite* GUI_ItemsList::getBorderSprite()
 Storage* GUI_ItemsList::getAssignedStorage()
 {
 	return assignedStorage;
+}
+
+vector<GUI_ItemsListItem>& GUI_ItemsList::getItemsVec()
+{
+	return itemsVec;
 }
 
 bool GUI_ItemsList::isCursorPointingAtItem(unsigned int& itemVecIndex, Vector2f mousePos)

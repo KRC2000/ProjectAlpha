@@ -76,3 +76,13 @@ void GUI_ActionPanel::setActive(bool isActive)
 {
 	active = isActive;
 }
+
+void GUI_ActionPanel::setPos(Vector2f newPos)
+{
+	pos.x = newPos.x - 33;
+	pos.y = newPos.y - 71;
+	for (unsigned int i = 0; i < buttonsVec.size(); i++)
+	{
+		buttonsVec[i].setPosition({ pos.x + 15 + (buttonsVec.back().getGlobalBounds().width + 17) * i, pos.y + 6 });
+	}
+}

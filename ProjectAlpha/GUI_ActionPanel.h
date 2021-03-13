@@ -1,5 +1,6 @@
 #pragma once
 #include "PrecompiledHeaders.h"
+#include "GUI_ItemsListItem.h"
 #include "Button.h"
 
 class GUI_ActionPanel
@@ -9,6 +10,7 @@ class GUI_ActionPanel
 	vector<Button> buttonsVec;
 
 	bool active = false;
+	GUI_ItemsListItem* itemPointer;
 public:
 	GUI_ActionPanel();
 	void load(vector<Texture>& textureResourcesVec);
@@ -27,5 +29,6 @@ public:
 
 	/*Set to true to allow updating and drawing*/
 	void setActive(bool isActive);
+	void setPos(Vector2f newPos);
 };
 

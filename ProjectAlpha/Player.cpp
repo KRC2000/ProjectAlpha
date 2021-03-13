@@ -17,9 +17,9 @@ Player::Player(Vector2f spawnPos)
 	storage.addItem(Item(ItemsEnum::PILLSJAR, 4));
 	storage.addItem(Item(ItemsEnum::TUNA, 6));
 	storage.addItem(Item(ItemsEnum::UNKNOWN, 7));
+	storage.addItem(Item(ItemsEnum::TUNA, 9));
+	storage.addItem(Item(ItemsEnum::CORN, 10));
 	/*storage.addItem(Item(ItemsEnum::KNIFE, 8));
-	storage.addItem(Item(ItemsEnum::SHIRT, 9));
-	storage.addItem(Item(ItemsEnum::SHIRT, 10));
 	storage.addItem(Item(ItemsEnum::BRICK, 11));
 
 	storage.addItem(Item(ItemsEnum::BRICK, 12));

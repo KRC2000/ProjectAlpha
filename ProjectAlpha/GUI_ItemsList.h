@@ -102,6 +102,8 @@ public:
 	Sprite* getBorderSprite();
 	Storage* getAssignedStorage();
 
+	vector<GUI_ItemsListItem>& getItemsVec();
+
 	bool isCursorPointingAtItem(unsigned int& itemVecIndex, Vector2f mousePos);
 
 	/* See setPositionPercent(). Used when content is scrolled with mouse wheel,
