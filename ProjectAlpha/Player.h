@@ -16,12 +16,13 @@ class Player
 	Vector2f normilizedTravelVec;
 
 	int lastSleepIncreaseTime{0};
-	int sleepIncreaseMinFreq = 40;
 	int lastThirstIncreaseTime{0};
-	int thirstIncreaseMinFreq = 40;
 	int lastHungerIncreaseTime{0};
+	int sleepIncreaseMinFreq = 40;
+	int thirstIncreaseMinFreq = 40;
 	int hungerIncreaseMinFreq = 300;
 
+	//vector<float> plConditionIndicatorsVec{100, 0, 50, 0, 0};
 	float health = 100;
 	float sleep = 0;
 	float temperature = 50;
@@ -52,6 +53,7 @@ public:
 	Vector2f getPos();
 
 private:
+
 	void travel(IEC* iec);
 	void stopTravel();
 	void recalculateLeftToTraveDist();

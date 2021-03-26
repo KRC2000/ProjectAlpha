@@ -19,6 +19,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="txt">
+      <UniqueIdentifier>{ae9458db-5ea9-4e9d-b3ab-56c0a859e031}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -158,6 +161,9 @@
     <ClInclude Include="GUI_ActionPanel.h">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerConditionTypesEnum.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\buildings.png">
@@ -178,5 +184,13 @@
     <Image Include="res\GUI.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\map0x0.txt">
+      <Filter>txt</Filter>
+    </Text>
+    <Text Include="res\itemEffects.txt">
+      <Filter>txt</Filter>
+    </Text>
   </ItemGroup>
 </Project>

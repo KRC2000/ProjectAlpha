@@ -86,3 +86,8 @@ void GUI_ActionPanel::setPos(Vector2f newPos)
 		buttonsVec[i].setPosition({ pos.x + 15 + (buttonsVec.back().getGlobalBounds().width + 17) * i, pos.y + 6 });
 	}
 }
+
+bool GUI_ActionPanel::getIsActive()
+{
+	return active;
+}

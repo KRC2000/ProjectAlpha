@@ -45,7 +45,6 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	panel.addActionButton("res/info.png", "info");
 	panel.addActionButton("res/hand.png", "use");
 	panel.addActionButton("res/eating.png", "eat");
-	panel.setActive(true);
 
 
 	// Items lists load() 
@@ -117,6 +116,29 @@ void UI::update(IEC& iec, RenderWindow& window)
 		}
 	}
 
+	if (iec._LMB)	
+	{
+		if (!panel.getIsActive())
+		{
+			if (inventoryItemsList.getIsActive())
+			{
+				unsigned int itemVecIndex;
+				if (inventoryItemsList.isCursorPointingAtItem(itemVecIndex, iec.getMousePos(window, view)))
+				{
+					panel.setPos({ iec.getMousePos(window, view).x,
+						inventoryItemsList.getItemsVec()[itemVecIndex].getSpriteBox()->getPosition().y + inventoryItemsList.getItemsVec()[itemVecIndex].getSpriteBox()->getGlobalBounds().height / 2 });
+					panel.setActive(true);
+				}
+			}
+		}
+		else
+		{
+			panel.setActive(false);
+		}
+	}
+	if (inventoryItemsList.isBeingScrolled())
+		panel.setActive(false);
+
 	/* If LMB clicked and player inventory is opened
 	 then
 	 Basically logic for closing inventory windows(items lists) when clicked outside of
@@ -130,6 +152,7 @@ void UI::update(IEC& iec, RenderWindow& window)
 		{
 			inventoryItemsList.setActive(false);
 			locationItemsList.setActive(false);
+			panel.setActive(false);
 			playerInventoryIsOpened = false;
 			iec._LMB = false;
 		}

@@ -2,6 +2,7 @@
 
 Storage::Storage()
 {
+	itemsVec.reserve(20);
 }
 
 void Storage::addItem(Item item)

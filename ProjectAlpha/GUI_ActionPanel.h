@@ -30,5 +30,7 @@ public:
 	/*Set to true to allow updating and drawing*/
 	void setActive(bool isActive);
 	void setPos(Vector2f newPos);
+
+	bool getIsActive();
 };
 

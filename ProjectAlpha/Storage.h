@@ -5,7 +5,9 @@
 // Represents a vector of class Item, and interface for interacting
 class Storage
 {
-	vector<Item> itemsVec{0};
+	vector<Item> itemsVec;
+	
+
 public:
 	Storage();
 

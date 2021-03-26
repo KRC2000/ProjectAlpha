@@ -49,6 +49,8 @@ class GUI_ItemsList
 
 	float itemSizeY = 60;
 
+	bool beingScrolled = false;
+
 	// Pixel length from top of first items-list item to bottom of last one
 	// including distanceBetweenItems gaps
 	float itemListLenght{0};
@@ -98,9 +100,15 @@ public:
 
 	////////// GETTERS
 
+	bool getIsActive();
+
 	// Reference to background sprite
 	Sprite* getBorderSprite();
 	Storage* getAssignedStorage();
+
+	/*Returns true on ticks when mouseWheelDelta != 0*/
+	bool isBeingScrolled();
+
 
 	vector<GUI_ItemsListItem>& getItemsVec();
 

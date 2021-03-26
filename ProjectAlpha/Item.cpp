@@ -1,43 +1,21 @@
 #include "Item.h"
 
-
-Item::Item()
-{
-}
-
 Item::Item(ItemsEnum itemId, int amount, bool reusable, int condition):
 	itemId(itemId), amount(amount), reusable(reusable), condition(condition)
 {
 }
 
-
-void Item::setAmount(int newAmount)
+void Item::applyItemConsumeEffect(float& health, float& sleep, float& temperature, float& thirst, float& hunger)
 {
-	amount = newAmount;
+	readFileObj.open(effectsInfoFile);
+
+	string s;
+
+	do
+	{
+		readFileObj >> s;
+	} while (s != "ID" + ' ' + itemId);
+
+	cout << s << endl;
 }
 
-void Item::setCondition(int newCondition)
-{
-	condition = newCondition;
-}
-
-
-ItemsEnum Item::getId()
-{
-	return itemId;
-}
-
-int Item::getAmount()
-{
-	return amount;
-}
-
-bool Item::getIsReusable()
-{
-	return reusable;
-}
-
-int Item::getCondition()
-{
-	return condition;
-}

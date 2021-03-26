@@ -110,14 +110,15 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 			itemsVec[i].update(iec);
 		}
 		
-		
 		// System of moving content on mouse scroll
+		beingScrolled = false;
 		if (s_border.getGlobalBounds().contains(iec.getMousePos(window, view)))
 		{
 			if (itemsVec.size() > 1)
 			{
 				if (iec.mouseWheelDelta != 0)
 				{
+					beingScrolled = true;
 					if (iec.mouseWheelDelta == 1)
 					{
 						if (itemsVec[0].getSpriteBox()->getPosition().y < baseUpperEdgePoint.y)
@@ -315,6 +316,11 @@ void GUI_ItemsList::setPositionPercent(float percent)
 }
 
 
+bool GUI_ItemsList::getIsActive()
+{
+	return active;
+}
+
 Sprite* GUI_ItemsList::getBorderSprite()
 {
 	return &s_border;
@@ -323,6 +329,11 @@ Sprite* GUI_ItemsList::getBorderSprite()
 Storage* GUI_ItemsList::getAssignedStorage()
 {
 	return assignedStorage;
+}
+
+bool GUI_ItemsList::isBeingScrolled()
+{
+	return beingScrolled;
 }
 
 vector<GUI_ItemsListItem>& GUI_ItemsList::getItemsVec()

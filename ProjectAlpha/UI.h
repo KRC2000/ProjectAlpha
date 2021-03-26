@@ -41,6 +41,7 @@ class UI
 public:
 	UI();
 	void load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font* font);
+	//void getPlayerVarsPointers();
 	void update(IEC& iec, RenderWindow& window);
 	void draw(RenderWindow& window);
 
