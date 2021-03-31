@@ -6,7 +6,7 @@ UI::UI()
 
 void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font* font)
 {
-	this->texturesResourcesVec = texturesResourcesVec;
+	this->texturesResourcesVecPtr = texturesResourcesVec;
 	guiFont1 = font;
 
 	// Initializing local UI view
@@ -16,17 +16,18 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	view.setCenter(view.getSize().x/2, view.getSize().y / 2);
 
 
-	indicatorsVec[HEALTH].load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
-	indicatorsVec[SLEEP].load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
-	indicatorsVec[TEMPERATURE].load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
-	indicatorsVec[THIRST].load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
-	indicatorsVec[HUNGER].load(&texturesResourcesVec->at(ResourcesEnum::INDICATORLINE_T));
+	//indicatorsVec[HEALTH].load(&texturesResourcesVecPtr->at(ResourcesEnum::INDICATORLINE_T));
+	indicatorsVec[HEALTH].assignTextureRes(*texturesResourcesVecPtr);
+	indicatorsVec[SLEEP].assignTextureRes(*texturesResourcesVecPtr);
+	indicatorsVec[TEMPERATURE].assignTextureRes(*texturesResourcesVecPtr);
+	indicatorsVec[THIRST].assignTextureRes(*texturesResourcesVecPtr);
+	indicatorsVec[HUNGER].assignTextureRes(*texturesResourcesVecPtr);
 	
-	indicatorsVec[HEALTH].setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), {100 * 0, 0, 100, 100});
-	indicatorsVec[SLEEP].setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), {100 * 1, 0, 100, 100});
-	indicatorsVec[TEMPERATURE].setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 2, 0, 100, 100});
-	indicatorsVec[THIRST].setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 3, 0, 100, 100});
-	indicatorsVec[HUNGER].setPictureTitle(&texturesResourcesVec->at(ResourcesEnum::STATUSICONS_T), { 100 * 4, 0, 100, 100});
+	indicatorsVec[HEALTH].setPictureTitle(&texturesResourcesVecPtr->at(ResourcesEnum::STATUSICONS_T), {100 * 0, 0, 100, 100});
+	indicatorsVec[SLEEP].setPictureTitle(&texturesResourcesVecPtr->at(ResourcesEnum::STATUSICONS_T), {100 * 1, 0, 100, 100});
+	indicatorsVec[TEMPERATURE].setPictureTitle(&texturesResourcesVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 2, 0, 100, 100});
+	indicatorsVec[THIRST].setPictureTitle(&texturesResourcesVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 3, 0, 100, 100});
+	indicatorsVec[HUNGER].setPictureTitle(&texturesResourcesVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 4, 0, 100, 100});
 	
 	indicatorsVec[HEALTH].setPos({ indicatorsVec[HEALTH].getPictureSprite()->getGlobalBounds().width, clock.getTextObj()->getGlobalBounds().height + 30});
 	indicatorsVec[SLEEP].setPos({ indicatorsVec[SLEEP].getPictureSprite()->getGlobalBounds().width,
@@ -48,11 +49,11 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 
 
 	// Items lists load() 
-	inventoryItemsList.load(texturesResourcesVec,
-		{ view.getSize().x / 2 + 40, view.getSize().y / 2 -(float)texturesResourcesVec->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
-	locationItemsList.load(texturesResourcesVec, 
-		{ view.getSize().x / 2 -(float)texturesResourcesVec->at(ResourcesEnum::GUI_T).getSize().x - 40, 
-		view.getSize().y / 2 - (float)texturesResourcesVec->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
+	inventoryItemsList.load(texturesResourcesVecPtr,
+		{ view.getSize().x / 2 + 40, view.getSize().y / 2 -(float)texturesResourcesVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
+	locationItemsList.load(texturesResourcesVecPtr,
+		{ view.getSize().x / 2 -(float)texturesResourcesVecPtr->at(ResourcesEnum::GUI_T).getSize().x - 40,
+		view.getSize().y / 2 - (float)texturesResourcesVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
 
 	// Backpack opening button initializing
 	backpack_b.load("res/bagButton.png", "backpack");
@@ -175,7 +176,7 @@ void UI::draw(RenderWindow& window)
 	locationItemsList.draw(window);
 
 	for (unsigned int i = 0; i < indicatorsVec.size(); i++)
-		indicatorsVec[i].draw(window);
+		window.draw(indicatorsVec[i]);
 
 	panel.draw(window);
 
