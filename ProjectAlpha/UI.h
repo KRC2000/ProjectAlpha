@@ -10,7 +10,7 @@
 class UI
 {
 	/*Global textures storage reference to spread among object's load() functions*/
-	vector<Texture>* texturesResourcesVec;
+	vector<Texture>* texturesResourcesVecPtr;
 
 	/* Own view for objects, that should be aligned to center of the screen
 	 and not to global world*/
@@ -47,9 +47,12 @@ public:
 
 	void updatePlayerStatusLines(float health, float sleep, float temperature, float thirst, float hunger);
 
-	/*movingFromList - list that will lose item
-	movingToList - list that gain that item
-	itemVecIndex - index of item in both GUI_ItemListItem and assignedStorage Item vectors of "movingFromList" list */
+	/// <summary>
+	/// Move item from one GUI_ItemList to another by deleting it in the first one and creating its copy in another
+	/// </summary>
+	/// <param name="movingFromList">list that will lose item</param>
+	/// <param name="movingToList">list that gain that item</param>
+	/// <param name="itemVecIndex">index of item in both GUI_ItemListItem and assignedStorage Item vectors of "movingFromList" list</param>
 	void moveItemBetweenLists(GUI_ItemsList& movingFromList, GUI_ItemsList& movingToList, unsigned int itemVecIndex);
 
 	////////// SETTERS
