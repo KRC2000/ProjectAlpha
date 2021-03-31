@@ -1,12 +1,12 @@
 #pragma once
 #include "PrecompiledHeaders.h"
 
-class GUIelement: public Drawable
+class GUI_Element: public Drawable
 {
 	
 public:
-	GUIelement() {};
-	virtual ~GUIelement() {};
+	GUI_Element() {};
+	virtual ~GUI_Element() {};
 
 	//virtual void load(View& view) = 0;
 	virtual bool update(IEC & iec, RenderWindow & window) = 0;

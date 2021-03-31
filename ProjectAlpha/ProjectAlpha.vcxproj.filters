@@ -60,7 +60,7 @@
     <ClCompile Include="GUI_ItemsListItem.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GUIelement.cpp">
+    <ClCompile Include="GUI_Element.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="Storage.cpp">
@@ -125,7 +125,7 @@
     <ClInclude Include="PrecompiledHeaders.h">
       <Filter>Enums</Filter>
     </ClInclude>
-    <ClInclude Include="GUIelement.h">
+    <ClInclude Include="GUI_Element.h">
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="GUI_ItemsListItem.h">
