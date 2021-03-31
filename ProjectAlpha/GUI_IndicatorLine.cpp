@@ -4,13 +4,15 @@ GUI_IndicatorLine::GUI_IndicatorLine()
 {
 }
 
-void GUI_IndicatorLine::load(Texture* t)
+void GUI_IndicatorLine::assignTextureRes(vector<sf::Texture>& textureResourcesVec)
 {
-	t_line = t;
+	t_line = &textureResourcesVec[ResourcesEnum::INDICATORLINE_T];
 	t_line->setRepeated(true);
 
-	s_line.setTexture(*t_line);
-
+	//s_line.setTexture(*t_line); 
+	s_lineHead.setTexture(*t_line);
+	s_lineBody.setTexture(*t_line);
+	s_lineTail.setTexture(*t_line);
 }
 
 void GUI_IndicatorLine::setPictureTitle(Texture* t, IntRect rect)
@@ -26,39 +28,57 @@ void GUI_IndicatorLine::setPictureTitle(Texture* t, IntRect rect)
 			pos.y - s_picture.getGlobalBounds().height / 2 + t_line->getSize().y / 4 });
 }
 
-void GUI_IndicatorLine::update()
-{
-	if (currentValue < 0) currentValue = 0;
-	if (currentValue > maxValue) currentValue = maxValue;
+//void GUI_IndicatorLine::update()
+//{
+//	if (currentValue < 0) currentValue = 0;
+//	if (currentValue > maxValue) currentValue = maxValue;
+//
+//
+//	lengthCost = maxValue / maxLength;
+//	currentLength = currentValue / lengthCost;
+//}
 
+//void GUI_IndicatorLine::draw(RenderWindow& window)
+//{
+//	if (pictureTitle)
+//	{
+//		window.draw(s_picture);
+//	}
+//
+//	
+//	s_line.setTextureRect(IntRect(0, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
+//	s_line.setPosition(pos);
+//	window.draw(s_line);
+//
+//	if (currentLength > t_line->getSize().x / 4)
+//	{
+//		s_line.setTextureRect(IntRect(0, 0, currentLength - t_line->getSize().x / 4, t_line->getSize().y / 2));
+//		s_line.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
+//		window.draw(s_line);
+//	}
+//
+//	s_line.setTextureRect(IntRect((t_line->getSize().x / 4) / 2, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
+//	if (currentLength > t_line->getSize().x / 4) s_line.setPosition({pos.x + (t_line->getSize().x / 4) / 2 + (currentLength - t_line->getSize().x / 4), pos.y});
+//	else s_line.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
+//	window.draw(s_line);
+//}
 
-	lengthCost = maxValue / maxLength;
-	currentLength = currentValue / lengthCost;
-}
-
-void GUI_IndicatorLine::draw(RenderWindow& window)
+void GUI_IndicatorLine::draw(RenderTarget& target, RenderStates states) const
 {
 	if (pictureTitle)
 	{
-		window.draw(s_picture);
+		target.draw(s_picture);
 	}
+
 
 	
-	s_line.setTextureRect(IntRect(0, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
-	s_line.setPosition(pos);
-	window.draw(s_line);
+	target.draw(s_lineHead);
 
 	if (currentLength > t_line->getSize().x / 4)
-	{
-		s_line.setTextureRect(IntRect(0, 0, currentLength - t_line->getSize().x / 4, t_line->getSize().y / 2));
-		s_line.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
-		window.draw(s_line);
-	}
+		target.draw(s_lineBody);
 
-	s_line.setTextureRect(IntRect((t_line->getSize().x / 4) / 2, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
-	if (currentLength > t_line->getSize().x / 4) s_line.setPosition({pos.x + (t_line->getSize().x / 4) / 2 + (currentLength - t_line->getSize().x / 4), pos.y});
-	else s_line.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
-	window.draw(s_line);
+	
+	target.draw(s_lineTail);
 }
 
 void GUI_IndicatorLine::setPos(Vector2f newPos)
@@ -105,4 +125,27 @@ float GUI_IndicatorLine::getMaxValue()
 Sprite* GUI_IndicatorLine::getPictureSprite()
 {
 	return &s_picture;
+}
+
+void GUI_IndicatorLine::update()
+{
+	if (currentValue < 0) currentValue = 0;
+	if (currentValue > maxValue) currentValue = maxValue;
+
+
+	lengthCost = maxValue / maxLength;
+	currentLength = currentValue / lengthCost;
+
+	s_lineHead.setTextureRect(IntRect(0, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
+	s_lineHead.setPosition(pos);
+
+	if (currentLength > t_line->getSize().x / 4)
+	{
+		s_lineBody.setTextureRect(IntRect(0, 0, currentLength - t_line->getSize().x / 4, t_line->getSize().y / 2));
+		s_lineBody.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
+	}
+
+	s_lineTail.setTextureRect(IntRect((t_line->getSize().x / 4) / 2, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
+	if (currentLength > t_line->getSize().x / 4) s_lineTail.setPosition({ pos.x + (t_line->getSize().x / 4) / 2 + (currentLength - t_line->getSize().x / 4), pos.y });
+	else s_lineTail.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
 }
