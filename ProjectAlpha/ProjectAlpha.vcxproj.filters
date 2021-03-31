@@ -60,9 +60,6 @@
     <ClCompile Include="GUI_ItemsListItem.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GUI_Element.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Storage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -122,9 +119,6 @@
     <ClInclude Include="GUI_Clocks.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="PrecompiledHeaders.h">
-      <Filter>Enums</Filter>
-    </ClInclude>
     <ClInclude Include="GUI_Element.h">
       <Filter>GUI</Filter>
     </ClInclude>
@@ -162,6 +156,9 @@
       <Filter>Enums</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PrecompiledHeaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
