@@ -144,7 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="GUI_Button.cpp" />
     <ClCompile Include="GUI_ActionPanel.cpp" />
     <ClCompile Include="GUI_Clocks.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -166,7 +166,7 @@
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h" />
+    <ClInclude Include="GUI_Button.h" />
     <ClInclude Include="GUI_ActionPanel.h" />
     <ClInclude Include="GUI_Clocks.h" />
     <ClInclude Include="Colors.h" />

@@ -1,14 +1,16 @@
 #pragma once
 #include "PrecompiledHeaders.h"
 
-class GUIelement
+class GUIelement: public Drawable
 {
-protected:
-	vector<Sprite> sVec;
+	
 public:
-	GUIelement();
-	virtual void load(View& view) = 0;
+	GUIelement() {};
+	virtual ~GUIelement() {};
+
+	//virtual void load(View& view) = 0;
 	virtual bool update(IEC & iec, RenderWindow & window) = 0;
-	void draw(RenderWindow & window);
+
+	virtual void  draw(RenderTarget& target, RenderStates states) const override = 0;
 };
 

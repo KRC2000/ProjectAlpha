@@ -1,7 +1,7 @@
 #pragma once
 #include "PrecompiledHeaders.h"
 
-class Button
+class GUI_Button
 {
 private:
 	Texture t;
@@ -9,7 +9,7 @@ private:
 	string texturePath;
 	string name = "Unnamed";
 public:
-	Button();
+	GUI_Button();
 	void load(string texturePath, string name);
 
 	// Returns true when button was clicked

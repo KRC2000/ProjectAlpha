@@ -4,7 +4,7 @@
 #include "GUI_ItemsList.h"
 #include "GUI_IndicatorLine.h"
 #include "GUI_ActionPanel.h"
-#include"Button.h"
+#include"GUI_Button.h"
 
 
 class UI
@@ -31,7 +31,7 @@ class UI
 	bool playerIsInsideLocation = false;
 
 	/* Button for opening backpack*/
-	Button backpack_b;
+	GUI_Button backpack_b;
 
 	GUI_ActionPanel panel;
 

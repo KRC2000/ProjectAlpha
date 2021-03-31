@@ -1,7 +1,7 @@
 #pragma once
 #include "PrecompiledHeaders.h"
 #include "Scene.h"
-#include "Button.h"
+#include "GUI_Button.h"
 
 /*
 Inherited from class Scene
@@ -10,7 +10,7 @@ Contains main menu content like buttons to go to other scenes, like game scene o
 class MainMenuScene : public Scene
 {
 
-	Button play_b;
+	GUI_Button play_b;
 	View view;
 public:
 	MainMenuScene();

@@ -12,7 +12,7 @@ void GUI_ActionPanel::load(vector<Texture>& textureResourcesVec)
 }
 
 
-Button* GUI_ActionPanel::update(IEC& iec, RenderWindow& window, View& view)
+GUI_Button* GUI_ActionPanel::update(IEC& iec, RenderWindow& window, View& view)
 {
 	if (active)
 	{
@@ -26,7 +26,7 @@ Button* GUI_ActionPanel::update(IEC& iec, RenderWindow& window, View& view)
 
 void GUI_ActionPanel::addActionButton(string texturePath, string buttonName)
 {
-	Button b;
+	GUI_Button b;
 	//cout << "size" << buttonsVec.size() << endl;
 	buttonsVec.push_back(b);
 	buttonsVec.back().load(texturePath, buttonName);

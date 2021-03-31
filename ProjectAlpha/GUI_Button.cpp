@@ -1,11 +1,11 @@
-#include "Button.h"
+#include "GUI_Button.h"
 
-Button::Button()
+GUI_Button::GUI_Button()
 {
 
 }
 
-void Button::load(string texturePath, string name)
+void GUI_Button::load(string texturePath, string name)
 {
 	this->name = name;
 	this->texturePath = texturePath;
@@ -16,7 +16,7 @@ void Button::load(string texturePath, string name)
 }
 
 
-bool Button::update(IEC& iec, RenderWindow &window, View &view)
+bool GUI_Button::update(IEC& iec, RenderWindow &window, View &view)
 {
 	if (spriteIdle.getGlobalBounds().contains(iec.getMousePos(window, view)))
 		spriteIdle.setTextureRect(IntRect(spriteIdle.getTexture()->getSize().x / 2, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
@@ -33,27 +33,27 @@ bool Button::update(IEC& iec, RenderWindow &window, View &view)
 	return false;
 }
 
-void Button::draw(RenderWindow& window)
+void GUI_Button::draw(RenderWindow& window)
 {
 	window.draw(spriteIdle);
 }
 
-void Button::setScale(Vector2f factor)
+void GUI_Button::setScale(Vector2f factor)
 {
 	spriteIdle.setScale(factor);
 }
 
-void Button::setPosition(Vector2f pos)
+void GUI_Button::setPosition(Vector2f pos)
 {
 	spriteIdle.setPosition(pos);
 }
 
-FloatRect Button::getGlobalBounds()
+FloatRect GUI_Button::getGlobalBounds()
 {
 	return spriteIdle.getGlobalBounds();
 }
 
-string Button::getName()
+string GUI_Button::getName()
 {
 	return name;
 }

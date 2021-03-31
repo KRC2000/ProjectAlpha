@@ -1,13 +1,13 @@
 #pragma once
 #include "PrecompiledHeaders.h"
 #include "GUI_ItemsListItem.h"
-#include "Button.h"
+#include "GUI_Button.h"
 
 class GUI_ActionPanel
 {
 	Vector2f pos{ 0,0 };
 	Sprite s_body;
-	vector<Button> buttonsVec;
+	vector<GUI_Button> buttonsVec;
 
 	bool active = false;
 	GUI_ItemsListItem* itemPointer;
@@ -18,10 +18,10 @@ public:
 	/*Returns pointer to a button that was clicked inside of a panel
 	Otherwise returns nullptr
 	Use like this: 
-	Button* temp = update();
+	GUI_Button* temp = update();
 	if (temp != nullptr)
 	if (temp->getName() == "yourName") action();*/
-	Button* update(IEC & iec, RenderWindow & window, View & view);
+	GUI_Button* update(IEC & iec, RenderWindow & window, View & view);
 
 	/*Widening widget bounds, creating and adding new button to it in a row*/
 	void addActionButton(string texturePath, string buttonName);

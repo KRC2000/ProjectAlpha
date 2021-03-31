@@ -1,7 +1,7 @@
 #pragma once
 #include "PrecompiledHeaders.h"
 #include "GUI_ItemsListItem.h"
-#include "Button.h"
+#include "GUI_Button.h"
 #include "Storage.h"
 #include "Slider.h"
 #include "GUI_ItemsListItem.h"
@@ -28,7 +28,7 @@ class GUI_ItemsList
 	bool active = false;
 
 
-	Button upListButton, downListButton;
+	GUI_Button upListButton, downListButton;
 	Slider slider;
 
 	float onePercentLenght{ 0 };

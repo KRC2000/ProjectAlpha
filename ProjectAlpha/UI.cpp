@@ -68,7 +68,7 @@ void UI::update(IEC& iec, RenderWindow& window)
 	inventoryItemsList.update(iec, window, view);
 	locationItemsList.update(iec, window, view);
 
-	Button* tempButton = panel.update(iec, window, view);
+	GUI_Button* tempButton = panel.update(iec, window, view);
 	if (tempButton != nullptr)
 	{
 		if (tempButton->getName() == "eat") cout << "Player eating\n";

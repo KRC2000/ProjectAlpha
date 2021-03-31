@@ -54,9 +54,6 @@
     <ClCompile Include="GUI_Clocks.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="GUI_ItemsList.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
@@ -75,7 +72,7 @@
     <ClCompile Include="Slider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
+    <ClCompile Include="GUI_Button.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="GUI_IndicatorLine.cpp">
@@ -83,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="GUI_ActionPanel.cpp">
       <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,9 +122,6 @@
     <ClInclude Include="GUI_Clocks.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="PrecompiledHeaders.h">
       <Filter>Enums</Filter>
     </ClInclude>
@@ -152,7 +149,7 @@
     <ClInclude Include="PlayerStateIndicatorsEnum.h">
       <Filter>Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
+    <ClInclude Include="GUI_Button.h">
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="GUI_IndicatorLine.h">
@@ -163,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="PlayerConditionTypesEnum.h">
       <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
