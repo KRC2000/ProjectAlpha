@@ -9,7 +9,6 @@ void GUI_IndicatorLine::assignTextureRes(vector<sf::Texture>& textureResourcesVe
 	t_line = &textureResourcesVec[ResourcesEnum::INDICATORLINE_T];
 	t_line->setRepeated(true);
 
-	//s_line.setTexture(*t_line); 
 	s_lineHead.setTexture(*t_line);
 	s_lineBody.setTexture(*t_line);
 	s_lineTail.setTexture(*t_line);
@@ -28,41 +27,6 @@ void GUI_IndicatorLine::setPictureTitle(Texture* t, IntRect rect)
 			pos.y - s_picture.getGlobalBounds().height / 2 + t_line->getSize().y / 4 });
 }
 
-//void GUI_IndicatorLine::update()
-//{
-//	if (currentValue < 0) currentValue = 0;
-//	if (currentValue > maxValue) currentValue = maxValue;
-//
-//
-//	lengthCost = maxValue / maxLength;
-//	currentLength = currentValue / lengthCost;
-//}
-
-//void GUI_IndicatorLine::draw(RenderWindow& window)
-//{
-//	if (pictureTitle)
-//	{
-//		window.draw(s_picture);
-//	}
-//
-//	
-//	s_line.setTextureRect(IntRect(0, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
-//	s_line.setPosition(pos);
-//	window.draw(s_line);
-//
-//	if (currentLength > t_line->getSize().x / 4)
-//	{
-//		s_line.setTextureRect(IntRect(0, 0, currentLength - t_line->getSize().x / 4, t_line->getSize().y / 2));
-//		s_line.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
-//		window.draw(s_line);
-//	}
-//
-//	s_line.setTextureRect(IntRect((t_line->getSize().x / 4) / 2, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
-//	if (currentLength > t_line->getSize().x / 4) s_line.setPosition({pos.x + (t_line->getSize().x / 4) / 2 + (currentLength - t_line->getSize().x / 4), pos.y});
-//	else s_line.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
-//	window.draw(s_line);
-//}
-
 void GUI_IndicatorLine::draw(RenderTarget& target, RenderStates states) const
 {
 	if (pictureTitle)
@@ -70,13 +34,10 @@ void GUI_IndicatorLine::draw(RenderTarget& target, RenderStates states) const
 		target.draw(s_picture);
 	}
 
-
-	
 	target.draw(s_lineHead);
 
 	if (currentLength > t_line->getSize().x / 4)
 		target.draw(s_lineBody);
-
 	
 	target.draw(s_lineTail);
 }
