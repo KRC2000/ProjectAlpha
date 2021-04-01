@@ -22,7 +22,6 @@ class Player
 	int thirstIncreaseMinFreq = 40;
 	int hungerIncreaseMinFreq = 300;
 
-	//vector<float> plConditionIndicatorsVec{100, 0, 50, 0, 0};
 	float health = 100;
 	float sleep = 0;
 	float temperature = 50;

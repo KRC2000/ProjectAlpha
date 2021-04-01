@@ -29,12 +29,14 @@ class GUI_IndicatorLine: public GUI_Element
 
 public:
 	GUI_IndicatorLine();
+	virtual ~GUI_IndicatorLine() {};
 
-	virtual void assignTextureRes(vector<sf::Texture>& textureResourcesVec) override;
+
+	virtual void assignTextureRes(vector<Texture>& textureResourcesVec) override;
 
 	void setPictureTitle(Texture* t, IntRect rect);
-	//void update();
-	//void draw(RenderWindow& window);
+
+	virtual void update(Event& event, RenderWindow& window, View& view) override {};
 
 	virtual void draw(RenderTarget& target, RenderStates states) const override;
 
