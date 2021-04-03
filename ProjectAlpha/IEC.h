@@ -19,7 +19,7 @@ public:
 	Time cycleTime;
 	Time timePerFrame = seconds(1.f / 60.f);
 	int mouseWheelDelta;
-	//
+
 	bool _LMB = false;
 	bool LMB = false;
 	bool LMB_ = false;
