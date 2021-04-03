@@ -28,7 +28,8 @@ class GUI_ItemsList
 	bool active = false;
 
 
-	GUI_Button upListButton, downListButton;
+	GUI_Button upListButton{ UiResEnum::GUI_ITEMLIST_BUTTON_UPLIST, "Up" };
+	GUI_Button downListButton{ UiResEnum::GUI_ITEMLIST_BUTTON_DOWNLIST, "Down" };
 	Slider slider;
 
 	float onePercentLenght{ 0 };
@@ -56,7 +57,7 @@ class GUI_ItemsList
 	float itemListLenght{0};
 public:
 	GUI_ItemsList();
-	void load(vector<Texture>* texturesResourcesVec, Vector2f pos, Font* font);
+	void load(vector<Texture>* texturesResourcesVec, vector<Texture>& uiResVec, Vector2f pos, Font* font);
 	
 	// Clears items-list items vector, and creates new items according to storage
 	void assignStorage(Storage* storage);

@@ -5,6 +5,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "ResourcesEnum.h"
+#include "UiResEnum.h"
 #include "GUI_Element.h"
 using namespace sf;
 using namespace std;
@@ -29,13 +30,14 @@ class GUI_IndicatorLine: public GUI_Element
 
 public:
 	GUI_IndicatorLine();
+	virtual ~GUI_IndicatorLine() {};
 
-	virtual void assignTextureRes(vector<sf::Texture>& textureResourcesVec) override;
+	virtual void assignTextureRes(vector<sf::Texture>& uiResVec) override;
 
 	void setPictureTitle(Texture* t, IntRect rect);
 	//void update();
 	//void draw(RenderWindow& window);
-	virtual void update(IEC& iec, RenderWindow& window, View& view) override {};
+	virtual bool update(IEC& iec, RenderWindow& window, View& view) override { return false; };
 
 
 	virtual void draw(RenderTarget& target, RenderStates states) const override;

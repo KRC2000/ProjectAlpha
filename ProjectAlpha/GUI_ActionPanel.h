@@ -24,7 +24,7 @@ public:
 	GUI_Button* update(IEC & iec, RenderWindow & window, View & view);
 
 	/*Widening widget bounds, creating and adding new button to it in a row*/
-	void addActionButton(string texturePath, string buttonName);
+	void addActionButton(vector<Texture>& uiResVec, UiResEnum buttonType, string buttonName);
 	void draw(RenderWindow& window);
 
 	/*Set to true to allow updating and drawing*/
