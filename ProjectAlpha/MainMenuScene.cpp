@@ -6,7 +6,8 @@ MainMenuScene::MainMenuScene()
 
 void MainMenuScene::load()
 {
-	play_b.load("res/playButton.png", "play");
+	//play_b.load("res/playButton.png", "play");
+	//play_b.assignTextureRes();
 	cout << "Main menu scene loaded!" << endl;
 }
 
@@ -29,7 +30,8 @@ void MainMenuScene::draw(RenderWindow& window, VideoMode videoMode)
 		temp = window.getView();
 		window.setView(view);
 
-		play_b.draw(window);
+		window.draw(play_b);
+		//play_b.draw(window);
 
 		window.setView(temp);
 	}
