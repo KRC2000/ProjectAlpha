@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "GUI_Button.h"
 
+#include "UiResEnum.h"
 /*
 Inherited from class Scene
 When active = true - updates and renders
@@ -10,7 +11,7 @@ Contains main menu content like buttons to go to other scenes, like game scene o
 class MainMenuScene : public Scene
 {
 
-	GUI_Button play_b;
+	GUI_Button play_b{UiResEnum::MAINMENU_BUTTON_DEFAULT, "play"};
 	View view;
 public:
 	MainMenuScene();
