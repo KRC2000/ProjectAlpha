@@ -4,17 +4,18 @@ Game::Game()
 {
 	srand(time(NULL));
 
-	currentScenePtr = &mainMenuScene;
+	currentScenePtr = &gameScene;
 
 
 	//window.create(VideoMode(1280, 1024), "Game", Style::None);
 	window.create(videoMode, "Game", Style::Default);
 	//window.setFramerateLimit(30);
 	
-	mainMenuScene.load();
+	//mainMenuScene.load();
 	gameScene.load(window);
 
-	mainMenuScene.setActive(true, window);
+	//mainMenuScene.setActive(true, window);
+	gameScene.setActive(true, window);
 	
 	
 }
