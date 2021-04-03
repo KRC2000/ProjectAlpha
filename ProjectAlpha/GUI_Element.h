@@ -12,8 +12,8 @@ public:
 	GUI_Element() {};
 	virtual ~GUI_Element() {};
 
-	virtual void assignTextureRes(std::vector<sf::Texture>& textureResourcesVec) = 0;
-	virtual void update(IEC& iec, sf::RenderWindow& window, sf::View& view) = 0;
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
+	virtual void assignTextureRes(std::vector<sf::Texture>& uiResVec) = 0;
+	virtual bool update(IEC& iec, sf::RenderWindow& window, sf::View& view) = 0;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states = RenderStates::Default) const override = 0;
 };
 
