@@ -191,6 +191,7 @@
     <ClInclude Include="Slider.h" />
     <ClInclude Include="Storage.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UiResEnum.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\buildings.png" />

@@ -161,6 +161,9 @@
     <ClInclude Include="PrecompiledHeaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UiResEnum.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\buildings.png">
