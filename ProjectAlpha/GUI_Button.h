@@ -1,25 +1,40 @@
 #pragma once
-#include "PrecompiledHeaders.h"
 
-class GUI_Button
+#include"GUI_Element.h"
+#include "UiResEnum.h"
+
+using namespace sf;
+using namespace std;
+
+class GUI_Button: public GUI_Element
 {
 private:
-	Texture t;
+	Texture* t;
+	UiResEnum buttonType;
 	Sprite spriteIdle;
-	string texturePath;
 	string name = "Unnamed";
 public:
-	GUI_Button();
-	void load(string texturePath, string name);
+	GUI_Button(UiResEnum buttonType = UiResEnum::MAINMENU_BUTTON_DEFAULT, string name = "Unnamed");
+	virtual ~GUI_Button() {};
+
+	virtual void assignTextureRes(vector<Texture>& uiResVec) override;
 
 	// Returns true when button was clicked
-	bool update(IEC& iec, RenderWindow& window, View& view);
-	void draw(RenderWindow& window);
+	virtual bool update(IEC& iec, RenderWindow& window, View& view) override;
+	virtual void draw(RenderTarget& target, RenderStates states) const override;
 
+	////////// SETTERS
+	//
 	void setScale(Vector2f factor);
 	void setPosition(Vector2f pos);
+	//
+	//////////////////
 
+	////////// GETTERS
+	//
 	FloatRect getGlobalBounds();
 	string getName();
-};
+	//
+	//////////////////
 
+};

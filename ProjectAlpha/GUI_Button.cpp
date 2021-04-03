@@ -1,20 +1,16 @@
 #include "GUI_Button.h"
 
-GUI_Button::GUI_Button()
+GUI_Button::GUI_Button(UiResEnum buttonType, string name):
+	name(name), 
+	buttonType(buttonType)
 {
-
 }
 
-void GUI_Button::load(string texturePath, string name)
+void GUI_Button::assignTextureRes(vector<Texture>& uiResVec)
 {
-	this->name = name;
-	this->texturePath = texturePath;
-	t.loadFromFile(texturePath);
-	spriteIdle.setTexture(t);
+	spriteIdle.setTexture(uiResVec[buttonType]);
 	spriteIdle.setTextureRect(IntRect(0, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
-	
 }
-
 
 bool GUI_Button::update(IEC& iec, RenderWindow &window, View &view)
 {
@@ -33,9 +29,9 @@ bool GUI_Button::update(IEC& iec, RenderWindow &window, View &view)
 	return false;
 }
 
-void GUI_Button::draw(RenderWindow& window)
+void GUI_Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	window.draw(spriteIdle);
+	target.draw(spriteIdle);
 }
 
 void GUI_Button::setScale(Vector2f factor)
