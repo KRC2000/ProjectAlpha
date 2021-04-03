@@ -4,13 +4,15 @@
 #include "GUI_ItemsList.h"
 #include "GUI_IndicatorLine.h"
 #include "GUI_ActionPanel.h"
-#include"GUI_Button.h"
+#include "GUI_Button.h"
 
+#include "UiResEnum.h"
 
 class UI
 {
 	/*Global textures storage reference to spread among object's load() functions*/
-	vector<Texture>* texturesResourcesVecPtr;
+	vector<Texture>* texturesResVecPtr;
+	vector<Texture> uiResVec;
 
 	/* Own view for objects, that should be aligned to center of the screen
 	 and not to global world*/
@@ -31,7 +33,7 @@ class UI
 	bool playerIsInsideLocation = false;
 
 	/* Button for opening backpack*/
-	GUI_Button backpack_b;
+	GUI_Button backpack_b{ UiResEnum::GAMESCENE_BUTTON_BACKPACK, "backpack" };
 
 	GUI_ActionPanel panel;
 
@@ -73,5 +75,7 @@ public:
 
 	// Functions for use only inside the class
 private:
+
+	void loadUiRes();
 };
 
