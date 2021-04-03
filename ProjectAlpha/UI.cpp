@@ -6,7 +6,7 @@ UI::UI()
 
 void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font* font)
 {
-	this->texturesResourcesVecPtr = texturesResourcesVec;
+	this->texturesResVecPtr = texturesResourcesVec;
 	guiFont1 = font;
 
 	// Initializing local UI view
@@ -15,19 +15,20 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	//view.setSize({ 2000, 1800});
 	view.setCenter(view.getSize().x/2, view.getSize().y / 2);
 
+	loadUiRes();
 
-	//indicatorsVec[HEALTH].load(&texturesResourcesVecPtr->at(ResourcesEnum::INDICATORLINE_T));
-	indicatorsVec[HEALTH].assignTextureRes(*texturesResourcesVecPtr);
-	indicatorsVec[SLEEP].assignTextureRes(*texturesResourcesVecPtr);
-	indicatorsVec[TEMPERATURE].assignTextureRes(*texturesResourcesVecPtr);
-	indicatorsVec[THIRST].assignTextureRes(*texturesResourcesVecPtr);
-	indicatorsVec[HUNGER].assignTextureRes(*texturesResourcesVecPtr);
+	//indicatorsVec[HEALTH].load(&texturesResVecPtr->at(ResourcesEnum::INDICATORLINE_T));
+	indicatorsVec[HEALTH].assignTextureRes(uiResVec);
+	indicatorsVec[SLEEP].assignTextureRes(uiResVec);
+	indicatorsVec[TEMPERATURE].assignTextureRes(uiResVec);
+	indicatorsVec[THIRST].assignTextureRes(uiResVec);
+	indicatorsVec[HUNGER].assignTextureRes(uiResVec);
 	
-	indicatorsVec[HEALTH].setPictureTitle(&texturesResourcesVecPtr->at(ResourcesEnum::STATUSICONS_T), {100 * 0, 0, 100, 100});
-	indicatorsVec[SLEEP].setPictureTitle(&texturesResourcesVecPtr->at(ResourcesEnum::STATUSICONS_T), {100 * 1, 0, 100, 100});
-	indicatorsVec[TEMPERATURE].setPictureTitle(&texturesResourcesVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 2, 0, 100, 100});
-	indicatorsVec[THIRST].setPictureTitle(&texturesResourcesVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 3, 0, 100, 100});
-	indicatorsVec[HUNGER].setPictureTitle(&texturesResourcesVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 4, 0, 100, 100});
+	indicatorsVec[HEALTH].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), {100 * 0, 0, 100, 100});
+	indicatorsVec[SLEEP].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), {100 * 1, 0, 100, 100});
+	indicatorsVec[TEMPERATURE].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 2, 0, 100, 100});
+	indicatorsVec[THIRST].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 3, 0, 100, 100});
+	indicatorsVec[HUNGER].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 4, 0, 100, 100});
 	
 	indicatorsVec[HEALTH].setPos({ indicatorsVec[HEALTH].getPictureSprite()->getGlobalBounds().width, clock.getTextObj()->getGlobalBounds().height + 30});
 	indicatorsVec[SLEEP].setPos({ indicatorsVec[SLEEP].getPictureSprite()->getGlobalBounds().width,
@@ -43,20 +44,24 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	clock.setPos({ 0 , 0 });
 	
 	panel.load(*texturesResourcesVec);
-	panel.addActionButton("res/info.png", "info");
+	panel.addActionButton(uiResVec, UiResEnum::GUI_ACTIONPANEL_BUTTON_INFO, "info");
+	panel.addActionButton(uiResVec, UiResEnum::GUI_ACTIONPANEL_BUTTON_USE, "use");
+	panel.addActionButton(uiResVec, UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT, "eat");
+	/*panel.addActionButton("res/info.png", "info");
 	panel.addActionButton("res/hand.png", "use");
-	panel.addActionButton("res/eating.png", "eat");
+	panel.addActionButton("res/eating.png", "eat");*/
 
 
 	// Items lists load() 
-	inventoryItemsList.load(texturesResourcesVecPtr,
-		{ view.getSize().x / 2 + 40, view.getSize().y / 2 -(float)texturesResourcesVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
-	locationItemsList.load(texturesResourcesVecPtr,
-		{ view.getSize().x / 2 -(float)texturesResourcesVecPtr->at(ResourcesEnum::GUI_T).getSize().x - 40,
-		view.getSize().y / 2 - (float)texturesResourcesVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
+	inventoryItemsList.load(texturesResVecPtr, uiResVec,
+		{ view.getSize().x / 2 + 40, view.getSize().y / 2 -(float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
+	locationItemsList.load(texturesResVecPtr, uiResVec,
+		{ view.getSize().x / 2 -(float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().x - 40,
+		view.getSize().y / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
 
 	// Backpack opening button initializing
-	backpack_b.load("res/bagButton.png", "backpack");
+	backpack_b.assignTextureRes(uiResVec);
+	//backpack_b.load("res/bagButton.png", "backpack");
 	backpack_b.setScale({ 0.2, 0.2 });
 	backpack_b.setPosition({ view.getSize().x /2 - backpack_b.getGlobalBounds().width / 2, view.getSize().y - backpack_b.getGlobalBounds().height });
 }
@@ -180,7 +185,7 @@ void UI::draw(RenderWindow& window)
 
 	panel.draw(window);
 
-	backpack_b.draw(window);
+	window.draw(backpack_b);
 
 	///////////////////////////
 
@@ -218,6 +223,21 @@ GUI_ItemsList* UI::getInventoryItemList()
 GUI_ItemsList* UI::getLocationItemList()
 {
 	return &locationItemsList;
+}
+
+void UI::loadUiRes()
+{
+	for (int i = 0; i < UiResEnum::RES_AMOUNT; i++)
+		uiResVec.push_back(Texture());
+
+	uiResVec[UiResEnum::MAINMENU_BUTTON_DEFAULT].loadFromFile("res/mainMenuDefaultButton.png");
+	uiResVec[UiResEnum::GAMESCENE_BUTTON_BACKPACK].loadFromFile("res/bagButton.png");
+	uiResVec[UiResEnum::GUI_INDICATORLINE].loadFromFile("res/IndicatorLine.png");
+	uiResVec[UiResEnum::GUI_ITEMLIST_BUTTON_UPLIST].loadFromFile("res/upListButton.png");
+	uiResVec[UiResEnum::GUI_ITEMLIST_BUTTON_DOWNLIST].loadFromFile("res/downListButton.png");
+	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_INFO].loadFromFile("res/info.png");
+	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT].loadFromFile("res/eating.png");
+	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_USE].loadFromFile("res/hand.png");
 }
 
 

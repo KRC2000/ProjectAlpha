@@ -5,7 +5,7 @@ GUI_ItemsList::GUI_ItemsList()
 	
 }
 
-void GUI_ItemsList::load(vector<Texture>* texturesResourcesVec, Vector2f pos, Font* font)
+void GUI_ItemsList::load(vector<Texture>* texturesResourcesVec, vector<Texture>& uiResVec, Vector2f pos, Font* font)
 {
 	resourcesVec = texturesResourcesVec;
 	guiFont1 = font;
@@ -13,8 +13,10 @@ void GUI_ItemsList::load(vector<Texture>* texturesResourcesVec, Vector2f pos, Fo
 	s_border.setTexture(resourcesVec->at(ResourcesEnum::GUI_T));
 
 	// load() underlying objects: buttons, slider, items-list items(if they are)
-	upListButton.load("res/upListButton.png", "goUpList");
-	downListButton.load("res/downListButton.png", "goDownList");
+	/*upListButton.load("res/upListButton.png", "goUpList");
+	downListButton.load("res/downListButton.png", "goDownList");*/
+	upListButton.assignTextureRes(uiResVec);
+	downListButton.assignTextureRes(uiResVec);
 	slider.load({ (float)resourcesVec->at(ResourcesEnum::GUI_T).getSize().x + 3, upListButton.getGlobalBounds().height},
 		(float)resourcesVec->at(ResourcesEnum::GUI_T).getSize().y -
 		(upListButton.getGlobalBounds().height + downListButton.getGlobalBounds().height ));
@@ -187,8 +189,8 @@ void GUI_ItemsList::draw(RenderWindow& window)
 		{
 			if (!isBorderIntersectsWithItem(0) || !isBorderIntersectsWithItem(itemsVec.size() - 1))
 			{
-				upListButton.draw(window);
-				downListButton.draw(window);
+				window.draw(upListButton);
+				window.draw(downListButton);
 				slider.draw(window);
 			}
 		}
