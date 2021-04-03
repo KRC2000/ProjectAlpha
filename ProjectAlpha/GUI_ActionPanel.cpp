@@ -24,12 +24,12 @@ GUI_Button* GUI_ActionPanel::update(IEC& iec, RenderWindow& window, View& view)
 	return nullptr;
 }
 
-void GUI_ActionPanel::addActionButton(string texturePath, string buttonName)
+void GUI_ActionPanel::addActionButton(vector<Texture>& uiResVec, UiResEnum buttonType, string buttonName)
 {
-	GUI_Button b;
+	GUI_Button b(buttonType, buttonName);
 	//cout << "size" << buttonsVec.size() << endl;
 	buttonsVec.push_back(b);
-	buttonsVec.back().load(texturePath, buttonName);
+	buttonsVec.back().assignTextureRes(uiResVec);
 	//cout << "width" << buttonsVec.back().getGlobalBounds().width << endl;
 	buttonsVec.back().setScale({ 0.4, 0.4 });
 	buttonsVec.back().setPosition({ pos.x + 15 + (buttonsVec.back().getGlobalBounds().width + 17) * (buttonsVec.size() - 1), pos.y + 6 });
@@ -55,7 +55,8 @@ void GUI_ActionPanel::draw(RenderWindow& window)
 			}
 
 			//buttonsVec[i].load("res/info.png");
-			buttonsVec[i].draw(window);
+			window.draw(buttonsVec[i]);
+			//buttonsVec[i].draw(window);
 		}
 
 		if (buttonsVec.size() > 1)
