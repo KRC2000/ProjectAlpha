@@ -22,11 +22,11 @@ bool GUI_Button::update(IEC& iec, RenderWindow &window, View &view)
 		spriteIdle.setTextureRect(IntRect(spriteIdle.getTexture()->getSize().x / 2, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
 	else spriteIdle.setTextureRect(IntRect(0, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
 
-	if (iec._LMB)
+	if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
 	{
 		if (spriteIdle.getGlobalBounds().contains(iec.getMousePos(window, view)))
 		{
-			iec._LMB = false;
+			iec.eventExpire(Mouse::Left);
 			return true;
 		}
 	}

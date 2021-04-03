@@ -95,7 +95,7 @@ void UI::update(IEC& iec, RenderWindow& window)
 	/*If RMB clicked and player is inside location
 	then
 	Basically logic for item swap from one item list to another*/
-	if (iec._RMB && playerIsInsideLocation)
+	if ((iec.getMouseButtonState(Mouse::Right) == IEC::KeyState::JUSTPRESSED) && playerIsInsideLocation)
 	{
 		if (inventoryItemsList.getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, view)) &&
 			inventoryItemsList.getAssignedStorage()->getItemsVec()->size() >= 1)
@@ -117,7 +117,7 @@ void UI::update(IEC& iec, RenderWindow& window)
 		}
 	}
 
-	if (iec._LMB)	
+	if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
 	{
 		if (!panel.getIsActive())
 		{
@@ -144,7 +144,7 @@ void UI::update(IEC& iec, RenderWindow& window)
 	 then
 	 Basically logic for closing inventory windows(items lists) when clicked outside of
 	 their sprite bounds*/
-	if (iec._LMB && playerInventoryIsOpened)
+	if ((iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED) && playerInventoryIsOpened)
 	{
 		if((!inventoryItemsList.getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, view))
 			&& !locationItemsList.getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, view))
@@ -155,7 +155,7 @@ void UI::update(IEC& iec, RenderWindow& window)
 			locationItemsList.setActive(false);
 			panel.setActive(false);
 			playerInventoryIsOpened = false;
-			iec._LMB = false;
+			iec.eventExpire(Mouse::Left);
 		}
 	}
 

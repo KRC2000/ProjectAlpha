@@ -40,11 +40,11 @@ Image* Map::getMapImage()
 
 void Map::update(IEC& iec, RenderWindow& window)
 {
-	if (iec.mouseWheelDelta != 0)
+	if (iec.getMouseWheelDelta() != 0)
 	{
 		for (int i = 0; i < pointersVec.size(); i++)
 		{
-			pointersVec[i].zoom({ 1 - (float)iec.mouseWheelDelta / 10, 1 - (float)iec.mouseWheelDelta / 10 });
+			pointersVec[i].zoom({ 1 - (float)iec.getMouseWheelDelta() / 10, 1 - (float)iec.getMouseWheelDelta() / 10 });
 		}
 	}
 }

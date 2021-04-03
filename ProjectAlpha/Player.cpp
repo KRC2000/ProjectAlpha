@@ -72,7 +72,7 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 	setSpeedToPixel(&map);
 
 	// If LMB clicked
-	if (iec._LMB)
+	if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
 	{
 		// If inventory is closed
 		if (!ui.getPlayerInventoryIsOpened())
@@ -117,7 +117,7 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 	if (traveling) inside = false;
 
 	// Travel stop conditions
-	if (iec._Space) stopTravel();
+	if (iec.getKeyboardKeyState(Keyboard::Space)) stopTravel();
 	if (ui.getPlayerInventoryIsOpened()) stopTravel();
 
 	// Time control
@@ -153,10 +153,10 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 	}
 
 	// Mouse wheel scaling
-	if (iec.mouseWheelDelta != 0)
+	if (iec.getMouseWheelDelta() != 0)
 	{
-		playerSprite.scale({ 1 - iec.mouseWheelDelta / 10.f, 1 -(float)iec.mouseWheelDelta / 10.f });
-		targetPointSprite.scale({ 1 - iec.mouseWheelDelta / 10.f, 1 -(float)iec.mouseWheelDelta / 10.f });
+		playerSprite.scale({ 1 - iec.getMouseWheelDelta() / 10.f, 1 -(float)iec.getMouseWheelDelta() / 10.f });
+		targetPointSprite.scale({ 1 - iec.getMouseWheelDelta() / 10.f, 1 -(float)iec.getMouseWheelDelta() / 10.f });
 	}
 	
 	
@@ -207,8 +207,8 @@ Vector2f Player::getPos()
 void Player::travel(IEC* iec)
 {
 	traveling = true;
-	pos.x += normilizedTravelVec.x * speed * (float)iec->cycleTime.asMicroseconds();
-	pos.y += normilizedTravelVec.y * speed * (float)iec->cycleTime.asMicroseconds();
+	pos.x += normilizedTravelVec.x * speed * (float)iec->getCycleTime().asMicroseconds();
+	pos.y += normilizedTravelVec.y * speed * (float)iec->getCycleTime().asMicroseconds();
 
 	playerSprite.setPosition(pos);
 

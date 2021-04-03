@@ -37,7 +37,7 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 		
 
 		//if (iec._LMB) { cout << iec.getMousePos(window, window.getView()).x << "  " << iec.getMousePos(window, window.getView()).y << endl; }
-		if (iec.mouseWheelDelta != 0) view.zoom(1 - (float)iec.mouseWheelDelta / 10);
+		if (iec.getMouseWheelDelta() != 0) view.zoom(1 - (float)iec.getMouseWheelDelta() / 10);
 	}
 	return NONE_SCENE;
 }
