@@ -35,7 +35,7 @@ public:
 	void setPictureTitle(Texture* t, IntRect rect);
 	//void update();
 	//void draw(RenderWindow& window);
-	virtual void update(Event& event, RenderWindow& window, View& view) override {};
+	virtual void update(IEC& iec, RenderWindow& window, View& view) override {};
 
 
 	virtual void draw(RenderTarget& target, RenderStates states) const override;
