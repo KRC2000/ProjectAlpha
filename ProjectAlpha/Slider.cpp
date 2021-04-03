@@ -16,15 +16,16 @@ void Slider::load(Vector2f basePoint, float pathLenght)
 
 bool Slider::update(IEC& iec, RenderWindow& window, View& view)
 {
-	if (iec._LMB && s_slider.getGlobalBounds().contains(iec.getMousePos(window, view)))
+	if ((iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED) && 
+		s_slider.getGlobalBounds().contains(iec.getMousePos(window, view)))
 	{
 		grabbed = true;
 		cursorOffset.y = iec.getMousePos(window, view).y - s_slider.getPosition().y;
 
-		iec._LMB = false;
+		iec.eventExpire(Mouse::Left);
 	}
 
-	if (iec.LMB_) grabbed = false;
+	if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTRELEASED) grabbed = false;
 		
 
 	if (grabbed && s_slider.getPosition().y >= basePoint.y && s_slider.getPosition().y <= basePoint.y + pathLenght)

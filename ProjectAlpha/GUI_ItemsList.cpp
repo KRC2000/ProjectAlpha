@@ -116,17 +116,17 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 		{
 			if (itemsVec.size() > 1)
 			{
-				if (iec.mouseWheelDelta != 0)
+				if (iec.getMouseWheelDelta() != 0)
 				{
 					beingScrolled = true;
-					if (iec.mouseWheelDelta == 1)
+					if (iec.getMouseWheelDelta() == 1)
 					{
 						if (itemsVec[0].getSpriteBox()->getPosition().y < baseUpperEdgePoint.y)
 						{
 							moveItems({ 0, 15 });
 						}
 					}
-					if (iec.mouseWheelDelta == -1)
+					if (iec.getMouseWheelDelta() == -1)
 					{
 						if (itemsVec[itemsVec.size()-1].getSpriteBox()->getPosition().y + itemsVec[itemsVec.size() - 1].getSpriteBox()->getGlobalBounds().height > baseDownEdgePoint.y)
 						{
@@ -135,7 +135,7 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 					}
 				}
 			}
-			iec.mouseWheelDelta = 0;
+			iec.expireMouseWheelDelta();
 		}
 
 		// Can't scroll out of bounds, stables
