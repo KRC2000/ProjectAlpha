@@ -32,6 +32,7 @@ private:
 	Time cycleTime;
 	int mouseWheelDelta;
 	//Time timePerFrame = seconds(1.f / 60.f);
+	//
 public:
 
 	Event event;
