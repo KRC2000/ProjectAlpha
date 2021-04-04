@@ -17,12 +17,15 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 
 	loadUiRes();
 
+	// In-game clocks initializing
+	clock.assignRes(uiResVec, &uiFontsVec);
+
 	//indicatorsVec[HEALTH].load(&texturesResVecPtr->at(ResourcesEnum::INDICATORLINE_T));
-	indicatorsVec[HEALTH].assignTextureRes(uiResVec);
-	indicatorsVec[SLEEP].assignTextureRes(uiResVec);
-	indicatorsVec[TEMPERATURE].assignTextureRes(uiResVec);
-	indicatorsVec[THIRST].assignTextureRes(uiResVec);
-	indicatorsVec[HUNGER].assignTextureRes(uiResVec);
+	indicatorsVec[HEALTH].assignRes(uiResVec);
+	indicatorsVec[SLEEP].assignRes(uiResVec);
+	indicatorsVec[TEMPERATURE].assignRes(uiResVec);
+	indicatorsVec[THIRST].assignRes(uiResVec);
+	indicatorsVec[HUNGER].assignRes(uiResVec);
 	
 	indicatorsVec[HEALTH].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), {100 * 0, 0, 100, 100});
 	indicatorsVec[SLEEP].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), {100 * 1, 0, 100, 100});
@@ -40,8 +43,6 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	indicatorsVec[HUNGER].setPos({ indicatorsVec[HUNGER].getPictureSprite()->getGlobalBounds().width,
 		clock.getTextObj()->getGlobalBounds().height + 30 + 4 * indicatorsVec[HUNGER].getPictureSprite()->getGlobalBounds().height });
 
-	// In-game clocks initializing
-	clock.setPos({ 0 , 0 });
 	
 	panel.load(*texturesResourcesVec);
 	panel.addActionButton(uiResVec, UiResEnum::GUI_ACTIONPANEL_BUTTON_INFO, "info");
@@ -60,7 +61,7 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 		view.getSize().y / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
 
 	// Backpack opening button initializing
-	backpack_b.assignTextureRes(uiResVec);
+	backpack_b.assignRes(uiResVec);
 	//backpack_b.load("res/bagButton.png", "backpack");
 	backpack_b.setScale({ 0.2, 0.2 });
 	backpack_b.setPosition({ view.getSize().x /2 - backpack_b.getGlobalBounds().width / 2, view.getSize().y - backpack_b.getGlobalBounds().height });
@@ -68,7 +69,7 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 
 void UI::update(IEC& iec, RenderWindow& window)
 {
-	clock.update();
+	clock.update(iec, window, view);
 	//line.update();
 
 	inventoryItemsList.update(iec, window, view);
@@ -175,7 +176,7 @@ void UI::draw(RenderWindow& window)
 	window.setView(view);
 	///////////////////////////
 
-	clock.draw(window);
+	window.draw(clock);
 
 	inventoryItemsList.draw(window);
 	locationItemsList.draw(window);
@@ -238,6 +239,11 @@ void UI::loadUiRes()
 	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_INFO].loadFromFile("res/info.png");
 	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT].loadFromFile("res/eating.png");
 	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_USE].loadFromFile("res/hand.png");
+
+	for (int i = 0; i < UiFontsEnum::FONTS_AMOUNT; i++)
+		uiFontsVec.push_back(Font());
+
+	uiFontsVec[UiFontsEnum::PIXELATED_3D_DEFAULT].loadFromFile("res/VintageOne.ttf");
 }
 
 

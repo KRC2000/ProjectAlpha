@@ -164,6 +164,9 @@
     <ClInclude Include="UiResEnum.h">
       <Filter>Enums</Filter>
     </ClInclude>
+    <ClInclude Include="UiFontsEnum.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\buildings.png">

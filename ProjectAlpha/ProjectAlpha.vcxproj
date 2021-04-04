@@ -165,6 +165,7 @@
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="UiFontsEnum.h" />
     <ClInclude Include="GUI_Button.h" />
     <ClInclude Include="GUI_ActionPanel.h" />
     <ClInclude Include="GUI_Clocks.h" />

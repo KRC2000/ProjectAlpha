@@ -1,7 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <array>
-#include <iostream>
 using namespace sf;
 using namespace std;
 

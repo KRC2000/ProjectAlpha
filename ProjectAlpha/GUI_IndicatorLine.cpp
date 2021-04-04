@@ -4,7 +4,7 @@ GUI_IndicatorLine::GUI_IndicatorLine()
 {
 }
 
-void GUI_IndicatorLine::assignTextureRes(vector<sf::Texture>& uiResVec)
+void GUI_IndicatorLine::assignRes(vector<sf::Texture>& uiResVec, std::vector<sf::Font>* fontsVec)
 {
 	t_line = &uiResVec[UiResEnum::GUI_INDICATORLINE];
 	t_line->setRepeated(true);

@@ -29,7 +29,7 @@ void GUI_ActionPanel::addActionButton(vector<Texture>& uiResVec, UiResEnum butto
 	GUI_Button b(buttonType, buttonName);
 	//cout << "size" << buttonsVec.size() << endl;
 	buttonsVec.push_back(b);
-	buttonsVec.back().assignTextureRes(uiResVec);
+	buttonsVec.back().assignRes(uiResVec);
 	//cout << "width" << buttonsVec.back().getGlobalBounds().width << endl;
 	buttonsVec.back().setScale({ 0.4, 0.4 });
 	buttonsVec.back().setPosition({ pos.x + 15 + (buttonsVec.back().getGlobalBounds().width + 17) * (buttonsVec.size() - 1), pos.y + 6 });

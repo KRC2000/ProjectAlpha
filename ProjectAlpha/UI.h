@@ -13,6 +13,7 @@ class UI
 	/*Global textures storage reference to spread among object's load() functions*/
 	vector<Texture>* texturesResVecPtr;
 	vector<Texture> uiResVec;
+	vector<Font> uiFontsVec;
 
 	/* Own view for objects, that should be aligned to center of the screen
 	 and not to global world*/

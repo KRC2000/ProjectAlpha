@@ -1,12 +1,8 @@
 #pragma once
-//#include"PrecompiledHeaders.h"
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-
-#include "ResourcesEnum.h"
+#include"PrecompiledHeaders.h"
 #include "UiResEnum.h"
 #include "GUI_Element.h"
+
 using namespace sf;
 using namespace std;
 
@@ -32,7 +28,7 @@ public:
 	GUI_IndicatorLine();
 	virtual ~GUI_IndicatorLine() {};
 
-	virtual void assignTextureRes(vector<sf::Texture>& uiResVec) override;
+	virtual void assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec = nullptr) override;
 
 	void setPictureTitle(Texture* t, IntRect rect);
 	//void update();

@@ -15,8 +15,8 @@ void GUI_ItemsList::load(vector<Texture>* texturesResourcesVec, vector<Texture>&
 	// load() underlying objects: buttons, slider, items-list items(if they are)
 	/*upListButton.load("res/upListButton.png", "goUpList");
 	downListButton.load("res/downListButton.png", "goDownList");*/
-	upListButton.assignTextureRes(uiResVec);
-	downListButton.assignTextureRes(uiResVec);
+	upListButton.assignRes(uiResVec);
+	downListButton.assignRes(uiResVec);
 	slider.load({ (float)resourcesVec->at(ResourcesEnum::GUI_T).getSize().x + 3, upListButton.getGlobalBounds().height},
 		(float)resourcesVec->at(ResourcesEnum::GUI_T).getSize().y -
 		(upListButton.getGlobalBounds().height + downListButton.getGlobalBounds().height ));
