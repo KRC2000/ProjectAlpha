@@ -5,25 +5,28 @@ GUI_ItemsList::GUI_ItemsList()
 	
 }
 
-void GUI_ItemsList::load(vector<Texture>* texturesResourcesVec, vector<Texture>& uiResVec, Vector2f pos, Font* font)
+void GUI_ItemsList::load(vector<Texture>* texturesResVec, vector<Texture>& uiResVec, Vector2f pos, vector<Font>* uiFontsVec)
 {
-	resourcesVec = texturesResourcesVec;
-	guiFont1 = font;
+	textureResVec = texturesResVec;
+	this->uiResVec = &uiResVec;
+	//guiFont1 = font;
+	this->uiFontsVec = uiFontsVec;
 
-	s_border.setTexture(resourcesVec->at(ResourcesEnum::GUI_T));
+	s_border.setTexture(texturesResVec->at(ResourcesEnum::GUI_T));
 
 	// load() underlying objects: buttons, slider, items-list items(if they are)
 	/*upListButton.load("res/upListButton.png", "goUpList");
 	downListButton.load("res/downListButton.png", "goDownList");*/
 	upListButton.assignRes(uiResVec);
 	downListButton.assignRes(uiResVec);
-	slider.load({ (float)resourcesVec->at(ResourcesEnum::GUI_T).getSize().x + 3, upListButton.getGlobalBounds().height},
-		(float)resourcesVec->at(ResourcesEnum::GUI_T).getSize().y -
+	slider.load({ (float)texturesResVec->at(ResourcesEnum::GUI_T).getSize().x + 3, upListButton.getGlobalBounds().height},
+		(float)texturesResVec->at(ResourcesEnum::GUI_T).getSize().y -
 		(upListButton.getGlobalBounds().height + downListButton.getGlobalBounds().height ));
 
 	for (unsigned int i = 0; i < itemsVec.size(); i++)
 	{
-		itemsVec[i].load(*resourcesVec, font);
+		//itemsVec[i].load(*resourcesVec, font);
+		itemsVec[i].assignRes(*this->uiResVec, this->uiFontsVec, texturesResVec);
 	}
 
 	setPosition(pos);
@@ -51,9 +54,10 @@ void GUI_ItemsList::assignStorage(Storage* storage)
 	// initializing and load() of all just created items-list items
 	for (unsigned int i = 0; i < itemsVec.size(); i++)
 	{
-		itemsVec[i].load(*resourcesVec, guiFont1);
+		//itemsVec[i].load(*resourcesVec, guiFont1);
+		itemsVec[i].assignRes(*uiResVec, this->uiFontsVec, textureResVec);
 		itemsVec[i].setPos({ baseUpperEdgePoint.x, 
-			baseUpperEdgePoint.y + i * (resourcesVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y + distanceBetweenItems)});
+			baseUpperEdgePoint.y + i * (textureResVec->at(ResourcesEnum::ITEMSLISTITEM_T).getSize().y + distanceBetweenItems)});
 	}
 
 	recalculateItemListLenght();
@@ -109,7 +113,7 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 		// Updating every items-list item
 		for (unsigned int i = 0; i < itemsVec.size(); i++)
 		{
-			itemsVec[i].update(iec);
+			itemsVec[i].update(iec, window, view);
 		}
 		
 		// System of moving content on mouse scroll
@@ -181,7 +185,7 @@ void GUI_ItemsList::draw(RenderWindow& window)
 
 		for (unsigned int i = 0; i < itemsVec.size(); i++)
 		{
-			itemsVec[i].draw(window);
+			window.draw(itemsVec[i]);
 		}
 
 		// Drawing slider and buttons only if they are not fitting in background sprite
@@ -257,7 +261,8 @@ void GUI_ItemsList::addItem(Item newItem)
 	if (newItem.getId() >= ItemsEnum::UNKNOWN && newItem.getId() < ItemsEnum::ITEMS_AMOUNT)
 	{
 		GUI_ItemsListItem item(newItem.getId(), newItem.getAmount(), newItem.getIsReusable(), newItem.getCondition());
-		item.load(*resourcesVec, guiFont1);
+		//item.load(*resourcesVec, guiFont1);
+		item.assignRes(*uiResVec, uiFontsVec, textureResVec);
 
 		if (itemsVec.size() >= 1)
 		{

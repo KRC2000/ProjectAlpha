@@ -28,7 +28,7 @@ public:
 	GUI_IndicatorLine();
 	virtual ~GUI_IndicatorLine() {};
 
-	virtual void assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec = nullptr) override;
+	virtual void assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec = nullptr, vector<Texture>* textureResVec = nullptr) override;
 
 	void setPictureTitle(Texture* t, IntRect rect);
 	//void update();

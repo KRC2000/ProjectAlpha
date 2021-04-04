@@ -17,7 +17,7 @@ public:
 	GUI_Button(UiResEnum buttonType = UiResEnum::MAINMENU_BUTTON_DEFAULT, string name = "Unnamed");
 	virtual ~GUI_Button() {};
 
-	virtual void assignRes(vector<Texture>& uiResVec, std::vector<sf::Font>* fontsVec = nullptr) override;
+	virtual void assignRes(vector<Texture>& uiResVec, std::vector<sf::Font>* fontsVec = nullptr, vector<Texture>* textureResVec = nullptr) override;
 
 	// Returns true when button was clicked
 	virtual bool update(IEC& iec, RenderWindow& window, View& view) override;

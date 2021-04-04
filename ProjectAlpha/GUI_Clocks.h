@@ -15,7 +15,7 @@ public:
 	GUI_Clocks() {};
 	virtual ~GUI_Clocks() {};
 
-	virtual void assignRes(vector<Texture>& uiResVec, std::vector<sf::Font>* fontsVec = nullptr) override;
+	virtual void assignRes(vector<Texture>& uiResVec, std::vector<sf::Font>* fontsVec = nullptr, vector<Texture>* textureResVec = nullptr) override;
 
 	// Recalculating format. Basically keeps numbers manipulating as time should -
 	// only 59 minutes and 24 hours

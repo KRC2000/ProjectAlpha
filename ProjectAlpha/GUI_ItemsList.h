@@ -5,6 +5,7 @@
 #include "Storage.h"
 #include "Slider.h"
 #include "GUI_ItemsListItem.h"
+#include "UiFontsEnum.h"
 
 // This class was invented by nazis as a practical joke, to torture every soul that
 // will try to understand it. You may try to understand it, but only if diameter 
@@ -13,7 +14,8 @@
 class GUI_ItemsList
 {
 	// Global textures storage reference to spread among object's load() functions
-	vector<Texture> * resourcesVec = nullptr;
+	vector<Texture>* textureResVec = nullptr;
+	vector<Texture>* uiResVec = nullptr;
 
 	// Items list background canvas sprite
 	Sprite s_border;
@@ -35,7 +37,8 @@ class GUI_ItemsList
 	float onePercentLenght{ 0 };
 
 	// Font reference to spread among object's load() functions(those who got drawable Text objects)
-	Font* guiFont1 = nullptr;
+	vector<Font>* uiFontsVec;
+	//Font* guiFont1 = nullptr;
 
 	// Reference to Storage object that contains items that should be displayed by items list
 	// If == nullptr then items list display nothing
@@ -57,7 +60,7 @@ class GUI_ItemsList
 	float itemListLenght{0};
 public:
 	GUI_ItemsList();
-	void load(vector<Texture>* texturesResourcesVec, vector<Texture>& uiResVec, Vector2f pos, Font* font);
+	void load(vector<Texture>* texturesResourcesVec, vector<Texture>& uiResVec, Vector2f pos, vector<Font>* uiFontsVec);
 	
 	// Clears items-list items vector, and creates new items according to storage
 	void assignStorage(Storage* storage);

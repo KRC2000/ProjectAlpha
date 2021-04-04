@@ -6,7 +6,7 @@ GUI_Button::GUI_Button(UiResEnum buttonType, string name):
 {
 }
 
-void GUI_Button::assignRes(vector<Texture>& uiResVec, std::vector<sf::Font>* fontsVec)
+void GUI_Button::assignRes(vector<Texture>& uiResVec, std::vector<sf::Font>* fontsVec, vector<Texture>* textureResVec)
 {
 	spriteIdle.setTexture(uiResVec[buttonType]);
 	spriteIdle.setTextureRect(IntRect(0, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));

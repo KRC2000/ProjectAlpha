@@ -6,33 +6,78 @@ GUI_ItemsListItem::GUI_ItemsListItem(ItemsEnum itemId, int amount, bool reusable
 	
 }
 
-
-void GUI_ItemsListItem::load(vector<Texture>& textureResourcesVec, Font* font)
+void GUI_ItemsListItem::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, vector<Texture>* textureResVec)
 {
-	s_box.setTexture(textureResourcesVec.at(ResourcesEnum::ITEMSLISTITEM_T));
-	s_image.setTexture(textureResourcesVec.at(ResourcesEnum::ITEMS_T));
+	s_box.setTexture(uiResVec[UiResEnum::GUI_ITEMSLISTITEM_CANVAS]);
+	s_image.setTexture(textureResVec->at(ResourcesEnum::ITEMS_T));
 	s_image.setTextureRect(IntRect(itemId * 100, 0, 100, 100));
 	s_image.setScale({ 0.4, 0.4 });
 	//if (!f.loadFromFile("res/KarmaFuture.ttf")) cout << ">>>>>Font loading failed!" << endl;
 
-	itemNameText.setFont(*font);
+	itemNameText.setFont(fontsVec->at(UiFontsEnum::PIXELATED_3D_DEFAULT));
 	itemNameText.setString(getItemNameString(itemId));
 	itemNameText.setCharacterSize(100);
 	itemNameText.setScale({ 0.3, 0.3 });
 	itemNameText.setFillColor(sf::Color::White);
 
-	amountText.setFont(*font);
+	amountText.setFont(fontsVec->at(UiFontsEnum::PIXELATED_3D_DEFAULT));
 	amountText.setString("x" + to_string(amount));
 	amountText.setCharacterSize(100);
 	amountText.setScale({ 0.25, 0.25 });
 	amountText.setFillColor(sf::Color::White);
 
-	conditionText.setFont(*font);
+	conditionText.setFont(fontsVec->at(UiFontsEnum::PIXELATED_3D_DEFAULT));
 	conditionText.setString(to_string(condition) + "%");
 	conditionText.setCharacterSize(100);
 	conditionText.setScale({ 0.2, 0.2 });
 	conditionText.setFillColor(sf::Color::White);
 }
+
+bool GUI_ItemsListItem::update(IEC& iec, RenderWindow& window, View& view)
+{
+	return false;
+}
+
+void GUI_ItemsListItem::draw(RenderTarget& target, RenderStates states) const
+{
+	if (visible)
+	{
+		target.draw(s_box);
+
+		target.draw(itemNameText);
+		target.draw(amountText);
+		target.draw(conditionText);
+		target.draw(s_image);
+	}
+}
+
+
+//void GUI_ItemsListItem::load(vector<Texture>& textureResourcesVec, Font* font)
+//{
+//	s_box.setTexture(textureResourcesVec.at(ResourcesEnum::ITEMSLISTITEM_T));
+//	s_image.setTexture(textureResourcesVec.at(ResourcesEnum::ITEMS_T));
+//	s_image.setTextureRect(IntRect(itemId * 100, 0, 100, 100));
+//	s_image.setScale({ 0.4, 0.4 });
+//	//if (!f.loadFromFile("res/KarmaFuture.ttf")) cout << ">>>>>Font loading failed!" << endl;
+//
+//	itemNameText.setFont(*font);
+//	itemNameText.setString(getItemNameString(itemId));
+//	itemNameText.setCharacterSize(100);
+//	itemNameText.setScale({ 0.3, 0.3 });
+//	itemNameText.setFillColor(sf::Color::White);
+//
+//	amountText.setFont(*font);
+//	amountText.setString("x" + to_string(amount));
+//	amountText.setCharacterSize(100);
+//	amountText.setScale({ 0.25, 0.25 });
+//	amountText.setFillColor(sf::Color::White);
+//
+//	conditionText.setFont(*font);
+//	conditionText.setString(to_string(condition) + "%");
+//	conditionText.setCharacterSize(100);
+//	conditionText.setScale({ 0.2, 0.2 });
+//	conditionText.setFillColor(sf::Color::White);
+//}
 
 void GUI_ItemsListItem::fadeIn()
 {
@@ -63,23 +108,6 @@ void GUI_ItemsListItem::fadeOut()
 	{
 		setTransparencyFade(0);
 		visible = false;
-	}
-}
-
-void GUI_ItemsListItem::update(IEC& iec)
-{
-}
-
-void GUI_ItemsListItem::draw(RenderWindow& window)
-{
-	if (visible)
-	{
-		window.draw(s_box);
-
-		window.draw(itemNameText);
-		window.draw(amountText);
-		window.draw(conditionText);
-		window.draw(s_image);
 	}
 }
 

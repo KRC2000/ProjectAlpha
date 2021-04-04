@@ -1,6 +1,6 @@
 #include "GUI_Clocks.h"
 
-void GUI_Clocks::assignRes(vector<Texture>& uiResVec, std::vector<Font>* fontsVec)
+void GUI_Clocks::assignRes(vector<Texture>& uiResVec, std::vector<Font>* fontsVec, vector<Texture>* textureResVec)
 {
 	if (fontsVec)
 	{

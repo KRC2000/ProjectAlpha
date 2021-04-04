@@ -55,10 +55,10 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 
 	// Items lists load() 
 	inventoryItemsList.load(texturesResVecPtr, uiResVec,
-		{ view.getSize().x / 2 + 40, view.getSize().y / 2 -(float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
+		{ view.getSize().x / 2 + 40, view.getSize().y / 2 -(float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, &uiFontsVec);
 	locationItemsList.load(texturesResVecPtr, uiResVec,
 		{ view.getSize().x / 2 -(float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().x - 40,
-		view.getSize().y / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, guiFont1);
+		view.getSize().y / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, & uiFontsVec);
 
 	// Backpack opening button initializing
 	backpack_b.assignRes(uiResVec);
@@ -239,6 +239,7 @@ void UI::loadUiRes()
 	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_INFO].loadFromFile("res/info.png");
 	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT].loadFromFile("res/eating.png");
 	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_USE].loadFromFile("res/hand.png");
+	uiResVec[UiResEnum::GUI_ITEMSLISTITEM_CANVAS].loadFromFile("res/ItemBar.png");
 
 	for (int i = 0; i < UiFontsEnum::FONTS_AMOUNT; i++)
 		uiFontsVec.push_back(Font());
