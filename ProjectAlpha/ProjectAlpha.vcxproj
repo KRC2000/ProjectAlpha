@@ -160,7 +160,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pointer.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="GUI_Slider.cpp" />
     <ClCompile Include="Storage.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
@@ -189,7 +189,7 @@
     <ClInclude Include="PrecompiledHeaders.h" />
     <ClInclude Include="ResourcesEnum.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Slider.h" />
+    <ClInclude Include="GUI_Slider.h" />
     <ClInclude Include="Storage.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UiResEnum.h" />

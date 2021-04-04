@@ -48,21 +48,16 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	panel.addActionButton(uiResVec, UiResEnum::GUI_ACTIONPANEL_BUTTON_INFO, "info");
 	panel.addActionButton(uiResVec, UiResEnum::GUI_ACTIONPANEL_BUTTON_USE, "use");
 	panel.addActionButton(uiResVec, UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT, "eat");
-	/*panel.addActionButton("res/info.png", "info");
-	panel.addActionButton("res/hand.png", "use");
-	panel.addActionButton("res/eating.png", "eat");*/
-
 
 	// Items lists load() 
-	inventoryItemsList.load(texturesResVecPtr, uiResVec,
-		{ view.getSize().x / 2 + 40, view.getSize().y / 2 -(float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, &uiFontsVec);
-	locationItemsList.load(texturesResVecPtr, uiResVec,
-		{ view.getSize().x / 2 -(float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().x - 40,
-		view.getSize().y / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 }, & uiFontsVec);
+	inventoryItemsList.assignRes(uiResVec, &uiFontsVec, texturesResVecPtr);
+	inventoryItemsList.setPosition({ view.getSize().x / 2 + 40, view.getSize().y / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 });
+	locationItemsList.assignRes(uiResVec, &uiFontsVec, texturesResVecPtr);
+	locationItemsList.setPosition({ view.getSize().x / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().x - 40,
+		view.getSize().y / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 });
 
 	// Backpack opening button initializing
 	backpack_b.assignRes(uiResVec);
-	//backpack_b.load("res/bagButton.png", "backpack");
 	backpack_b.setScale({ 0.2, 0.2 });
 	backpack_b.setPosition({ view.getSize().x /2 - backpack_b.getGlobalBounds().width / 2, view.getSize().y - backpack_b.getGlobalBounds().height });
 }
@@ -240,6 +235,7 @@ void UI::loadUiRes()
 	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT].loadFromFile("res/eating.png");
 	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_USE].loadFromFile("res/hand.png");
 	uiResVec[UiResEnum::GUI_ITEMSLISTITEM_CANVAS].loadFromFile("res/ItemBar.png");
+	uiResVec[UiResEnum::GUI_SLIDER].loadFromFile("res/listScrollBar.png");
 
 	for (int i = 0; i < UiFontsEnum::FONTS_AMOUNT; i++)
 		uiFontsVec.push_back(Font());

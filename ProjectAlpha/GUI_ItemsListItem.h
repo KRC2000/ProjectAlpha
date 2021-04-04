@@ -36,7 +36,7 @@ public:
 	void increaseTransparencyFade(int percent);
 
 	int getAlpha();
-	Sprite* getSpriteBox();
+	const Sprite* getSpriteBox() const;
 
 private:
 	string getItemNameString(ItemsEnum itemId);

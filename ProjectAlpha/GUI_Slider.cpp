@@ -1,20 +1,21 @@
-#include "Slider.h"
+#include "GUI_Slider.h"
 
-Slider::Slider()
-{
-}
+//void GUI_Slider::load(Vector2f basePoint, float pathLenght)
+//{
+//	t_slider.loadFromFile("res/listScrollBar.png");
+//	s_slider.setTexture(t_slider);
+//
+//	this->basePoint = basePoint;
+//	this->pathLenght = pathLenght - s_slider.getGlobalBounds().height;
+//}
 
-void Slider::load(Vector2f basePoint, float pathLenght)
+void GUI_Slider::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, vector<Texture>* texturesResVec)
 {
-	t_slider.loadFromFile("res/listScrollBar.png");
-	s_slider.setTexture(t_slider);
+	s_slider.setTexture(uiResVec[UiResEnum::GUI_SLIDER]);
 	s_slider.setPosition(basePoint);
-
-	this->basePoint = basePoint;
-	this->pathLenght = pathLenght - s_slider.getGlobalBounds().height;
 }
 
-bool Slider::update(IEC& iec, RenderWindow& window, View& view)
+bool GUI_Slider::update(IEC& iec, RenderWindow& window, View& view)
 {
 	if ((iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED) && 
 		s_slider.getGlobalBounds().contains(iec.getMousePos(window, view)))
@@ -40,12 +41,12 @@ bool Slider::update(IEC& iec, RenderWindow& window, View& view)
 	return false;
 }
 
-void Slider::draw(RenderWindow& window)
+void GUI_Slider::draw(RenderTarget& target, RenderStates states) const
 {
-	window.draw(s_slider);
+	target.draw(s_slider);
 }
 
-void Slider::setPositionPercent(float percent)
+void GUI_Slider::setPositionPercent(float percent)
 {
 	s_slider.setPosition({ basePoint.x, basePoint.y + (pathLenght / 100) * percent });
 	/*if (getPositionPercent() > percent)
@@ -68,19 +69,19 @@ void Slider::setPositionPercent(float percent)
 	
 }
 
-void Slider::setPosition(Vector2f newPos)
+void GUI_Slider::setPosition(Vector2f newPos)
 {
 	s_slider.setPosition(newPos);
 	basePoint = newPos;
 }
 
 
-float Slider::getPositionPercent()
+float GUI_Slider::getPositionPercent()
 { 
 	return (s_slider.getPosition().y - basePoint.y) / (pathLenght / 100);
 }
 
-Sprite* Slider::getS_slider()
+Sprite* GUI_Slider::getS_slider()
 {
 	return &s_slider;
 }

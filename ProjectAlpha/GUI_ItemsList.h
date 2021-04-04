@@ -2,16 +2,16 @@
 #include "PrecompiledHeaders.h"
 #include "GUI_ItemsListItem.h"
 #include "GUI_Button.h"
+#include "GUI_Element.h"
 #include "Storage.h"
-#include "Slider.h"
-#include "GUI_ItemsListItem.h"
+#include "GUI_Slider.h"
 #include "UiFontsEnum.h"
 
 // This class was invented by nazis as a practical joke, to torture every soul that
 // will try to understand it. You may try to understand it, but only if diameter 
 // of your balls is more than 35cm. Otherwise can't say where you'll end up.
 // Extremely needs to be re-write. But until then... 
-class GUI_ItemsList
+class GUI_ItemsList: public GUI_Element
 {
 	// Global textures storage reference to spread among object's load() functions
 	vector<Texture>* textureResVec = nullptr;
@@ -32,12 +32,12 @@ class GUI_ItemsList
 
 	GUI_Button upListButton{ UiResEnum::GUI_ITEMLIST_BUTTON_UPLIST, "Up" };
 	GUI_Button downListButton{ UiResEnum::GUI_ITEMLIST_BUTTON_DOWNLIST, "Down" };
-	Slider slider;
+	GUI_Slider slider;
 
 	float onePercentLenght{ 0 };
 
 	// Font reference to spread among object's load() functions(those who got drawable Text objects)
-	vector<Font>* uiFontsVec;
+	vector<Font>* uiFontsVec = nullptr;
 	//Font* guiFont1 = nullptr;
 
 	// Reference to Storage object that contains items that should be displayed by items list
@@ -47,6 +47,8 @@ class GUI_ItemsList
 	vector<GUI_ItemsListItem> itemsVec;
 
 	Vector2f baseUpperEdgePoint, baseDownEdgePoint;
+
+	Vector2f createPos;
 
 	// Gap between items-list items background sprites
 	float distanceBetweenItems = 2;
@@ -59,8 +61,16 @@ class GUI_ItemsList
 	// including distanceBetweenItems gaps
 	float itemListLenght{0};
 public:
-	GUI_ItemsList();
-	void load(vector<Texture>* texturesResourcesVec, vector<Texture>& uiResVec, Vector2f pos, vector<Font>* uiFontsVec);
+	GUI_ItemsList() {};
+	virtual ~GUI_ItemsList() {};
+
+	virtual void assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec = nullptr, vector<Texture>* textureResVec = nullptr) override;
+	virtual bool update(IEC& iec, RenderWindow& window, View& view) override;
+	virtual void draw(RenderTarget& target, RenderStates states = RenderStates::Default) const override;
+
+
+
+	//void load(vector<Texture>* texturesResourcesVec, vector<Texture>& uiResVec, Vector2f pos, vector<Font>* uiFontsVec);
 	
 	// Clears items-list items vector, and creates new items according to storage
 	void assignStorage(Storage* storage);
@@ -74,14 +84,14 @@ public:
 	 recalculateItemListLenght() called inside, no need to repeat*/
 	void liftItemsTale(unsigned int taleStartIndex);
 
-	void update(IEC & iec, RenderWindow& window, View& view);
-	void draw(RenderWindow& window);
+	//void update(IEC & iec, RenderWindow& window, View& view);
+	//void draw(RenderWindow& window);
 
 	void scrollUp();
 	void scrollDown();
 
 	/* Must be called after any items-list length change: adding or deleting items so
-	 scrolling and slider can work properly*/
+	 scrolling and GUI_Slider can work properly*/
 	void recalculateItemListLenght();
 
 	/*itemVecIndex - index of the item in both GUI_ItemsListItem and assignedStorage vectors.
@@ -97,7 +107,7 @@ public:
 	void setActive(bool active);
 
 	/* Scrolling content for "percent" percents of all content list length
-	 Slider passes how much percents he is scrolled, and with this function
+	 GUI_Slider passes how much percents he is scrolled, and with this function
 	 content get scrolled same amount of percents*/
 	void setPositionPercent(float percent);
 
@@ -125,7 +135,7 @@ public:
 
 	/* Advanced shortcut for s_border.getGlobalBounds().intersects(itemsVec[i].getSprite()->getGlobalBounds)
 	 with a little bounds tweak*/
-	bool isBorderIntersectsWithItem(int itemVectorIndex);
+	bool isBorderIntersectsWithItem(int itemVectorIndex) const;
 
 	//////////////////
 

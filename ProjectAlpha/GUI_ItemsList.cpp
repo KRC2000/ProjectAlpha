@@ -1,41 +1,5 @@
 #include "GUI_ItemsList.h"
 
-GUI_ItemsList::GUI_ItemsList()
-{
-	
-}
-
-void GUI_ItemsList::load(vector<Texture>* texturesResVec, vector<Texture>& uiResVec, Vector2f pos, vector<Font>* uiFontsVec)
-{
-	textureResVec = texturesResVec;
-	this->uiResVec = &uiResVec;
-	//guiFont1 = font;
-	this->uiFontsVec = uiFontsVec;
-
-	s_border.setTexture(texturesResVec->at(ResourcesEnum::GUI_T));
-
-	// load() underlying objects: buttons, slider, items-list items(if they are)
-	/*upListButton.load("res/upListButton.png", "goUpList");
-	downListButton.load("res/downListButton.png", "goDownList");*/
-	upListButton.assignRes(uiResVec);
-	downListButton.assignRes(uiResVec);
-	slider.load({ (float)texturesResVec->at(ResourcesEnum::GUI_T).getSize().x + 3, upListButton.getGlobalBounds().height},
-		(float)texturesResVec->at(ResourcesEnum::GUI_T).getSize().y -
-		(upListButton.getGlobalBounds().height + downListButton.getGlobalBounds().height ));
-
-	for (unsigned int i = 0; i < itemsVec.size(); i++)
-	{
-		//itemsVec[i].load(*resourcesVec, font);
-		itemsVec[i].assignRes(*this->uiResVec, this->uiFontsVec, texturesResVec);
-	}
-
-	setPosition(pos);
-	
-	baseUpperEdgePoint = { s_border.getPosition().x + 6, s_border.getPosition().y + fadeGap };
-	baseDownEdgePoint = { s_border.getPosition().x + 6, s_border.getPosition().y + s_border.getGlobalBounds().height - fadeGap };
-}
-
-
 void GUI_ItemsList::assignStorage(Storage* storage)
 {
 	assignedStorage = storage;
@@ -89,11 +53,41 @@ void GUI_ItemsList::liftItemsTale(unsigned int taleStartIndex)
 }
 
 
-void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
+void GUI_ItemsList::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, vector<Texture>* texturesResVec)
+{
+	textureResVec = texturesResVec;
+	this->uiResVec = &uiResVec;
+	//guiFont1 = font;
+	this->uiFontsVec = fontsVec;
+
+	s_border.setTexture(texturesResVec->at(ResourcesEnum::GUI_T));
+
+	// load() underlying objects: buttons, GUI_Slider, items-list items(if they are)
+	/*upListButton.load("res/upListButton.png", "goUpList");
+	downListButton.load("res/downListButton.png", "goDownList");*/
+	upListButton.assignRes(uiResVec);
+	downListButton.assignRes(uiResVec);
+	/*slider.load({ (float)texturesResVec->at(ResourcesEnum::GUI_T).getSize().x + 3, upListButton.getGlobalBounds().height },
+		(float)texturesResVec->at(ResourcesEnum::GUI_T).getSize().y -
+		(upListButton.getGlobalBounds().height + downListButton.getGlobalBounds().height));*/
+
+	for (unsigned int i = 0; i < itemsVec.size(); i++)
+	{
+		//itemsVec[i].load(*resourcesVec, font);
+		itemsVec[i].assignRes(*this->uiResVec, this->uiFontsVec, texturesResVec);
+	}
+
+	setPosition({ 0,0 });
+	slider.assignRes(uiResVec);
+	slider.setPosition({ (float)texturesResVec->at(ResourcesEnum::GUI_T).getSize().x + 3, upListButton.getGlobalBounds().height });
+	slider.setPathLenght((float)texturesResVec->at(ResourcesEnum::GUI_T).getSize().y - (upListButton.getGlobalBounds().height + downListButton.getGlobalBounds().height));
+}
+
+bool GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 {
 	if (active)
 	{
-		// Moving content according to slider, and slider according to content
+		// Moving content according to GUI_Slider, and GUI_Slider according to content
 		// Reading and updating buttons
 		if (itemsVec.size() > 1)
 		{
@@ -174,28 +168,30 @@ void GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 				itemsVec[i].fadeIn();
 			}
 		}
+		return true;
 	}
+	return false;
 }
 
-void GUI_ItemsList::draw(RenderWindow& window)
+void GUI_ItemsList::draw(RenderTarget& target, RenderStates states) const
 {
 	if (active)
 	{
-		window.draw(s_border);
+		target.draw(s_border);
 
 		for (unsigned int i = 0; i < itemsVec.size(); i++)
 		{
-			window.draw(itemsVec[i]);
+			target.draw(itemsVec[i]);
 		}
 
-		// Drawing slider and buttons only if they are not fitting in background sprite
+		// Drawing GUI_Slider and buttons only if they are not fitting in background sprite
 		if (itemsVec.size() > 1)
 		{
 			if (!isBorderIntersectsWithItem(0) || !isBorderIntersectsWithItem(itemsVec.size() - 1))
 			{
-				window.draw(upListButton);
-				window.draw(downListButton);
-				slider.draw(window);
+				target.draw(upListButton);
+				target.draw(downListButton);
+				target.draw(slider);
 			}
 		}
 	}
@@ -294,6 +290,9 @@ void GUI_ItemsList::setPosition(Vector2f pos)
 		s_border.getPosition().y + s_border.getGlobalBounds().height - downListButton.getGlobalBounds().height });
 	slider.setPosition({ pos.x + s_border.getGlobalBounds().width + 3,
 		pos.y + upListButton.getGlobalBounds().height});
+
+	baseUpperEdgePoint = { s_border.getPosition().x + 6, s_border.getPosition().y + fadeGap };
+	baseDownEdgePoint = { s_border.getPosition().x + 6, s_border.getPosition().y + s_border.getGlobalBounds().height - fadeGap };
 }
 
 void GUI_ItemsList::setActive(bool active)
@@ -369,7 +368,7 @@ float GUI_ItemsList::getPositionPercent()
 	return percentsPassed;
 }
 
-bool GUI_ItemsList::isBorderIntersectsWithItem(int itemVectorIndex)
+bool GUI_ItemsList::isBorderIntersectsWithItem(int itemVectorIndex) const
 {
 	if (itemsVec[itemVectorIndex].getSpriteBox()->getPosition().y >= baseUpperEdgePoint.y
 		&& itemsVec[itemVectorIndex].getSpriteBox()->getPosition().y <= baseDownEdgePoint.y

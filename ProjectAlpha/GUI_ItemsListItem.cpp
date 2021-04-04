@@ -51,34 +51,6 @@ void GUI_ItemsListItem::draw(RenderTarget& target, RenderStates states) const
 	}
 }
 
-
-//void GUI_ItemsListItem::load(vector<Texture>& textureResourcesVec, Font* font)
-//{
-//	s_box.setTexture(textureResourcesVec.at(ResourcesEnum::ITEMSLISTITEM_T));
-//	s_image.setTexture(textureResourcesVec.at(ResourcesEnum::ITEMS_T));
-//	s_image.setTextureRect(IntRect(itemId * 100, 0, 100, 100));
-//	s_image.setScale({ 0.4, 0.4 });
-//	//if (!f.loadFromFile("res/KarmaFuture.ttf")) cout << ">>>>>Font loading failed!" << endl;
-//
-//	itemNameText.setFont(*font);
-//	itemNameText.setString(getItemNameString(itemId));
-//	itemNameText.setCharacterSize(100);
-//	itemNameText.setScale({ 0.3, 0.3 });
-//	itemNameText.setFillColor(sf::Color::White);
-//
-//	amountText.setFont(*font);
-//	amountText.setString("x" + to_string(amount));
-//	amountText.setCharacterSize(100);
-//	amountText.setScale({ 0.25, 0.25 });
-//	amountText.setFillColor(sf::Color::White);
-//
-//	conditionText.setFont(*font);
-//	conditionText.setString(to_string(condition) + "%");
-//	conditionText.setCharacterSize(100);
-//	conditionText.setScale({ 0.2, 0.2 });
-//	conditionText.setFillColor(sf::Color::White);
-//}
-
 void GUI_ItemsListItem::fadeIn()
 {
 	visible = true;
@@ -153,7 +125,7 @@ int GUI_ItemsListItem::getAlpha()
 	return s_box.getColor().a;
 }
 
-Sprite* GUI_ItemsListItem::getSpriteBox()
+const Sprite* GUI_ItemsListItem::getSpriteBox() const
 {
 	return &s_box;
 }
