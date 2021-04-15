@@ -16,7 +16,10 @@ class GUI_ItemsListItem: public GUI_Element
 	bool reusable;
 	bool visible = true;
 public:
-	GUI_ItemsListItem(ItemsEnum itemId, int amount, bool reusable, int condition);
+	GUI_ItemsListItem(ItemsEnum itemId, int amount, bool reusable, int condition) :
+		GUI_Element(GUIElementsEnum::GUI_ITEMLISTITEM), 
+		itemId(itemId), amount(amount), reusable(reusable), condition(condition) {};
+
 	virtual ~GUI_ItemsListItem() {};
 
 	virtual void assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec = nullptr, vector<Texture>* textureResVec = nullptr) override;

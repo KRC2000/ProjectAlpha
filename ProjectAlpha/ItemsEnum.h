@@ -1,6 +1,6 @@
 #pragma once
 
-enum ItemsEnum
+enum class ItemsEnum
 {
 	UNKNOWN,
 	TUNA,

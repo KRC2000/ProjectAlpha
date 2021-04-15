@@ -2,7 +2,7 @@
 
 //Resources amount is predefined at the end of ResourcesEnum (down here)
 
-enum ResourcesEnum
+enum class ResourcesEnum
 {
 	PLAYERICON_T,
 	TARGETPOINT_T,

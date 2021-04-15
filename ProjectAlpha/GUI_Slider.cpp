@@ -1,17 +1,8 @@
 #include "GUI_Slider.h"
 
-//void GUI_Slider::load(Vector2f basePoint, float pathLenght)
-//{
-//	t_slider.loadFromFile("res/listScrollBar.png");
-//	s_slider.setTexture(t_slider);
-//
-//	this->basePoint = basePoint;
-//	this->pathLenght = pathLenght - s_slider.getGlobalBounds().height;
-//}
-
 void GUI_Slider::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, vector<Texture>* texturesResVec)
 {
-	s_slider.setTexture(uiResVec[UiResEnum::GUI_SLIDER]);
+	s_slider.setTexture(uiResVec[(int)UiResEnum::GUI_SLIDER]);
 	s_slider.setPosition(basePoint);
 }
 

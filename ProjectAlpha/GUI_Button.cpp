@@ -1,14 +1,8 @@
 #include "GUI_Button.h"
 
-GUI_Button::GUI_Button(UiResEnum buttonType, string name):
-	name(name), 
-	buttonType(buttonType)
-{
-}
-
 void GUI_Button::assignRes(vector<Texture>& uiResVec, std::vector<sf::Font>* fontsVec, vector<Texture>* textureResVec)
 {
-	spriteIdle.setTexture(uiResVec[buttonType]);
+	spriteIdle.setTexture(uiResVec[(int)buttonType]);
 	spriteIdle.setTextureRect(IntRect(0, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
 }
 
@@ -22,34 +16,17 @@ bool GUI_Button::update(IEC& iec, RenderWindow &window, View &view)
 	{
 		if (spriteIdle.getGlobalBounds().contains(iec.getMousePos(window, view)))
 		{
+			activated = true;
 			iec.eventExpire(Mouse::Left);
 			return true;
 		}
 	}
+
+	activated = false;
 	return false;
 }
 
 void GUI_Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(spriteIdle);
-}
-
-void GUI_Button::setScale(Vector2f factor)
-{
-	spriteIdle.setScale(factor);
-}
-
-void GUI_Button::setPosition(Vector2f pos)
-{
-	spriteIdle.setPosition(pos);
-}
-
-FloatRect GUI_Button::getGlobalBounds()
-{
-	return spriteIdle.getGlobalBounds();
-}
-
-string GUI_Button::getName()
-{
-	return name;
 }

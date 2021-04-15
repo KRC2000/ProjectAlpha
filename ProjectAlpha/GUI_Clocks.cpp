@@ -4,7 +4,7 @@ void GUI_Clocks::assignRes(vector<Texture>& uiResVec, std::vector<Font>* fontsVe
 {
 	if (fontsVec)
 	{
-		timeText.setFont(fontsVec->at(UiFontsEnum::PIXELATED_3D_DEFAULT));
+		timeText.setFont(fontsVec->at((int)UiFontsEnum::PIXELATED_3D_DEFAULT));
 		timeText.setCharacterSize(100);
 		timeText.setScale({ 0.3, 0.3 });
 		timeText.setFillColor(sf::Color::Black);

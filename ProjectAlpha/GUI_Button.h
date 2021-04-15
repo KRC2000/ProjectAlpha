@@ -13,8 +13,13 @@ private:
 	UiResEnum buttonType;
 	Sprite spriteIdle;
 	string name = "Unnamed";
+	bool activated = false;
 public:
-	GUI_Button(UiResEnum buttonType = UiResEnum::MAINMENU_BUTTON_DEFAULT, string name = "Unnamed");
+	GUI_Button(UiResEnum buttonType = UiResEnum::MAINMENU_BUTTON_DEFAULT, string name = "Unnamed") :
+		GUI_Element(GUIElementsEnum::GUI_BUTTON),
+		name(name),
+		buttonType(buttonType) {};
+
 	virtual ~GUI_Button() {};
 
 	virtual void assignRes(vector<Texture>& uiResVec, std::vector<sf::Font>* fontsVec = nullptr, vector<Texture>* textureResVec = nullptr) override;
@@ -25,15 +30,16 @@ public:
 
 	////////// SETTERS
 	//
-	void setScale(Vector2f factor);
-	void setPosition(Vector2f pos);
+	void setScale(Vector2f factor) { spriteIdle.setScale(factor); };
+	void setPosition(Vector2f pos) { spriteIdle.setPosition(pos); };
 	//
 	//////////////////
 
 	////////// GETTERS
 	//
-	FloatRect getGlobalBounds();
-	string getName();
+	bool getIsActivated() { return activated; };
+	FloatRect getGlobalBounds() { return spriteIdle.getGlobalBounds(); };
+	string getName() { return name; };
 	//
 	//////////////////
 

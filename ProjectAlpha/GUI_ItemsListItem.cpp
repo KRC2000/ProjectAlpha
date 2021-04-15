@@ -1,32 +1,26 @@
 #include "GUI_ItemsListItem.h"
 
-GUI_ItemsListItem::GUI_ItemsListItem(ItemsEnum itemId, int amount, bool reusable, int condition):
-	itemId(itemId), amount(amount), reusable(reusable), condition(condition)
-{
-	
-}
-
 void GUI_ItemsListItem::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, vector<Texture>* textureResVec)
 {
-	s_box.setTexture(uiResVec[UiResEnum::GUI_ITEMSLISTITEM_CANVAS]);
-	s_image.setTexture(textureResVec->at(ResourcesEnum::ITEMS_T));
-	s_image.setTextureRect(IntRect(itemId * 100, 0, 100, 100));
+	s_box.setTexture(uiResVec[(int)UiResEnum::GUI_ITEMSLISTITEM_CANVAS]);
+	s_image.setTexture(textureResVec->at((int)ResourcesEnum::ITEMS_T));
+	s_image.setTextureRect(IntRect((int)itemId * 100, 0, 100, 100));
 	s_image.setScale({ 0.4, 0.4 });
 	//if (!f.loadFromFile("res/KarmaFuture.ttf")) cout << ">>>>>Font loading failed!" << endl;
 
-	itemNameText.setFont(fontsVec->at(UiFontsEnum::PIXELATED_3D_DEFAULT));
+	itemNameText.setFont(fontsVec->at((int)UiFontsEnum::PIXELATED_3D_DEFAULT));
 	itemNameText.setString(getItemNameString(itemId));
 	itemNameText.setCharacterSize(100);
 	itemNameText.setScale({ 0.3, 0.3 });
 	itemNameText.setFillColor(sf::Color::White);
 
-	amountText.setFont(fontsVec->at(UiFontsEnum::PIXELATED_3D_DEFAULT));
+	amountText.setFont(fontsVec->at((int)UiFontsEnum::PIXELATED_3D_DEFAULT));
 	amountText.setString("x" + to_string(amount));
 	amountText.setCharacterSize(100);
 	amountText.setScale({ 0.25, 0.25 });
 	amountText.setFillColor(sf::Color::White);
 
-	conditionText.setFont(fontsVec->at(UiFontsEnum::PIXELATED_3D_DEFAULT));
+	conditionText.setFont(fontsVec->at((int)UiFontsEnum::PIXELATED_3D_DEFAULT));
 	conditionText.setString(to_string(condition) + "%");
 	conditionText.setCharacterSize(100);
 	conditionText.setScale({ 0.2, 0.2 });

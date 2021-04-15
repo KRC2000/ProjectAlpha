@@ -35,7 +35,7 @@ Pointer::Pointer(PointersEnum pointerType, Vector2f pos) : pointerType(pointerTy
 	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));*/
 
 	//Pointer();
-	sprite.setTextureRect(IntRect(pointerType * 100, 0, 100, 100));
+	sprite.setTextureRect(IntRect((int)pointerType * 100, 0, 100, 100));
 	sprite.setOrigin({ 50, 120 });
 	sprite.setPosition(pos);
 	sprite.setScale({ 0.8, 0.8 });
@@ -47,8 +47,8 @@ Pointer::Pointer(PointersEnum pointerType, Vector2f pos) : pointerType(pointerTy
 
 void Pointer::loadTextures(vector<Texture>* textureResourcesVec)
 {
-	sprite.setTexture(textureResourcesVec->at(ResourcesEnum::POINTERS_T));
-	back.setTexture(textureResourcesVec->at(ResourcesEnum::POINTERS_T));
+	sprite.setTexture(textureResourcesVec->at((int)ResourcesEnum::POINTERS_T));
+	back.setTexture(textureResourcesVec->at((int)ResourcesEnum::POINTERS_T));
 }
 
 void Pointer::zoom(Vector2f factor)

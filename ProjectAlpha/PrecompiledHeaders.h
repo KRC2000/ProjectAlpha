@@ -18,6 +18,7 @@
 #include "PointersEnum.h"
 #include "ItemsEnum.h"
 #include "PlayerStateIndicatorsEnum.h"
+#include "GUIElementsEnum.h"
 #include "Colors.h"
 
 //#include "GUIelement.h"

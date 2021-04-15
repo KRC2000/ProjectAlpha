@@ -165,6 +165,7 @@
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GUIElementsEnum.h" />
     <ClInclude Include="UiFontsEnum.h" />
     <ClInclude Include="GUI_Button.h" />
     <ClInclude Include="GUI_ActionPanel.h" />
@@ -182,7 +183,6 @@
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerConditionTypesEnum.h" />
     <ClInclude Include="PlayerStateIndicatorsEnum.h" />
     <ClInclude Include="Pointer.h" />
     <ClInclude Include="PointersEnum.h" />

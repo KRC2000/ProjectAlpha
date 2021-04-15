@@ -25,7 +25,7 @@ class GUI_IndicatorLine: public GUI_Element
 	int currentLength = currentValue / lengthCost;
 
 public:
-	GUI_IndicatorLine();
+	GUI_IndicatorLine(): GUI_Element(GUIElementsEnum::GUI_INDICATORLINE) {};
 	virtual ~GUI_IndicatorLine() {};
 
 	virtual void assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec = nullptr, vector<Texture>* textureResVec = nullptr) override;

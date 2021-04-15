@@ -14,7 +14,7 @@ void Item::applyItemConsumeEffect(float& health, float& sleep, float& temperatur
 	do
 	{
 		readFileObj >> s;
-	} while (s != "ID" + ' ' + itemId);
+	} while (s != "ID" + ' ' + (int)itemId);
 
 	cout << s << endl;
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-enum PointersEnum
+enum class PointersEnum
 {
 	TENT,
 	BARN,

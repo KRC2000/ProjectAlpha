@@ -149,9 +149,6 @@
     <ClInclude Include="GUI_ActionPanel.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerConditionTypesEnum.h">
-      <Filter>Enums</Filter>
-    </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -166,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="GUI_Slider.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIElementsEnum.h">
+      <Filter>Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

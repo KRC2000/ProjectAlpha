@@ -12,7 +12,7 @@ class GUI_Clocks: public GUI_Element
 
 	
 public:
-	GUI_Clocks() {};
+	GUI_Clocks(): GUI_Element(GUIElementsEnum::GUI_CLOCKS) {};
 	virtual ~GUI_Clocks() {};
 
 	virtual void assignRes(vector<Texture>& uiResVec, std::vector<sf::Font>* fontsVec = nullptr, vector<Texture>* textureResVec = nullptr) override;

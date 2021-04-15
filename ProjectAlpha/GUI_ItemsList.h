@@ -61,7 +61,7 @@ class GUI_ItemsList: public GUI_Element
 	// including distanceBetweenItems gaps
 	float itemListLenght{0};
 public:
-	GUI_ItemsList() {};
+	GUI_ItemsList():GUI_Element(GUIElementsEnum::GUI_ITEMLIST) {};
 	virtual ~GUI_ItemsList() {};
 
 	virtual void assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec = nullptr, vector<Texture>* textureResVec = nullptr) override;

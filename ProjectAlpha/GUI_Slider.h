@@ -13,7 +13,7 @@ class GUI_Slider: public GUI_Element
 	float pathLenght= 100;
 	bool grabbed = false;
 public:
-	GUI_Slider() {};
+	GUI_Slider(): GUI_Element(GUIElementsEnum::GUI_SLIDER) {};
 	virtual ~GUI_Slider() {};
 
 

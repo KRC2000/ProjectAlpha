@@ -6,10 +6,15 @@
 #include "GUI_ActionPanel.h"
 #include "GUI_Button.h"
 
+#include "GUI_Element.h"
+
 #include "UiResEnum.h"
 
 class UI
 {
+	vector<GUI_Element> guiElementsVec;
+
+
 	/*Global textures storage reference to spread among object's load() functions*/
 	vector<Texture>* texturesResVecPtr;
 	vector<Texture> uiResVec;
@@ -28,7 +33,7 @@ class UI
 	GUI_ItemsList inventoryItemsList, locationItemsList;
 
 	/*Player health, hunger, thirst, etc. gui indicators*/
-	vector<GUI_IndicatorLine> indicatorsVec{ PLAYERSTATEINDICATORS_AMOUNT };
+	vector<GUI_IndicatorLine> indicatorsVec{ (int)PlayerStateIndicatorsEnum::AMOUNT };
 
 	bool playerInventoryIsOpened = false;
 	bool playerIsInsideLocation = false;
@@ -44,7 +49,9 @@ class UI
 public:
 	UI();
 	void load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font* font);
-	//void getPlayerVarsPointers();
+
+	void addGuiElement(GUI_Element* newElement, string name);
+
 	void update(IEC& iec, RenderWindow& window);
 	void draw(RenderWindow& window);
 

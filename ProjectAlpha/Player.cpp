@@ -60,9 +60,9 @@ Player::Player(Vector2f spawnPos)
 
 void Player::load(vector<Texture>& textureResourcesVec, UI& ui)
 {
-	playerSprite.setTexture(textureResourcesVec[ResourcesEnum::PLAYERICON_T]);
+	playerSprite.setTexture(textureResourcesVec[(int)ResourcesEnum::PLAYERICON_T]);
 	playerSprite.setTextureRect(IntRect(1 * 100, 0, 100, 120));
-	targetPointSprite.setTexture(textureResourcesVec[ResourcesEnum::TARGETPOINT_T]);
+	targetPointSprite.setTexture(textureResourcesVec[(int)ResourcesEnum::TARGETPOINT_T]);
 
 	ui.getInventoryItemList()->assignStorage(&storage);
 }

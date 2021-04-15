@@ -1,12 +1,8 @@
 #include "GUI_IndicatorLine.h"
 
-GUI_IndicatorLine::GUI_IndicatorLine()
-{
-}
-
 void GUI_IndicatorLine::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, vector<Texture>* textureResVec)
 {
-	t_line = &uiResVec[UiResEnum::GUI_INDICATORLINE];
+	t_line = &uiResVec[(int)UiResEnum::GUI_INDICATORLINE];
 	t_line->setRepeated(true);
 
 	s_lineHead.setTexture(*t_line);

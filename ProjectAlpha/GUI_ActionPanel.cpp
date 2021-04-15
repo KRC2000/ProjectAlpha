@@ -1,27 +1,57 @@
 #include "GUI_ActionPanel.h"
 
-GUI_ActionPanel::GUI_ActionPanel()
+void GUI_ActionPanel::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, vector<Texture>* texturesResVec)
 {
+	uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS].setRepeated(true);
+
+	s_head.setTexture(uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS]);
+	s_head.setTextureRect(IntRect(0, uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS].getSize().y / 2,
+		uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS].getSize().x / 2, uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS].getSize().y / 2));
+
+	s_body.setTexture(uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS]);
+	s_body.setTextureRect(IntRect(0, 0, 0, uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS].getSize().y / 2));
+
+	s_tail.setTexture(uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS]);
+	s_tail.setTextureRect(IntRect(uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS].getSize().x / 2, uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS].getSize().y / 2,
+		uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS].getSize().x / 2, uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS].getSize().y / 2));
 }
 
-void GUI_ActionPanel::load(vector<Texture>& textureResourcesVec)
-{
-	s_body.setTexture(textureResourcesVec[ResourcesEnum::ACTIONPANEL_T]);
-	s_body.setPosition(pos);
-	buttonsVec.reserve(10);
-}
-
-
-GUI_Button* GUI_ActionPanel::update(IEC& iec, RenderWindow& window, View& view)
+bool GUI_ActionPanel::update(IEC& iec, RenderWindow& window, View& view)
 {
 	if (active)
 	{
 		for (unsigned int i = 0; i < buttonsVec.size(); i++)
 		{
-			if (buttonsVec[i].update(iec, window, view)) return &buttonsVec[i];
+			if (buttonsVec[i].update(iec, window, view))
+			{
+				usedButton = &buttonsVec[i];
+				return true;
+			}
 		}
 	}
-	return nullptr;
+	return false;
+}
+
+void GUI_ActionPanel::draw(RenderTarget& target, RenderStates states) const
+{
+	if (active)
+	{
+		target.draw(s_head);
+		target.draw(s_body);
+		target.draw(s_tail);
+		for (unsigned int i = 0; i < buttonsVec.size(); i++)
+		{
+			target.draw(buttonsVec[i]);
+		}
+	}
+}
+
+GUI_Button& GUI_ActionPanel::getActivatedButton()
+{
+	for (auto& btn : buttonsVec)
+	{
+		if (btn.getIsActivated()) return btn;
+	}
 }
 
 void GUI_ActionPanel::addActionButton(vector<Texture>& uiResVec, UiResEnum buttonType, string buttonName)
@@ -32,46 +62,11 @@ void GUI_ActionPanel::addActionButton(vector<Texture>& uiResVec, UiResEnum butto
 	buttonsVec.back().assignRes(uiResVec);
 	//cout << "width" << buttonsVec.back().getGlobalBounds().width << endl;
 	buttonsVec.back().setScale({ 0.4, 0.4 });
-	buttonsVec.back().setPosition({ pos.x + 15 + (buttonsVec.back().getGlobalBounds().width + 17) * (buttonsVec.size() - 1), pos.y + 6 });
+	buttonsVec.back().setPosition({ s_head.getPosition().x + buttonsVec.back().getGlobalBounds().width * (buttonsVec.size() - 1), s_head.getPosition().y + 6 });
 	//buttonsVec.back().setPosition({ pos.x, pos.y });
+
+	s_body.setTextureRect(IntRect(0, 0, s_body.getTextureRect().width + 50, s_body.getTextureRect().height));
 }
-
-
-void GUI_ActionPanel::draw(RenderWindow& window)
-{
-	if (active)
-	{
-		s_body.setPosition(pos);
-		s_body.setTextureRect(IntRect(0, 51, 59, 71));
-		window.draw(s_body);
-		s_body.setTextureRect(IntRect(0, 0, 59, 51));
-
-		for (unsigned int i = 0; i < buttonsVec.size(); i++)
-		{
-			if (i != 0)
-			{
-				s_body.setPosition(pos.x + 59 * i, pos.y);
-				window.draw(s_body);
-			}
-
-			//buttonsVec[i].load("res/info.png");
-			window.draw(buttonsVec[i]);
-			//buttonsVec[i].draw(window);
-		}
-
-		if (buttonsVec.size() > 1)
-		{
-			
-			s_body.setPosition(pos.x + 59 * buttonsVec.size(), pos.y);
-			
-		}
-		else s_body.setPosition(pos.x + 59 , pos.y);
-
-		s_body.setTextureRect(IntRect(59, 51, 11, 71));
-		window.draw(s_body);
-	}
-}
-
 
 void GUI_ActionPanel::setActive(bool isActive)
 {
@@ -80,11 +75,14 @@ void GUI_ActionPanel::setActive(bool isActive)
 
 void GUI_ActionPanel::setPos(Vector2f newPos)
 {
-	pos.x = newPos.x - 33;
-	pos.y = newPos.y - 71;
+	s_head.setPosition(newPos);
+	s_body.setPosition({ newPos.x + s_head.getGlobalBounds().width, newPos.y });
+	s_tail.setPosition({ newPos.x + s_head.getGlobalBounds().width + s_body.getGlobalBounds().width, newPos.y });
+	/*pos.x = newPos.x - 33;
+	pos.y = newPos.y - 71;*/
 	for (unsigned int i = 0; i < buttonsVec.size(); i++)
 	{
-		buttonsVec[i].setPosition({ pos.x + 15 + (buttonsVec.back().getGlobalBounds().width + 17) * i, pos.y + 6 });
+		buttonsVec[i].setPosition({ s_head.getPosition().x + 15 + (buttonsVec.back().getGlobalBounds().width + 17) * i, s_head.getPosition().y + 6 });
 	}
 }
 

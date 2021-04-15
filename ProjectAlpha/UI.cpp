@@ -21,40 +21,40 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 	clock.assignRes(uiResVec, &uiFontsVec);
 
 	//indicatorsVec[HEALTH].load(&texturesResVecPtr->at(ResourcesEnum::INDICATORLINE_T));
-	indicatorsVec[HEALTH].assignRes(uiResVec);
-	indicatorsVec[SLEEP].assignRes(uiResVec);
-	indicatorsVec[TEMPERATURE].assignRes(uiResVec);
-	indicatorsVec[THIRST].assignRes(uiResVec);
-	indicatorsVec[HUNGER].assignRes(uiResVec);
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::HEALTH].assignRes(uiResVec);
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::SLEEP].assignRes(uiResVec);
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::TEMPERATURE].assignRes(uiResVec);
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::THIRST].assignRes(uiResVec);
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::HUNGER].assignRes(uiResVec);
 	
-	indicatorsVec[HEALTH].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), {100 * 0, 0, 100, 100});
-	indicatorsVec[SLEEP].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), {100 * 1, 0, 100, 100});
-	indicatorsVec[TEMPERATURE].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 2, 0, 100, 100});
-	indicatorsVec[THIRST].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 3, 0, 100, 100});
-	indicatorsVec[HUNGER].setPictureTitle(&texturesResVecPtr->at(ResourcesEnum::STATUSICONS_T), { 100 * 4, 0, 100, 100});
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::HEALTH].setPictureTitle(&texturesResVecPtr->at((int)ResourcesEnum::STATUSICONS_T), {100 * 0, 0, 100, 100});
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::SLEEP].setPictureTitle(&texturesResVecPtr->at((int)ResourcesEnum::STATUSICONS_T), {100 * 1, 0, 100, 100});
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::TEMPERATURE].setPictureTitle(&texturesResVecPtr->at((int)ResourcesEnum::STATUSICONS_T), { 100 * 2, 0, 100, 100});
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::THIRST].setPictureTitle(&texturesResVecPtr->at((int)ResourcesEnum::STATUSICONS_T), { 100 * 3, 0, 100, 100});
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::HUNGER].setPictureTitle(&texturesResVecPtr->at((int)ResourcesEnum::STATUSICONS_T), { 100 * 4, 0, 100, 100});
 	
-	indicatorsVec[HEALTH].setPos({ indicatorsVec[HEALTH].getPictureSprite()->getGlobalBounds().width, clock.getTextObj()->getGlobalBounds().height + 30});
-	indicatorsVec[SLEEP].setPos({ indicatorsVec[SLEEP].getPictureSprite()->getGlobalBounds().width,
-		clock.getTextObj()->getGlobalBounds().height + 30 + 1 * indicatorsVec[SLEEP].getPictureSprite()->getGlobalBounds().height});
-	indicatorsVec[TEMPERATURE].setPos({ indicatorsVec[TEMPERATURE].getPictureSprite()->getGlobalBounds().width,
-		clock.getTextObj()->getGlobalBounds().height + 30 + 2 * indicatorsVec[TEMPERATURE].getPictureSprite()->getGlobalBounds().height });
-	indicatorsVec[THIRST].setPos({ indicatorsVec[THIRST].getPictureSprite()->getGlobalBounds().width,
-		clock.getTextObj()->getGlobalBounds().height + 30 + 3 * indicatorsVec[THIRST].getPictureSprite()->getGlobalBounds().height });
-	indicatorsVec[HUNGER].setPos({ indicatorsVec[HUNGER].getPictureSprite()->getGlobalBounds().width,
-		clock.getTextObj()->getGlobalBounds().height + 30 + 4 * indicatorsVec[HUNGER].getPictureSprite()->getGlobalBounds().height });
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::HEALTH].setPos({ indicatorsVec[(int)PlayerStateIndicatorsEnum::HEALTH].getPictureSprite()->getGlobalBounds().width, clock.getTextObj()->getGlobalBounds().height + 30});
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::SLEEP].setPos({ indicatorsVec[(int)PlayerStateIndicatorsEnum::SLEEP].getPictureSprite()->getGlobalBounds().width,
+		clock.getTextObj()->getGlobalBounds().height + 30 + 1 * indicatorsVec[(int)PlayerStateIndicatorsEnum::SLEEP].getPictureSprite()->getGlobalBounds().height});
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::TEMPERATURE].setPos({ indicatorsVec[(int)PlayerStateIndicatorsEnum::TEMPERATURE].getPictureSprite()->getGlobalBounds().width,
+		clock.getTextObj()->getGlobalBounds().height + 30 + 2 * indicatorsVec[(int)PlayerStateIndicatorsEnum::TEMPERATURE].getPictureSprite()->getGlobalBounds().height });
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::THIRST].setPos({ indicatorsVec[(int)PlayerStateIndicatorsEnum::THIRST].getPictureSprite()->getGlobalBounds().width,
+		clock.getTextObj()->getGlobalBounds().height + 30 + 3 * indicatorsVec[(int)PlayerStateIndicatorsEnum::THIRST].getPictureSprite()->getGlobalBounds().height });
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::HUNGER].setPos({ indicatorsVec[(int)PlayerStateIndicatorsEnum::HUNGER].getPictureSprite()->getGlobalBounds().width,
+		clock.getTextObj()->getGlobalBounds().height + 30 + 4 * indicatorsVec[(int)PlayerStateIndicatorsEnum::HUNGER].getPictureSprite()->getGlobalBounds().height });
 
-	
-	panel.load(*texturesResourcesVec);
+	panel.assignRes(uiResVec);
+	//panel.load(*texturesResourcesVec);
 	panel.addActionButton(uiResVec, UiResEnum::GUI_ACTIONPANEL_BUTTON_INFO, "info");
 	panel.addActionButton(uiResVec, UiResEnum::GUI_ACTIONPANEL_BUTTON_USE, "use");
 	panel.addActionButton(uiResVec, UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT, "eat");
 
 	// Items lists load() 
 	inventoryItemsList.assignRes(uiResVec, &uiFontsVec, texturesResVecPtr);
-	inventoryItemsList.setPosition({ view.getSize().x / 2 + 40, view.getSize().y / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 });
+	inventoryItemsList.setPosition({ view.getSize().x / 2 + 40, view.getSize().y / 2 - (float)texturesResVecPtr->at((int)ResourcesEnum::GUI_T).getSize().y / 2 });
 	locationItemsList.assignRes(uiResVec, &uiFontsVec, texturesResVecPtr);
-	locationItemsList.setPosition({ view.getSize().x / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().x - 40,
-		view.getSize().y / 2 - (float)texturesResVecPtr->at(ResourcesEnum::GUI_T).getSize().y / 2 });
+	locationItemsList.setPosition({ view.getSize().x / 2 - (float)texturesResVecPtr->at((int)ResourcesEnum::GUI_T).getSize().x - 40,
+		view.getSize().y / 2 - (float)texturesResVecPtr->at((int)ResourcesEnum::GUI_T).getSize().y / 2 });
 
 	// Backpack opening button initializing
 	backpack_b.assignRes(uiResVec);
@@ -70,13 +70,23 @@ void UI::update(IEC& iec, RenderWindow& window)
 	inventoryItemsList.update(iec, window, view);
 	locationItemsList.update(iec, window, view);
 
-	GUI_Button* tempButton = panel.update(iec, window, view);
-	if (tempButton != nullptr)
+	if (panel.update(iec, window, view))
+	{
+		GUI_Button* btn = &panel.getActivatedButton();
+		if (btn)
+		{
+			if (btn->getName() == "eat") cout << "Player eating\n";
+			if (btn->getName() == "use") cout << "Player using\n";
+			if (btn->getName() == "info") cout << "Player getting info\n";
+		}
+	}
+
+	/*if (tempButton != nullptr)
 	{
 		if (tempButton->getName() == "eat") cout << "Player eating\n";
 		if (tempButton->getName() == "use") cout << "Player using\n";
 		if (tempButton->getName() == "info") cout << "Player getting info\n";
-	}
+	}*/
 	
 
 	/* If backpack button was clicked and player inventory is NOT opened
@@ -127,8 +137,8 @@ void UI::update(IEC& iec, RenderWindow& window)
 				unsigned int itemVecIndex;
 				if (inventoryItemsList.isCursorPointingAtItem(itemVecIndex, iec.getMousePos(window, view)))
 				{
-					panel.setPos({ iec.getMousePos(window, view).x,
-						inventoryItemsList.getItemsVec()[itemVecIndex].getSpriteBox()->getPosition().y + inventoryItemsList.getItemsVec()[itemVecIndex].getSpriteBox()->getGlobalBounds().height / 2 });
+					panel.setPos({ inventoryItemsList.getItemsVec()[itemVecIndex].getSpriteBox()->getPosition().x + inventoryItemsList.getItemsVec()[itemVecIndex].getSpriteBox()->getGlobalBounds().width,
+						inventoryItemsList.getItemsVec()[itemVecIndex].getSpriteBox()->getPosition().y});
 					panel.setActive(true);
 				}
 			}
@@ -192,11 +202,17 @@ void UI::draw(RenderWindow& window)
 
 void UI::updatePlayerStatusLines(float health, float sleep, float temperature, float thirst, float hunger)
 {
-	indicatorsVec[HUNGER].setValue(hunger);
-	indicatorsVec[THIRST].setValue(thirst);
-	indicatorsVec[TEMPERATURE].setValue(temperature);
-	indicatorsVec[SLEEP].setValue(sleep);
-	indicatorsVec[HEALTH].setValue(health);
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::HUNGER].setValue(hunger);
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::THIRST].setValue(thirst);
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::TEMPERATURE].setValue(temperature);
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::SLEEP].setValue(sleep);
+	indicatorsVec[(int)PlayerStateIndicatorsEnum::HEALTH].setValue(health);
+}
+
+void UI::addGuiElement(GUI_Element* newElement, string name)
+{
+	newElement->setName(name);
+	guiElementsVec.push_back(*newElement);
 }
 
 void UI::moveItemBetweenLists(GUI_ItemsList& movingFromList, GUI_ItemsList& movingToList, unsigned int itemVecIndex)
@@ -223,24 +239,25 @@ GUI_ItemsList* UI::getLocationItemList()
 
 void UI::loadUiRes()
 {
-	for (int i = 0; i < UiResEnum::RES_AMOUNT; i++)
+	for (int i = 0; i < (int)UiResEnum::RES_AMOUNT; i++)
 		uiResVec.push_back(Texture());
 
-	uiResVec[UiResEnum::MAINMENU_BUTTON_DEFAULT].loadFromFile("res/mainMenuDefaultButton.png");
-	uiResVec[UiResEnum::GAMESCENE_BUTTON_BACKPACK].loadFromFile("res/bagButton.png");
-	uiResVec[UiResEnum::GUI_INDICATORLINE].loadFromFile("res/IndicatorLine.png");
-	uiResVec[UiResEnum::GUI_ITEMLIST_BUTTON_UPLIST].loadFromFile("res/upListButton.png");
-	uiResVec[UiResEnum::GUI_ITEMLIST_BUTTON_DOWNLIST].loadFromFile("res/downListButton.png");
-	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_INFO].loadFromFile("res/info.png");
-	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT].loadFromFile("res/eating.png");
-	uiResVec[UiResEnum::GUI_ACTIONPANEL_BUTTON_USE].loadFromFile("res/hand.png");
-	uiResVec[UiResEnum::GUI_ITEMSLISTITEM_CANVAS].loadFromFile("res/ItemBar.png");
-	uiResVec[UiResEnum::GUI_SLIDER].loadFromFile("res/listScrollBar.png");
+	uiResVec[(int)UiResEnum::MAINMENU_BUTTON_DEFAULT].loadFromFile("res/mainMenuDefaultButton.png");
+	uiResVec[(int)UiResEnum::GAMESCENE_BUTTON_BACKPACK].loadFromFile("res/bagButton.png");
+	uiResVec[(int)UiResEnum::GUI_INDICATORLINE].loadFromFile("res/IndicatorLine.png");
+	uiResVec[(int)UiResEnum::GUI_ITEMLIST_BUTTON_UPLIST].loadFromFile("res/upListButton.png");
+	uiResVec[(int)UiResEnum::GUI_ITEMLIST_BUTTON_DOWNLIST].loadFromFile("res/downListButton.png");
+	uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_CANVAS].loadFromFile("res/actionPanel.png");
+	uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_BUTTON_INFO].loadFromFile("res/info.png");
+	uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT].loadFromFile("res/eating.png");
+	uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_BUTTON_USE].loadFromFile("res/hand.png");
+	uiResVec[(int)UiResEnum::GUI_ITEMSLISTITEM_CANVAS].loadFromFile("res/ItemBar.png");
+	uiResVec[(int)UiResEnum::GUI_SLIDER].loadFromFile("res/listScrollBar.png");
 
-	for (int i = 0; i < UiFontsEnum::FONTS_AMOUNT; i++)
+	for (int i = 0; i < (int)UiFontsEnum::FONTS_AMOUNT; i++)
 		uiFontsVec.push_back(Font());
 
-	uiFontsVec[UiFontsEnum::PIXELATED_3D_DEFAULT].loadFromFile("res/VintageOne.ttf");
+	uiFontsVec[(int)UiFontsEnum::PIXELATED_3D_DEFAULT].loadFromFile("res/VintageOne.ttf");
 }
 
 

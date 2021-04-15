@@ -66,24 +66,24 @@ void GameScene::unload()
 
 void GameScene::loadResources()
 {
-	for (int i = 0; i < RESOURCES_AMOUNT; i++)
+	for (int i = 0; i < (int)ResourcesEnum::RESOURCES_AMOUNT; i++)
 	{
 		Texture t;
 		textureResourcesVec.push_back(t);
 	}
 
 	///////////// Loading textures /////////////
-	textureResourcesVec[PLAYERICON_T].loadFromFile("res/playerIcon.png");
-	textureResourcesVec[TARGETPOINT_T].loadFromFile("res/impact-point.png");
-	textureResourcesVec[POINTERS_T].loadFromFile("res/buildings.png");
-	textureResourcesVec[GUI_T].loadFromFile("res/GUI.png");
-	textureResourcesVec[ITEMSLISTITEM_T].loadFromFile("res/ItemBar.png");
-	textureResourcesVec[INDICATORLINE_T].loadFromFile("res/IndicatorLine.png");
-	textureResourcesVec[STATUSICONS_T].loadFromFile("res/statusIcons.png");
-	textureResourcesVec[ITEMS_T].loadFromFile("res/Items.png");
-	textureResourcesVec[ACTIONPANEL_T].loadFromFile("res/actionPanel.png");
-	textureResourcesVec[GUN_AK_T].loadFromFile("res/gun.png");
-	textureResourcesVec[BULLET_T].loadFromFile("res/bullet.png");
+	textureResourcesVec[(int)ResourcesEnum::PLAYERICON_T].loadFromFile("res/playerIcon.png");
+	textureResourcesVec[(int)ResourcesEnum::TARGETPOINT_T].loadFromFile("res/impact-point.png");
+	textureResourcesVec[(int)ResourcesEnum::POINTERS_T].loadFromFile("res/buildings.png");
+	textureResourcesVec[(int)ResourcesEnum::GUI_T].loadFromFile("res/GUI.png");
+	textureResourcesVec[(int)ResourcesEnum::ITEMSLISTITEM_T].loadFromFile("res/ItemBar.png");
+	textureResourcesVec[(int)ResourcesEnum::INDICATORLINE_T].loadFromFile("res/IndicatorLine.png");
+	textureResourcesVec[(int)ResourcesEnum::STATUSICONS_T].loadFromFile("res/statusIcons.png");
+	textureResourcesVec[(int)ResourcesEnum::ITEMS_T].loadFromFile("res/Items.png");
+	textureResourcesVec[(int)ResourcesEnum::ACTIONPANEL_T].loadFromFile("res/actionPanel.png");
+	textureResourcesVec[(int)ResourcesEnum::GUN_AK_T].loadFromFile("res/gun.png");
+	textureResourcesVec[(int)ResourcesEnum::BULLET_T].loadFromFile("res/bullet.png");
 	////////////////////////////////////////////
 
 	if (!guiFont1.loadFromFile("res/KarmaFuture.ttf")) cout << ">>>>>Font loading failed!" << endl;
