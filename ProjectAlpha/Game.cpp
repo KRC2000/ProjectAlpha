@@ -64,7 +64,7 @@ void Game::update()
 
 	//if (iec._Esc && currentScenePtr != &mainMenuScene) goToScene(MAINMENU_SCENE);
 	if (iec.getKeyboardKeyState(Keyboard::Escape) && 
-		currentScenePtr != &mainMenuScene) goToScene(MAINMENU_SCENE);
+		currentScenePtr != &mainMenuScene) goToScene(SceneType::MAINMENU_SCENE);
 
 	goToScene(gameScene.update(iec, window, videoMode));
 	goToScene(mainMenuScene.update(iec, window, videoMode));
@@ -106,12 +106,12 @@ void Game::goToScene(SceneType scene)
 {
 	switch (scene)
 	{
-	case NONE_SCENE:
+	case SceneType::NONE_SCENE:
 		break;
-	case MAINMENU_SCENE:
+	case SceneType::MAINMENU_SCENE:
 		goMainMenuScene();
 		break;
-	case GAME_SCENE:
+	case SceneType::GAME_SCENE:
 		goGameScene();
 		break;
 	default:

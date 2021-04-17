@@ -204,6 +204,11 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 			}
 		}
 
+		if (p_inv->isBeingScrolled())
+		{
+			inv_panel->setActive(false);
+		}
+
 		//action panel buttons interactions
 		GUI_Button* button = inv_panel->getActivatedButton();
 		if (button)
@@ -218,7 +223,7 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 		view.setCenter(player.getPos());
 		if (iec.getMouseWheelDelta() != 0) view.zoom(1 - (float)iec.getMouseWheelDelta() / 10);
 	}
-	return NONE_SCENE;
+	return SceneType::NONE_SCENE;
 }
 
 void GameScene::draw(RenderWindow& window, VideoMode videoMode)

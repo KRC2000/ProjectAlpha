@@ -19,7 +19,7 @@ SceneType MainMenuScene::update(IEC& iec, RenderWindow& window, VideoMode videoM
 		
 		
 	}
-	return NONE_SCENE;
+	return SceneType::NONE_SCENE;
 }
 
 void MainMenuScene::draw(RenderWindow& window, VideoMode videoMode)

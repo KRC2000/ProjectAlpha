@@ -167,6 +167,9 @@
     <ClInclude Include="GUIElementsEnum.h">
       <Filter>Enums</Filter>
     </ClInclude>
+    <ClInclude Include="ScenesEnum.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\buildings.png">

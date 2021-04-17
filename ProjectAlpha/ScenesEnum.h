@@ -1,8 +1,9 @@
 #pragma once
 
-enum SceneType
+enum class SceneType
 {
 	NONE_SCENE,
 	MAINMENU_SCENE,
-	GAME_SCENE
+	GAME_SCENE,
+	AMOUNT
 };

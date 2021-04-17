@@ -166,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIElementsEnum.h" />
+    <ClInclude Include="ScenesEnum.h" />
     <ClInclude Include="UiFontsEnum.h" />
     <ClInclude Include="GUI_Button.h" />
     <ClInclude Include="GUI_ActionPanel.h" />
