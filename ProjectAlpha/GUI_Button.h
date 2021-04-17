@@ -9,7 +9,7 @@ using namespace std;
 class GUI_Button: public GUI_Element
 {
 private:
-	Texture* t;
+	Texture* t = nullptr;
 	UiResEnum buttonType;
 	Sprite spriteIdle;
 	string name = "Unnamed";

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "UI.h"
+#include "GUI_Button.h"
 
 /*
 Inherited from class Scene

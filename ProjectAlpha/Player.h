@@ -49,7 +49,11 @@ public:
 
 	void setPos(Vector2f newPos);
 
-	Vector2f getPos();
+	Pointer* getRelatedPointerPtr() { return relatedPointer; };
+	float getStateIndicatorNum(PlayerStateIndicatorsEnum indicationType);
+	bool getIsInside() { return inside; };
+	Vector2f getPos() {return pos; };
+	Storage* getStoragePtr() { return &storage; };
 
 private:
 
@@ -63,6 +67,5 @@ private:
 
 	// Passed variable will be = to index of clicked pointer in the pointers vector
 	bool isCursorOnPointer(int& returnedPointerIndex, Map& map, IEC& iec, RenderWindow& window);
-
 };
 

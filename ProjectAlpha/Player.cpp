@@ -55,6 +55,7 @@ Player::Player(Vector2f spawnPos)
 	storage.addItem(Item(ItemsEnum::BRICK, 1, true, 75));
 	storage.addItem(Item(ItemsEnum::BRICK, 666, true, 75));*/
 
+	cout << "It is " << storage.getItemsVec()->size() << " items in player's storage\n";
 	
 }
 
@@ -63,17 +64,18 @@ void Player::load(vector<Texture>& textureResourcesVec, UI& ui)
 	playerSprite.setTexture(textureResourcesVec[(int)ResourcesEnum::PLAYERICON_T]);
 	playerSprite.setTextureRect(IntRect(1 * 100, 0, 100, 120));
 	targetPointSprite.setTexture(textureResourcesVec[(int)ResourcesEnum::TARGETPOINT_T]);
-
-	ui.getInventoryItemList()->assignStorage(&storage);
 }
 
 void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 {
 	setSpeedToPixel(&map);
 
+
 	// If LMB clicked
 	if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
 	{
+		//cout << iec.getMouseButtonState(Mouse::Left);
+
 		// If inventory is closed
 		if (!ui.getPlayerInventoryIsOpened())
 		{
@@ -118,14 +120,14 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 
 	// Travel stop conditions
 	if (iec.getKeyboardKeyState(Keyboard::Space)) stopTravel();
-	if (ui.getPlayerInventoryIsOpened()) stopTravel();
+	if (ui.getGuiElement<GUI_ItemsList>("player_inventory")->getIsActive()) stopTravel();
 
 	// Time control
 	if (traveling)
 	{
 		if (timeIncreaseTimer.getElapsedTime().asSeconds() >= 0.25)
 		{
-			ui.getClocks()->addMinutes(1);
+			ui.getGuiElement<GUI_Clocks>("clocks")->addMinutes(1);
 			timeIncreaseTimer.restart();
 		}
 	}
@@ -148,7 +150,6 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 		{
 			inside = true;
 			relatedPointer->setPlayerIsInside(true);
-			ui.getLocationItemList()->assignStorage(relatedPointer->getStorage());
 		}
 	}
 
@@ -160,28 +161,27 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 	}
 	
 	
-	if (lastSleepIncreaseTime + sleepIncreaseMinFreq <= ui.getClocks()->getMinutesOverall())
+	if (lastSleepIncreaseTime + sleepIncreaseMinFreq <= ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall())
 	{
 		if (sleep < 100) sleep += 1;
 		if (sleep > 100) sleep = 100;
-		lastSleepIncreaseTime = ui.getClocks()->getMinutesOverall();
+		lastSleepIncreaseTime = ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall();
 	}
-	if (lastThirstIncreaseTime + thirstIncreaseMinFreq <= ui.getClocks()->getMinutesOverall())
+	if (lastThirstIncreaseTime + thirstIncreaseMinFreq <= ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall())
 	{
 		if (thirst < 100) thirst += 1;
 		if (thirst > 100) thirst = 100;
-		lastThirstIncreaseTime = ui.getClocks()->getMinutesOverall();
+		lastThirstIncreaseTime = ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall();
 	}
-	if (lastHungerIncreaseTime + hungerIncreaseMinFreq <= ui.getClocks()->getMinutesOverall())
+	if (lastHungerIncreaseTime + hungerIncreaseMinFreq <= ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall())
 	{
 		if (hunger < 100) hunger += 1;
 		if (hunger > 100) hunger = 100;
-		lastHungerIncreaseTime = ui.getClocks()->getMinutesOverall();
+		lastHungerIncreaseTime = ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall();
 	}
 
 
 	ui.setPlayerIsInsideLocation(inside);
-	ui.updatePlayerStatusLines(health, sleep, temperature, thirst, hunger);
 }
 
 void Player::draw(RenderWindow& window)
@@ -198,10 +198,26 @@ void Player::setPos(Vector2f newPos)
 	playerSprite.setPosition(pos);
 }
 
-Vector2f Player::getPos()
+float Player::getStateIndicatorNum(PlayerStateIndicatorsEnum indicationType)
 {
-	return pos;
-
+	switch (indicationType)
+	{
+	case PlayerStateIndicatorsEnum::HEALTH:
+		return health;
+		break;
+	case PlayerStateIndicatorsEnum::SLEEP:
+		return sleep;
+		break;
+	case PlayerStateIndicatorsEnum::TEMPERATURE:
+		return temperature;
+		break;
+	case PlayerStateIndicatorsEnum::THIRST:
+		return thirst;
+		break;
+	case PlayerStateIndicatorsEnum::HUNGER:
+		return hunger;
+		break;
+	}
 }
 
 void Player::travel(IEC* iec)

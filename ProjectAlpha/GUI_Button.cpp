@@ -1,8 +1,9 @@
 #include "GUI_Button.h"
 
-void GUI_Button::assignRes(vector<Texture>& uiResVec, std::vector<sf::Font>* fontsVec, vector<Texture>* textureResVec)
+void GUI_Button::assignRes(vector<Texture>& uiResVec, std::vector<Font>* fontsVec, vector<Texture>* textureResVec)
 {
 	spriteIdle.setTexture(uiResVec[(int)buttonType]);
+	cout << uiResVec[(int)buttonType].getSize().x << endl;
 	spriteIdle.setTextureRect(IntRect(0, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
 }
 
@@ -29,4 +30,5 @@ bool GUI_Button::update(IEC& iec, RenderWindow &window, View &view)
 void GUI_Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(spriteIdle);
+	//cout << "You drew correct shit!\n";
 }

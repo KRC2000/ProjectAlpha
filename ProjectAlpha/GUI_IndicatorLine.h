@@ -10,7 +10,7 @@ class GUI_IndicatorLine: public GUI_Element
 {
 	Sprite s_lineHead, s_lineBody, s_lineTail;
 	Sprite s_picture;
-	Texture* t_line, *t_pic;
+	Texture* t_line = nullptr, *t_pic = nullptr;
 
 	IntRect pictureRect;
 

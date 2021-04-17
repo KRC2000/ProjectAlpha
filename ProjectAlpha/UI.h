@@ -12,8 +12,7 @@
 
 class UI
 {
-	vector<GUI_Element> guiElementsVec;
-
+	vector<GUI_Element*> guiElementsVec;
 
 	/*Global textures storage reference to spread among object's load() functions*/
 	vector<Texture>* texturesResVecPtr;
@@ -28,23 +27,11 @@ class UI
 	 view to the window to draw UI content*/
 	View tempView;
 
-	GUI_Clocks clock;
-
-	GUI_ItemsList inventoryItemsList, locationItemsList;
-
-	/*Player health, hunger, thirst, etc. gui indicators*/
-	vector<GUI_IndicatorLine> indicatorsVec{ (int)PlayerStateIndicatorsEnum::AMOUNT };
-
 	bool playerInventoryIsOpened = false;
 	bool playerIsInsideLocation = false;
 
-	/* Button for opening backpack*/
-	GUI_Button backpack_b{ UiResEnum::GAMESCENE_BUTTON_BACKPACK, "backpack" };
-
-	GUI_ActionPanel panel;
-
 	/* Font reference to spread among object's load() functions(those who got drawable Text objects)*/
-	Font* guiFont1;
+	Font* guiFont1 = nullptr;
 
 public:
 	UI();
@@ -55,16 +42,6 @@ public:
 	void update(IEC& iec, RenderWindow& window);
 	void draw(RenderWindow& window);
 
-	void updatePlayerStatusLines(float health, float sleep, float temperature, float thirst, float hunger);
-
-	/// <summary>
-	/// Move item from one GUI_ItemList to another by deleting it in the first one and creating its copy in another
-	/// </summary>
-	/// <param name="movingFromList">list that will lose item</param>
-	/// <param name="movingToList">list that gain that item</param>
-	/// <param name="itemVecIndex">index of item in both GUI_ItemListItem and assignedStorage Item vectors of "movingFromList" list</param>
-	void moveItemBetweenLists(GUI_ItemsList& movingFromList, GUI_ItemsList& movingToList, unsigned int itemVecIndex);
-
 	////////// SETTERS
 
 	void setPlayerInventoryIsOpened(bool isOpened);
@@ -74,10 +51,11 @@ public:
 
 	////////// GETTERS
 
+	template <class Element> Element* getGuiElement(string guiElementName);
+	vector<Texture>& getUiResVec() { return uiResVec; };
+	vector<GUI_Element*>& getGuiElementsVec() {return guiElementsVec;};
 	bool getPlayerInventoryIsOpened();
-	GUI_Clocks* getClocks();
-	GUI_ItemsList* getInventoryItemList();
-	GUI_ItemsList* getLocationItemList();
+	const View& getView() { return view; };
 
 	//////////////////
 
@@ -87,3 +65,14 @@ private:
 	void loadUiRes();
 };
 
+template<class Element>
+inline Element* UI::getGuiElement(string guiElementName)
+{
+	for (auto& element : guiElementsVec)
+	{
+		if (element->getName() == guiElementName)
+		{
+			return dynamic_cast<Element*>(element);
+		}
+	}
+}

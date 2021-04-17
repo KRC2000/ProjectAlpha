@@ -39,6 +39,7 @@ public:
 	void increaseTransparencyFade(int percent);
 
 	int getAlpha();
+	Vector2f getPos() { return s_box.getPosition(); };
 	const Sprite* getSpriteBox() const;
 
 private:

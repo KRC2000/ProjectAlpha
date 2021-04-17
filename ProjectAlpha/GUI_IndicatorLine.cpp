@@ -43,6 +43,7 @@ void GUI_IndicatorLine::setPos(Vector2f newPos)
 	pos = newPos;
 	s_picture.setPosition({ pos.x - s_picture.getGlobalBounds().width,
 			pos.y - s_picture.getGlobalBounds().height / 2 + t_line->getSize().y / 4 });
+	update();
 }
 
 void GUI_IndicatorLine::setValue(float value)

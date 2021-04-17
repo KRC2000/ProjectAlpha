@@ -146,7 +146,7 @@ bool GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 				if (itemsVec[0].getSpriteBox()->getPosition().y > baseUpperEdgePoint.y)
 				{
 					setItemsPos({ baseUpperEdgePoint.x, baseUpperEdgePoint.y });
-					cout << "Happened";
+					//cout << "Happened";
 				}
 				if (itemsVec[itemsVec.size() - 1].getSpriteBox()->getPosition().y + itemsVec[itemsVec.size() - 1].getSpriteBox()->getGlobalBounds().height < baseDownEdgePoint.y)
 				{
@@ -168,7 +168,6 @@ bool GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 				itemsVec[i].fadeIn();
 			}
 		}
-		return true;
 	}
 	return false;
 }
@@ -275,8 +274,6 @@ void GUI_ItemsList::addItem(Item newItem)
 
 		recalculateItemListLenght();
 	}
-
-
 }
 
 
@@ -295,51 +292,9 @@ void GUI_ItemsList::setPosition(Vector2f pos)
 	baseDownEdgePoint = { s_border.getPosition().x + 6, s_border.getPosition().y + s_border.getGlobalBounds().height - fadeGap };
 }
 
-void GUI_ItemsList::setActive(bool active)
-{
-	this->active = active;
-}
-
 void GUI_ItemsList::setPositionPercent(float percent)
 {
 	setItemsPos({ baseUpperEdgePoint.x, baseUpperEdgePoint.y - percent * onePercentLenght });
-
-	/*if (getPositionPercent() < percent)
-	{
-		while (getPositionPercent() != percent)
-		{
-			moveItems({ 0, -1 });
-		}
-	}
-	else if (getPositionPercent() > percent)
-	{
-		while (getPositionPercent() != percent)
-		{
-			moveItems({ 0, 1 });
-		}
-	}*/
-	
-}
-
-
-bool GUI_ItemsList::getIsActive()
-{
-	return active;
-}
-
-Sprite* GUI_ItemsList::getBorderSprite()
-{
-	return &s_border;
-}
-
-Storage* GUI_ItemsList::getAssignedStorage()
-{
-	return assignedStorage;
-}
-
-bool GUI_ItemsList::isBeingScrolled()
-{
-	return beingScrolled;
 }
 
 vector<GUI_ItemsListItem>& GUI_ItemsList::getItemsVec()
@@ -347,15 +302,21 @@ vector<GUI_ItemsListItem>& GUI_ItemsList::getItemsVec()
 	return itemsVec;
 }
 
-bool GUI_ItemsList::isCursorPointingAtItem(unsigned int& itemVecIndex, Vector2f mousePos)
+unsigned int GUI_ItemsList::getItemIndexCursorPointingAt(Vector2f mousePos)
 {
 	for (unsigned int i = 0; i < itemsVec.size(); i++)
 	{
 		if (itemsVec[i].getSpriteBox()->getGlobalBounds().contains(mousePos))
-		{
-			itemVecIndex = i;
+			return i;
+	}
+}
+
+bool GUI_ItemsList::isCursorPointingAtItem(Vector2f mousePos)
+{
+	for (auto& item : itemsVec)
+	{
+		if (item.getSpriteBox()->getGlobalBounds().contains(mousePos))
 			return true;
-		}
 	}
 	return false;
 }

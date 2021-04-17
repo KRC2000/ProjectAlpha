@@ -28,6 +28,17 @@ bool GUI_ActionPanel::update(IEC& iec, RenderWindow& window, View& view)
 				return true;
 			}
 		}
+
+		//if clicked on empty canvas - expire mouse event
+		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
+		{
+			if (s_head.getGlobalBounds().contains(iec.getMousePos(window, view)) ||
+				s_body.getGlobalBounds().contains(iec.getMousePos(window, view)) ||
+				s_tail.getGlobalBounds().contains(iec.getMousePos(window, view)))
+			{
+				iec.eventExpire(Mouse::Left);
+			}
+		}
 	}
 	return false;
 }
@@ -46,12 +57,13 @@ void GUI_ActionPanel::draw(RenderTarget& target, RenderStates states) const
 	}
 }
 
-GUI_Button& GUI_ActionPanel::getActivatedButton()
+GUI_Button* GUI_ActionPanel::getActivatedButton()
 {
 	for (auto& btn : buttonsVec)
 	{
-		if (btn.getIsActivated()) return btn;
+		if (btn.getIsActivated()) return &btn;
 	}
+	return nullptr;
 }
 
 void GUI_ActionPanel::addActionButton(vector<Texture>& uiResVec, UiResEnum buttonType, string buttonName)
@@ -68,25 +80,14 @@ void GUI_ActionPanel::addActionButton(vector<Texture>& uiResVec, UiResEnum butto
 	s_body.setTextureRect(IntRect(0, 0, s_body.getTextureRect().width + 50, s_body.getTextureRect().height));
 }
 
-void GUI_ActionPanel::setActive(bool isActive)
-{
-	active = isActive;
-}
-
 void GUI_ActionPanel::setPos(Vector2f newPos)
 {
 	s_head.setPosition(newPos);
 	s_body.setPosition({ newPos.x + s_head.getGlobalBounds().width, newPos.y });
 	s_tail.setPosition({ newPos.x + s_head.getGlobalBounds().width + s_body.getGlobalBounds().width, newPos.y });
-	/*pos.x = newPos.x - 33;
-	pos.y = newPos.y - 71;*/
+
 	for (unsigned int i = 0; i < buttonsVec.size(); i++)
 	{
 		buttonsVec[i].setPosition({ s_head.getPosition().x + 15 + (buttonsVec.back().getGlobalBounds().width + 17) * i, s_head.getPosition().y + 6 });
 	}
-}
-
-bool GUI_ActionPanel::getIsActive()
-{
-	return active;
 }

@@ -11,6 +11,7 @@
 // will try to understand it. You may try to understand it, but only if diameter 
 // of your balls is more than 35cm. Otherwise can't say where you'll end up.
 // Extremely needs to be re-write. But until then... 
+// Update: Now its actually pretty good :/
 class GUI_ItemsList: public GUI_Element
 {
 	// Global textures storage reference to spread among object's load() functions
@@ -42,7 +43,7 @@ class GUI_ItemsList: public GUI_Element
 
 	// Reference to Storage object that contains items that should be displayed by items list
 	// If == nullptr then items list display nothing
-	Storage* assignedStorage;
+	Storage* assignedStorage = nullptr;
 
 	vector<GUI_ItemsListItem> itemsVec;
 
@@ -104,29 +105,30 @@ public:
 	////////// SETTERS
 
 	void setPosition(Vector2f pos);
-	void setActive(bool active);
+	void setActive(bool active) { this->active = active; };
 
 	/* Scrolling content for "percent" percents of all content list length
 	 GUI_Slider passes how much percents he is scrolled, and with this function
 	 content get scrolled same amount of percents*/
 	void setPositionPercent(float percent);
 
+	//////////////////
 
 	////////// GETTERS
 
-	bool getIsActive();
+	bool getIsActive() { return active; };
 
 	// Reference to background sprite
-	Sprite* getBorderSprite();
-	Storage* getAssignedStorage();
+	Sprite* getBorderSprite() { return &s_border; };
+	Storage* getAssignedStorage() { return assignedStorage; };
 
 	/*Returns true on ticks when mouseWheelDelta != 0*/
-	bool isBeingScrolled();
-
+	bool isBeingScrolled() { return beingScrolled; };
 
 	vector<GUI_ItemsListItem>& getItemsVec();
 
-	bool isCursorPointingAtItem(unsigned int& itemVecIndex, Vector2f mousePos);
+	unsigned int getItemIndexCursorPointingAt(Vector2f mousePos);
+	bool isCursorPointingAtItem(Vector2f mousePos);
 
 	/* See setPositionPercent(). Used when content is scrolled with mouse wheel,
 	 so it's sliders turn to move on same related distance as content moved.

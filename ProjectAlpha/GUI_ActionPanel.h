@@ -11,7 +11,8 @@ class GUI_ActionPanel: public GUI_Element
 
 	bool active = false;
 	GUI_Button* usedButton = nullptr;
-	//GUI_ItemsListItem* itemPointer;
+	GUI_Element* assignedUiElement = nullptr;
+
 public:
 	GUI_ActionPanel() : GUI_Element(GUIElementsEnum::GUI_ACTIONPANEL) {};
 	virtual ~GUI_ActionPanel() {};
@@ -24,7 +25,7 @@ public:
 	//void load(vector<Texture>& textureResourcesVec);
 
 	/*Returns pointer to a button that was clicked inside of a panel*/
-	GUI_Button& getActivatedButton();
+	GUI_Button* getActivatedButton();
 
 
 	/*Widening widget bounds, creating and adding new button to it in a row*/
@@ -32,9 +33,11 @@ public:
 
 
 	/*Set to true to allow updating and drawing*/
-	void setActive(bool isActive);
+	void assignGuiElement(GUI_Element* elementPtr) { assignedUiElement = elementPtr; };
+	void setActive(bool isActive) { active = isActive; };
 	void setPos(Vector2f newPos);
 
-	bool getIsActive();
+	GUI_Element* getAssignedGuiElement() { return assignedUiElement; };
+	bool getIsActive() { return active; };
 };
 
