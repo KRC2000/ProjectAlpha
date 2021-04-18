@@ -81,6 +81,9 @@
     <ClCompile Include="GUI_Slider.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="GUI_Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -170,26 +173,9 @@
     <ClInclude Include="ScenesEnum.h">
       <Filter>Enums</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="res\buildings.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\impact-point.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\map0x0.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\playButton.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\playerIcon.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\GUI.png">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ClInclude Include="GUI_Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\map0x0.txt">
@@ -198,5 +184,215 @@
     <Text Include="res\itemEffects.txt">
       <Filter>txt</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\actionPanel.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bagButton.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\barn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\barracks.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\beer-bottle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\buildings.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\camping-tent.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\canned-fish.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\cave-entrance.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\control-tower.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\corn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\downListButton.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\eating.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\fallen-london-old-map.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\family-house.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\forest.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\glass-shot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\gold-mine.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\graveyard.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\greenhouse.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\GUI.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\GUI_List.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\hand.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\health-normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\home-garage.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\hospital.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\house.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\impact-point.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\IndicatorLine.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\info.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ItemBar.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Items.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\lighthouse.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\listScrollBar.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\listScrollBar_style0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainMenuDefaultButton.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\map0x0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\medical-thermometer.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\medicine-pills.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\modern-city.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mushroom-gills.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\night-sleep.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\person.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\pin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\playButton.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\playerIcon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\radio-tower.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\school-bag.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sharp-lips.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\shiny-apple.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\shop.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sing.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\snake-bite.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\statusIcons.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\temple-gate.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\upListButton.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\walk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\watchtower.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\water-tank.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\windpump.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\wood-cabin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\bagButton.pdn">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\eating.pdn">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\GUI_List.pdn">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\map0x0.pdn">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\playerIcon.pdn">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\KarmaFuture.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\VintageOne.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

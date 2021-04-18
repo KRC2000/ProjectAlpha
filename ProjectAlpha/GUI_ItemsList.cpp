@@ -60,7 +60,7 @@ void GUI_ItemsList::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec,
 	//guiFont1 = font;
 	this->uiFontsVec = fontsVec;
 
-	s_border.setTexture(texturesResVec->at((int)ResourcesEnum::GUI_T));
+	s_border.setTexture(uiResVec[(int)UiResEnum::GUI_ITEMLIST]);
 
 	// load() underlying objects: buttons, GUI_Slider, items-list items(if they are)
 	/*upListButton.load("res/upListButton.png", "goUpList");

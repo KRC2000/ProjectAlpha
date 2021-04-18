@@ -24,11 +24,12 @@ public:
 	virtual void draw(RenderTarget& target, RenderStates states = RenderStates::Default) const override;
 
 	// Needs for update() to be called after!!!
-	void addMinutes(float minutes);
+	void addMinutes(float minutes) { this->minutes += minutes; };
 
-	void setPos(Vector2f pos);
+	void setPos(Vector2f pos) { timeText.setPosition(pos); };
+	void setColor(Color color) { timeText.setFillColor(color); };
 
-	Text* getTextObj();
-	int getMinutesOverall();
+	Text* getTextObj() { return &timeText; };
+	int getMinutesOverall() { return ((day * 24 * 60) + hours * 60 + minutes); };
 };
 

@@ -1,7 +1,7 @@
 #include "GameScene.h"
 
 GameScene::GameScene():
-	player({ 300, 200 })
+	player({ 1000, 800 })
 {
 	ui.addGuiElement(new GUI_Clocks(), "clocks");
 	ui.addGuiElement(new GUI_Button(UiResEnum::GAMESCENE_BUTTON_BACKPACK), "button_backpack");
@@ -26,6 +26,8 @@ void GameScene::load(RenderWindow& window)
 	loadResources();
 	ui.load(&textureResourcesVec, window, &guiFont1);
 	//////////////////////////////////////
+
+	ui.getGuiElement<GUI_Clocks>("clocks")->setColor({32, 70, 49, 255});
 
 	ui.getGuiElement<GUI_Button>("button_backpack")->setScale({ 0.2, 0.2 });
 	ui.getGuiElement<GUI_Button>("button_backpack")->setPosition({ ui.getView().getSize().x / 2 - ui.getGuiElement<GUI_Button>("button_backpack")->getGlobalBounds().width / 2,
@@ -233,7 +235,7 @@ void GameScene::draw(RenderWindow& window, VideoMode videoMode)
 		window.setView(view);
 
 		map.draw(window);
-		player.draw(window);
+		window.draw(player);
 
 		ui.draw(window);
 	}

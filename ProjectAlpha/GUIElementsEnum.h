@@ -9,5 +9,6 @@ enum class GUIElementsEnum
 	GUI_ITEMLIST,
 	GUI_ITEMLISTITEM,
 	GUI_SLIDER,
+	GUI_WINDOW,
 	AMOUNT
 };

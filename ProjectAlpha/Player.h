@@ -6,7 +6,7 @@
 #include "Storage.h"
 #include "Item.h"
 
-class Player
+class Player: public Drawable
 {
 	Vector2f pos, goalPos;
 	Sprite playerSprite, targetPointSprite;
@@ -45,7 +45,8 @@ public:
 	Player(Vector2f spawnPos);
 	void load(vector<Texture>& textureResourcesVec, UI& ui);
 	void update(IEC & iec, RenderWindow & window, Map & map, UI & ui);
-	void draw(RenderWindow& window);
+	virtual void draw(RenderTarget& target, RenderStates states = RenderStates::Default) const override;
+	//void draw(RenderWindow& window);
 
 	void setPos(Vector2f newPos);
 

@@ -45,9 +45,9 @@ public:
 	void setMaxLength(int newMaxLength);
 	void setMaxValue(float newMaxValue);
 
-	float getValue();
-	float getMaxValue();
-	Sprite* getPictureSprite();
+	float getValue() { return currentValue; };
+	float getMaxValue() { return maxValue; };
+	Sprite* getPictureSprite() { return &s_picture; };
 
 private:
 	void update();

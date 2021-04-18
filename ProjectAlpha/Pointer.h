@@ -2,7 +2,8 @@
 #include "PrecompiledHeaders.h"
 #include "Storage.h"
 
-class Pointer
+
+class Pointer: public Drawable
 {
 	bool playerIsInside = false;
 
@@ -16,7 +17,7 @@ public:
 	Pointer(PointersEnum pointerType, Vector2f pos);
 	void loadTextures(vector<Texture>* textureResourcesVec);
 	void zoom(Vector2f factor);
-	void draw(RenderWindow& window);
+	virtual void draw(RenderTarget& target, RenderStates states = RenderStates::Default) const override;
 
 	Storage* getStorage();
 	FloatRect getBackSpriteBoundaries();

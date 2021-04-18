@@ -74,7 +74,7 @@ void Game::update()
 
 void Game::draw()
 {
-	window.clear(Color::Green);
+	window.clear();
 
 	gameScene.draw(window, videoMode);
 	mainMenuScene.draw(window, videoMode);

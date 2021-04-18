@@ -70,21 +70,6 @@ void GUI_IndicatorLine::setMaxValue(float newMaxValue)
 	update();
 }
 
-float GUI_IndicatorLine::getValue()
-{
-	return currentValue;
-}
-
-float GUI_IndicatorLine::getMaxValue()
-{
-	return maxValue;
-}
-
-Sprite* GUI_IndicatorLine::getPictureSprite()
-{
-	return &s_picture;
-}
-
 void GUI_IndicatorLine::update()
 {
 	if (currentValue < 0) currentValue = 0;

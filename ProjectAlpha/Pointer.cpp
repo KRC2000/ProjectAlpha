@@ -57,10 +57,10 @@ void Pointer::zoom(Vector2f factor)
 	back.scale(factor);
 }
 
-void Pointer::draw(RenderWindow& window)
+void Pointer::draw(RenderTarget& target, RenderStates states) const
 {
-	window.draw(back);
-	window.draw(sprite);
+	target.draw(back);
+	target.draw(sprite);
 }
 
 Storage* Pointer::getStorage()

@@ -152,6 +152,7 @@
     <ClCompile Include="GUI_IndicatorLine.cpp" />
     <ClCompile Include="GUI_ItemsList.cpp" />
     <ClCompile Include="GUI_ItemsListItem.cpp" />
+    <ClCompile Include="GUI_Window.cpp" />
     <ClCompile Include="IEC.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
@@ -166,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIElementsEnum.h" />
+    <ClInclude Include="GUI_Window.h" />
     <ClInclude Include="ScenesEnum.h" />
     <ClInclude Include="UiFontsEnum.h" />
     <ClInclude Include="GUI_Button.h" />
@@ -196,16 +198,82 @@
     <ClInclude Include="UiResEnum.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\buildings.png" />
-    <Image Include="res\GUI.png" />
-    <Image Include="res\impact-point.png" />
-    <Image Include="res\map0x0.png" />
-    <Image Include="res\playButton.png" />
-    <Image Include="res\playerIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="res\itemEffects.txt" />
     <Text Include="res\map0x0.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\actionPanel.png" />
+    <Image Include="res\bagButton.png" />
+    <Image Include="res\barn.png" />
+    <Image Include="res\barracks.png" />
+    <Image Include="res\beer-bottle.png" />
+    <Image Include="res\buildings.png" />
+    <Image Include="res\camping-tent.png" />
+    <Image Include="res\canned-fish.png" />
+    <Image Include="res\cave-entrance.png" />
+    <Image Include="res\control-tower.png" />
+    <Image Include="res\corn.png" />
+    <Image Include="res\downListButton.png" />
+    <Image Include="res\eating.png" />
+    <Image Include="res\fallen-london-old-map.jpg" />
+    <Image Include="res\family-house.png" />
+    <Image Include="res\forest.png" />
+    <Image Include="res\glass-shot.png" />
+    <Image Include="res\gold-mine.png" />
+    <Image Include="res\graveyard.png" />
+    <Image Include="res\greenhouse.png" />
+    <Image Include="res\GUI.png" />
+    <Image Include="res\GUI_List.png" />
+    <Image Include="res\hand.png" />
+    <Image Include="res\health-normal.png" />
+    <Image Include="res\home-garage.png" />
+    <Image Include="res\hospital.png" />
+    <Image Include="res\house.png" />
+    <Image Include="res\impact-point.png" />
+    <Image Include="res\IndicatorLine.png" />
+    <Image Include="res\info.png" />
+    <Image Include="res\ItemBar.png" />
+    <Image Include="res\Items.png" />
+    <Image Include="res\lighthouse.png" />
+    <Image Include="res\listScrollBar.png" />
+    <Image Include="res\listScrollBar_style0.png" />
+    <Image Include="res\mainMenuDefaultButton.png" />
+    <Image Include="res\map0x0.png" />
+    <Image Include="res\medical-thermometer.png" />
+    <Image Include="res\medicine-pills.png" />
+    <Image Include="res\modern-city.png" />
+    <Image Include="res\mushroom-gills.png" />
+    <Image Include="res\night-sleep.png" />
+    <Image Include="res\person.png" />
+    <Image Include="res\pin.png" />
+    <Image Include="res\playButton.png" />
+    <Image Include="res\playerIcon.png" />
+    <Image Include="res\radio-tower.png" />
+    <Image Include="res\school-bag.png" />
+    <Image Include="res\sharp-lips.png" />
+    <Image Include="res\shiny-apple.png" />
+    <Image Include="res\shop.png" />
+    <Image Include="res\sing.png" />
+    <Image Include="res\snake-bite.png" />
+    <Image Include="res\statusIcons.png" />
+    <Image Include="res\temple-gate.png" />
+    <Image Include="res\upListButton.png" />
+    <Image Include="res\walk.png" />
+    <Image Include="res\watchtower.png" />
+    <Image Include="res\water-tank.png" />
+    <Image Include="res\windpump.png" />
+    <Image Include="res\wood-cabin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\bagButton.pdn" />
+    <None Include="res\eating.pdn" />
+    <None Include="res\GUI_List.pdn" />
+    <None Include="res\map0x0.pdn" />
+    <None Include="res\playerIcon.pdn" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\KarmaFuture.ttf" />
+    <Font Include="res\VintageOne.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

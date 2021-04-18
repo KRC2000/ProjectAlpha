@@ -184,13 +184,20 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 	ui.setPlayerIsInsideLocation(inside);
 }
 
-void Player::draw(RenderWindow& window)
+void Player::draw(RenderTarget& target, RenderStates states) const
 {
-	if (pos.y >= goalPos.y) window.draw(targetPointSprite);
-	window.draw(playerSprite);
-	if (pos.y <= goalPos.y) window.draw(targetPointSprite);
-
+	if (pos.y >= goalPos.y) target.draw(targetPointSprite);
+	target.draw(playerSprite);
+	if (pos.y <= goalPos.y) target.draw(targetPointSprite);
 }
+
+//void Player::draw(RenderWindow& window)
+//{
+//	if (pos.y >= goalPos.y) window.draw(targetPointSprite);
+//	window.draw(playerSprite);
+//	if (pos.y <= goalPos.y) window.draw(targetPointSprite);
+//
+//}
 
 void Player::setPos(Vector2f newPos)
 {

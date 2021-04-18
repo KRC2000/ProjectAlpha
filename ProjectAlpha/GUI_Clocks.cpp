@@ -32,24 +32,3 @@ void GUI_Clocks::draw(RenderTarget& target, RenderStates states) const
 {
 	target.draw(timeText);
 }
-
-void GUI_Clocks::addMinutes(float minutes)
-{
-	this->minutes += minutes;
-}
-
-void GUI_Clocks::setPos(Vector2f pos)
-{
-	timeText.setPosition(pos);
-}
-
-Text* GUI_Clocks::getTextObj()
-{
-	return &timeText;
-}
-
-int GUI_Clocks::getMinutesOverall()
-{
-	
-	return ((day * 24 * 60) + hours * 60 + minutes);
-}

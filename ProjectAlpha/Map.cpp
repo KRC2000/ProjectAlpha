@@ -19,15 +19,6 @@ void Map::loadTextures(vector<Texture>* textureResourcesVec)
 	}
 }
 
-void Map::draw(RenderWindow& window)
-{
-	window.draw(s);
-	for (int i = 0; i < pointersVec.size(); i++)
-	{
-		pointersVec[i].draw(window);
-	}
-}
-
 vector<Pointer> * Map::getPointersVec()
 {
 	return & pointersVec;
@@ -46,6 +37,15 @@ void Map::update(IEC& iec, RenderWindow& window)
 		{
 			pointersVec[i].zoom({ 1 - (float)iec.getMouseWheelDelta() / 10, 1 - (float)iec.getMouseWheelDelta() / 10 });
 		}
+	}
+}
+
+void Map::draw(RenderTarget& target, RenderStates states) const
+{
+	target.draw(s);
+	for (auto& pointer : pointersVec)
+	{
+		target.draw(pointer);
 	}
 }
 
