@@ -64,6 +64,8 @@ void Player::load(vector<Texture>& textureResourcesVec, UI& ui)
 	playerSprite.setTexture(textureResourcesVec[(int)ResourcesEnum::PLAYERICON_T]);
 	playerSprite.setTextureRect(IntRect(1 * 100, 0, 100, 120));
 	targetPointSprite.setTexture(textureResourcesVec[(int)ResourcesEnum::TARGETPOINT_T]);
+
+	loadConsumableItemsData();
 }
 
 void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
@@ -163,20 +165,20 @@ void Player::update(IEC& iec, RenderWindow& window, Map & map, UI & ui)
 	
 	if (lastSleepIncreaseTime + sleepIncreaseMinFreq <= ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall())
 	{
-		if (sleep < 100) sleep += 1;
-		if (sleep > 100) sleep = 100;
+		if (survivalParameters[(int)SurvivalParametersEnum::SLEEP] < 100) survivalParameters[(int)SurvivalParametersEnum::SLEEP] += 1;
+		if (survivalParameters[(int)SurvivalParametersEnum::SLEEP] > 100) survivalParameters[(int)SurvivalParametersEnum::SLEEP] = 100;
 		lastSleepIncreaseTime = ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall();
 	}
 	if (lastThirstIncreaseTime + thirstIncreaseMinFreq <= ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall())
 	{
-		if (thirst < 100) thirst += 1;
-		if (thirst > 100) thirst = 100;
+		if (survivalParameters[(int)SurvivalParametersEnum::THIRST] < 100) survivalParameters[(int)SurvivalParametersEnum::THIRST] += 1;
+		if (survivalParameters[(int)SurvivalParametersEnum::THIRST] > 100) survivalParameters[(int)SurvivalParametersEnum::THIRST] = 100;
 		lastThirstIncreaseTime = ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall();
 	}
 	if (lastHungerIncreaseTime + hungerIncreaseMinFreq <= ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall())
 	{
-		if (hunger < 100) hunger += 1;
-		if (hunger > 100) hunger = 100;
+		if (survivalParameters[(int)SurvivalParametersEnum::HUNGER] < 100) survivalParameters[(int)SurvivalParametersEnum::HUNGER] += 1;
+		if (survivalParameters[(int)SurvivalParametersEnum::HUNGER] > 100) survivalParameters[(int)SurvivalParametersEnum::HUNGER] = 100;
 		lastHungerIncreaseTime = ui.getGuiElement<GUI_Clocks>("clocks")->getMinutesOverall();
 	}
 
@@ -191,40 +193,55 @@ void Player::draw(RenderTarget& target, RenderStates states) const
 	if (pos.y <= goalPos.y) target.draw(targetPointSprite);
 }
 
-//void Player::draw(RenderWindow& window)
-//{
-//	if (pos.y >= goalPos.y) window.draw(targetPointSprite);
-//	window.draw(playerSprite);
-//	if (pos.y <= goalPos.y) window.draw(targetPointSprite);
-//
-//}
+void Player::loadConsumableItemsData()
+{
+	ifstream readStream("res/itemEffects.txt");
+	if (readStream.is_open())
+	{
+		string s;
+		int id;
+		while (!readStream.eof())
+		{
+			readStream >> s;
+			if (s == "#")
+			{
+				getline(readStream, s);
+			}
+			if (s == "ID")
+			{
+				readStream >> id;
+				cout << "ID - " << id << endl;
+				readStream >> s;
+				for (int i = 0; i < (int)SurvivalParametersEnum::AMOUNT; i++)
+				{
+					readStream >> s;
+					consumablesEffectsData[id][i] = stoi(s);
+					cout << s << " ";
+				}
+				cout << endl;
+			}
+		}
+		readStream.close();
+	}
+}
+
+void Player::applyEffectOnSurvivalParametr(SurvivalParametersEnum parametr, float valueToAdd)
+{
+	survivalParameters[(int)parametr] += valueToAdd;
+}
+
+void Player::consume(Item item)
+{
+	for (int i = 0; i < (int)SurvivalParametersEnum::AMOUNT; i++)
+	{
+		applyEffectOnSurvivalParametr((SurvivalParametersEnum)i, consumablesEffectsData[(int)item.getId()][i]);
+	}
+}
 
 void Player::setPos(Vector2f newPos)
 {
 	pos = newPos;
 	playerSprite.setPosition(pos);
-}
-
-float Player::getStateIndicatorNum(PlayerStateIndicatorsEnum indicationType)
-{
-	switch (indicationType)
-	{
-	case PlayerStateIndicatorsEnum::HEALTH:
-		return health;
-		break;
-	case PlayerStateIndicatorsEnum::SLEEP:
-		return sleep;
-		break;
-	case PlayerStateIndicatorsEnum::TEMPERATURE:
-		return temperature;
-		break;
-	case PlayerStateIndicatorsEnum::THIRST:
-		return thirst;
-		break;
-	case PlayerStateIndicatorsEnum::HUNGER:
-		return hunger;
-		break;
-	}
 }
 
 void Player::travel(IEC* iec)

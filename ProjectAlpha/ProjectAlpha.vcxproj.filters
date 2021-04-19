@@ -140,7 +140,7 @@
     <ClInclude Include="Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStateIndicatorsEnum.h">
+    <ClInclude Include="SurvivalParametersEnum.h">
       <Filter>Enums</Filter>
     </ClInclude>
     <ClInclude Include="GUI_Button.h">

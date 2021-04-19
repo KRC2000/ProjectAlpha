@@ -3,6 +3,7 @@
 #include "GUI_Element.h"
 #include "UiResEnum.h"
 #include "UiFontsEnum.h"
+#include "Item.h"
 
 class GUI_ItemsListItem: public GUI_Element
 {
@@ -11,6 +12,7 @@ class GUI_ItemsListItem: public GUI_Element
 
 	Clock fadeTimer;
 
+	Item* relatedItem = nullptr;
 	ItemsEnum itemId;
 	int amount, condition;
 	bool reusable;
@@ -35,12 +37,15 @@ public:
 	// Basically sets alpha RGBA component, but in percents
 	void setTransparencyFade(int percent);
 
+	void setRelatedItem(Item& item) { relatedItem = &item; };
+
 	// Basically increments alpha RGBA component, but in percents
 	void increaseTransparencyFade(int percent);
 
 	int getAlpha();
 	Vector2f getPos() { return s_box.getPosition(); };
-	const Sprite* getSpriteBox() const;
+	const Sprite* getSpriteBox() const { return &s_box; };
+	Item* getRelatedItem() { return relatedItem; };
 
 private:
 	string getItemNameString(ItemsEnum itemId);

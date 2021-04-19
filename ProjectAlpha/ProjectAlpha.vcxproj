@@ -186,7 +186,7 @@
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerStateIndicatorsEnum.h" />
+    <ClInclude Include="SurvivalParametersEnum.h" />
     <ClInclude Include="Pointer.h" />
     <ClInclude Include="PointersEnum.h" />
     <ClInclude Include="PrecompiledHeaders.h" />

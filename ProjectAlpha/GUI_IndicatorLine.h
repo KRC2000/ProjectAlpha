@@ -1,6 +1,7 @@
 #pragma once
 #include"PrecompiledHeaders.h"
 #include "UiResEnum.h"
+#include "UiFontsEnum.h"
 #include "GUI_Element.h"
 
 using namespace sf;
@@ -11,10 +12,11 @@ class GUI_IndicatorLine: public GUI_Element
 	Sprite s_lineHead, s_lineBody, s_lineTail;
 	Sprite s_picture;
 	Texture* t_line = nullptr, *t_pic = nullptr;
-
+	Text text;
 	IntRect pictureRect;
 
 	bool pictureTitle = false;
+	bool textEnabled = true;
 
 	Vector2f pos{0, 0};
 
@@ -44,6 +46,7 @@ public:
 	void setValue(float value);
 	void setMaxLength(int newMaxLength);
 	void setMaxValue(float newMaxValue);
+	void setTextVisibility(bool visibility) { textEnabled = visibility; };
 
 	float getValue() { return currentValue; };
 	float getMaxValue() { return maxValue; };

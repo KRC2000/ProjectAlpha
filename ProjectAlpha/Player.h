@@ -22,11 +22,8 @@ class Player: public Drawable
 	int thirstIncreaseMinFreq = 40;
 	int hungerIncreaseMinFreq = 300;
 
-	float health = 100;
-	float sleep = 0;
-	float temperature = 50;
-	float thirst = 0;
-	float hunger = 0;
+	float survivalParameters[(int)SurvivalParametersEnum::AMOUNT]{ 50,50,50,50,50 };
+	int consumablesEffectsData[(int)ItemsEnum::CONSUMABLE_ITEMS_AMOUNT][(int)SurvivalParametersEnum::AMOUNT];
 
 	const float groundWalkingSpeed = 0.8f / 10000;
 	const float dirtRoadWalkingSpeed = 1.f / 10000;
@@ -46,12 +43,16 @@ public:
 	void load(vector<Texture>& textureResourcesVec, UI& ui);
 	void update(IEC & iec, RenderWindow & window, Map & map, UI & ui);
 	virtual void draw(RenderTarget& target, RenderStates states = RenderStates::Default) const override;
-	//void draw(RenderWindow& window);
+
+	void loadConsumableItemsData();
+
+	void applyEffectOnSurvivalParametr(SurvivalParametersEnum parametr, float valueToAdd);
+	void consume(Item item);
 
 	void setPos(Vector2f newPos);
 
 	Pointer* getRelatedPointerPtr() { return relatedPointer; };
-	float getStateIndicatorNum(PlayerStateIndicatorsEnum indicationType);
+	float getStateIndicatorNum(SurvivalParametersEnum indicationType) { return survivalParameters[(int)indicationType]; };
 	bool getIsInside() { return inside; };
 	Vector2f getPos() {return pos; };
 	Storage* getStoragePtr() { return &storage; };

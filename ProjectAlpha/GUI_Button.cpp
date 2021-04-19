@@ -19,10 +19,10 @@ bool GUI_Button::update(IEC& iec, RenderWindow &window, View &view)
 		{
 			activated = true;
 			iec.eventExpire(Mouse::Left);
+			cout << "You missed!\n";
 			return true;
 		}
 	}
-
 	activated = false;
 	return false;
 }

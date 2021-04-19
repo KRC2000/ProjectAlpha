@@ -12,7 +12,7 @@ void GUI_ItemsList::assignStorage(Storage* storage)
 	{
 		itemsVec.push_back(GUI_ItemsListItem(assignedStorage->getItemsVec()->at(i).getId(), assignedStorage->getItemsVec()->at(i).getAmount(),
 			assignedStorage->getItemsVec()->at(i).getIsReusable(), assignedStorage->getItemsVec()->at(i).getCondition()));
-
+		itemsVec.back().setRelatedItem(assignedStorage->getItemsVec()->at(i));
 	}
 
 	// initializing and load() of all just created items-list items
@@ -249,14 +249,30 @@ Item GUI_ItemsList::deleteItem(unsigned int itemVecIndex)
 	return returnItem;
 }
 
+Item GUI_ItemsList::deleteItem(GUI_ItemsListItem* listItem)
+{
+	for (int i = 0; i < itemsVec.size(); i++)
+	{
+		if (&itemsVec[i] == listItem)
+		{
+			itemsVec.erase(itemsVec.begin() + i);
+			Item returnItem = *assignedStorage->getItem(i);
+			assignedStorage->deleteItem(i);
+
+			liftItemsTale(i);
+			return returnItem;
+		}
+	}
+}
 
 
-void GUI_ItemsList::addItem(Item newItem)
+
+void GUI_ItemsList::addItem(Item& newItem)
 {
 	if (newItem.getId() >= ItemsEnum::UNKNOWN && newItem.getId() < ItemsEnum::ITEMS_AMOUNT)
 	{
 		GUI_ItemsListItem item(newItem.getId(), newItem.getAmount(), newItem.getIsReusable(), newItem.getCondition());
-		//item.load(*resourcesVec, guiFont1);
+		item.setRelatedItem(newItem);
 		item.assignRes(*uiResVec, uiFontsVec, textureResVec);
 
 		if (itemsVec.size() >= 1)

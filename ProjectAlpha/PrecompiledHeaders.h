@@ -17,7 +17,7 @@
 #include "ResourcesEnum.h"
 #include "PointersEnum.h"
 #include "ItemsEnum.h"
-#include "PlayerStateIndicatorsEnum.h"
+#include "SurvivalParametersEnum.h"
 #include "GUIElementsEnum.h"
 #include "Colors.h"
 

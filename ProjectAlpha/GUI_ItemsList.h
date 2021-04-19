@@ -98,9 +98,10 @@ public:
 	/*itemVecIndex - index of the item in both GUI_ItemsListItem and assignedStorage vectors.
 	Deletes both GUI_ItemsListItem and Item, from assigned to item list storage*/
 	Item deleteItem(unsigned int itemVecIndex);
+	Item deleteItem(GUI_ItemsListItem* listItem);
 
 	/*Creating new GUI_ItemListItem that represents passed Item newItem*/
-	void addItem(Item newItem);
+	void addItem(Item& newItem);
 
 	////////// SETTERS
 

@@ -6,7 +6,7 @@ class Item
 {
 	// See ItemsEnum.h
 	ItemsEnum itemId = ItemsEnum::UNKNOWN;
-	string effectsInfoFile = "res/itemEffects.txt";
+	//string effectsInfoFile = "res/itemEffects.txt";
 
 	int amount = 1;
 
@@ -22,8 +22,6 @@ public:
 	Item() {};
 	// Temporary!!! if new item used to be reusable, amount must = 1
 	Item(ItemsEnum itemId, int amount = 1, bool reusable = false, int condition = 100);
-
-	void applyItemConsumeEffect(float& health, float& sleep, float& temperature, float& thirst, float& hunger);
 
 	////////// SETTERS
 

@@ -80,11 +80,11 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 			GUI_IndicatorLine* indicatorLinePtr;
 			if (indicatorLinePtr = dynamic_cast<GUI_IndicatorLine*>(element))
 			{
-				if (element->getName() == "health_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(PlayerStateIndicatorsEnum::HEALTH));
-				if (element->getName() == "sleep_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(PlayerStateIndicatorsEnum::SLEEP));
-				if (element->getName() == "temperature_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(PlayerStateIndicatorsEnum::TEMPERATURE));
-				if (element->getName() == "thirst_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(PlayerStateIndicatorsEnum::THIRST));
-				if (element->getName() == "hunger_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(PlayerStateIndicatorsEnum::HUNGER));
+				if (element->getName() == "health_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(SurvivalParametersEnum::HEALTH));
+				if (element->getName() == "sleep_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(SurvivalParametersEnum::SLEEP));
+				if (element->getName() == "temperature_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(SurvivalParametersEnum::TEMPERATURE));
+				if (element->getName() == "thirst_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(SurvivalParametersEnum::THIRST));
+				if (element->getName() == "hunger_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(SurvivalParametersEnum::HUNGER));
 			}
 		}
 
@@ -172,8 +172,8 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 					unsigned int itemVecIndex;
 					itemVecIndex = p_inv->getItemIndexCursorPointingAt(iec.getMousePos(window, ui.getView()));
 					Item tempItem = p_inv->deleteItem(itemVecIndex);
-					l_inv->addItem(tempItem);
 					l_inv->getAssignedStorage()->addItem(tempItem);
+					l_inv->addItem(l_inv->getAssignedStorage()->getItemsVec()->back());
 				}
 			}
 			if (l_inv->getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, ui.getView())) &&
@@ -184,8 +184,8 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 					unsigned int itemVecIndex;
 					itemVecIndex = l_inv->getItemIndexCursorPointingAt(iec.getMousePos(window, ui.getView()));
 					Item tempItem = l_inv->deleteItem(itemVecIndex);
-					p_inv->addItem(tempItem);
 					p_inv->getAssignedStorage()->addItem(tempItem);
+					p_inv->addItem(l_inv->getAssignedStorage()->getItemsVec()->back());
 				}
 			}
 		}
@@ -212,12 +212,25 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 		}
 
 		//action panel buttons interactions
-		GUI_Button* button = inv_panel->getActivatedButton();
-		if (button)
+		if (inv_panel->getIsActive())
 		{
-			if (button->getName() == "eat") cout << "Player eating\n";
-			if (button->getName() == "use") cout << "Player using\n";
-			if (button->getName() == "info") cout << "Player getting info\n";
+			GUI_Button* button = inv_panel->getActivatedButton();
+			if (button)
+			{
+				if (button->getName() == "eat")
+				{
+					GUI_ItemsListItem* listItem = dynamic_cast<GUI_ItemsListItem*>(inv_panel->getAssignedGuiElement());
+					if (listItem)
+					{
+						player.consume(*listItem->getRelatedItem());
+						p_inv->deleteItem(listItem);
+						inv_panel->setActive(false);
+					}
+					cout << "Player eating\n";
+				}
+				if (button->getName() == "use") cout << "Player using\n";
+				if (button->getName() == "info") cout << "Player getting info\n";
+			}
 		}
 
 		player.update(iec, window, map, ui);
