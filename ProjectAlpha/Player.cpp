@@ -210,13 +210,8 @@ void Player::loadConsumableItemsData()
 			if (s == "ID")
 			{
 				readStream >> id;
-<<<<<<< HEAD
 				readStream >> s;
 				cout << "ID - " << id << " "<< s << endl;
-=======
-				cout << "ID - " << id << endl;
-				readStream >> s;
->>>>>>> 39f7a4c96ffe9a380f7c26f1e43e7bf22f57c5c7
 				for (int i = 0; i < (int)SurvivalParametersEnum::AMOUNT; i++)
 				{
 					readStream >> s;

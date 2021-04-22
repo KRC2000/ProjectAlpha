@@ -19,11 +19,6 @@ bool GUI_Button::update(IEC& iec, RenderWindow &window, View &view)
 		{
 			activated = true;
 			iec.eventExpire(Mouse::Left);
-<<<<<<< HEAD
-			//cout << "You missed!\n";
-=======
-			cout << "You missed!\n";
->>>>>>> 39f7a4c96ffe9a380f7c26f1e43e7bf22f57c5c7
 			return true;
 		}
 	}

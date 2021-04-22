@@ -185,11 +185,7 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 					itemVecIndex = l_inv->getItemIndexCursorPointingAt(iec.getMousePos(window, ui.getView()));
 					Item tempItem = l_inv->deleteItem(itemVecIndex);
 					p_inv->getAssignedStorage()->addItem(tempItem);
-<<<<<<< HEAD
 					p_inv->addItem(p_inv->getAssignedStorage()->getItemsVec()->back());
-=======
-					p_inv->addItem(l_inv->getAssignedStorage()->getItemsVec()->back());
->>>>>>> 39f7a4c96ffe9a380f7c26f1e43e7bf22f57c5c7
 				}
 			}
 		}

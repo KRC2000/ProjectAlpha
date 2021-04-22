@@ -102,7 +102,6 @@ public:
 
 	/*Creating new GUI_ItemListItem that represents passed Item newItem*/
 	void addItem(Item& newItem);
-<<<<<<< HEAD
 
 	/* See setPositionPercent(). Used when content is scrolled with mouse wheel,
 	 so it's sliders turn to move on same related distance as content moved.
@@ -119,8 +118,6 @@ public:
 private:
 	void reassignListItemsToStorageItems();
 public:
-=======
->>>>>>> 39f7a4c96ffe9a380f7c26f1e43e7bf22f57c5c7
 
 	////////// SETTERS
 
