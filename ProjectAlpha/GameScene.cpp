@@ -217,12 +217,25 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 		}
 
 		//action panel buttons interactions
-		GUI_Button* button = inv_panel->getActivatedButton();
-		if (button)
+		if (inv_panel->getIsActive())
 		{
-			if (button->getName() == "eat") cout << "Player eating\n";
-			if (button->getName() == "use") cout << "Player using\n";
-			if (button->getName() == "info") cout << "Player getting info\n";
+			GUI_Button* button = inv_panel->getActivatedButton();
+			if (button)
+			{
+				if (button->getName() == "eat")
+				{
+					GUI_ItemsListItem* listItem = dynamic_cast<GUI_ItemsListItem*>(inv_panel->getAssignedGuiElement());
+					if (listItem)
+					{
+						player.consume(*listItem->getRelatedItem());
+						p_inv->deleteItem(listItem);
+						inv_panel->setActive(false);
+					}
+					cout << "Player eating\n";
+				}
+				if (button->getName() == "use") cout << "Player using\n";
+				if (button->getName() == "info") cout << "Player getting info\n";
+			}
 		}
 
 		player.update(iec, window, map, ui);
