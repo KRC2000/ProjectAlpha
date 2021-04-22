@@ -5,6 +5,9 @@ void GUI_IndicatorLine::assignRes(vector<Texture>& uiResVec, vector<Font>* fonts
 	t_line = &uiResVec[(int)UiResEnum::GUI_INDICATORLINE];
 	t_line->setRepeated(true);
 
+	text.setFont(fontsVec->at((int)UiFontsEnum::PIXELATED_3D_DEFAULT));
+	text.setCharacterSize(15);
+
 	s_lineHead.setTexture(*t_line);
 	s_lineBody.setTexture(*t_line);
 	s_lineTail.setTexture(*t_line);
@@ -36,6 +39,8 @@ void GUI_IndicatorLine::draw(RenderTarget& target, RenderStates states) const
 		target.draw(s_lineBody);
 	
 	target.draw(s_lineTail);
+
+	if (textEnabled) target.draw(text);
 }
 
 void GUI_IndicatorLine::setPos(Vector2f newPos)
@@ -70,29 +75,15 @@ void GUI_IndicatorLine::setMaxValue(float newMaxValue)
 	update();
 }
 
-float GUI_IndicatorLine::getValue()
-{
-	return currentValue;
-}
-
-float GUI_IndicatorLine::getMaxValue()
-{
-	return maxValue;
-}
-
-Sprite* GUI_IndicatorLine::getPictureSprite()
-{
-	return &s_picture;
-}
-
 void GUI_IndicatorLine::update()
 {
 	if (currentValue < 0) currentValue = 0;
 	if (currentValue > maxValue) currentValue = maxValue;
 
-
 	lengthCost = maxValue / maxLength;
 	currentLength = currentValue / lengthCost;
+
+	text.setString(to_string((int)currentValue));
 
 	s_lineHead.setTextureRect(IntRect(0, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
 	s_lineHead.setPosition(pos);
@@ -106,4 +97,6 @@ void GUI_IndicatorLine::update()
 	s_lineTail.setTextureRect(IntRect((t_line->getSize().x / 4) / 2, t_line->getSize().y / 2, (t_line->getSize().x / 4) / 2, t_line->getSize().y / 2));
 	if (currentLength > t_line->getSize().x / 4) s_lineTail.setPosition({ pos.x + (t_line->getSize().x / 4) / 2 + (currentLength - t_line->getSize().x / 4), pos.y });
 	else s_lineTail.setPosition({ pos.x + (t_line->getSize().x / 4) / 2, pos.y });
+
+	text.setPosition(s_lineTail.getPosition().x + s_lineTail.getGlobalBounds().width, s_lineTail.getPosition().y);
 }

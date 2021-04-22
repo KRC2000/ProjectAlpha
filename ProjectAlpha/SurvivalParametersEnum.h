@@ -1,6 +1,6 @@
 #pragma once
 
-enum class PlayerStateIndicatorsEnum
+enum class SurvivalParametersEnum
 {
 	HEALTH,
 	SLEEP,

@@ -2,7 +2,7 @@
 #include "PrecompiledHeaders.h"
 #include "Pointer.h"
 
-class Map
+class Map: public Drawable
 {
 	Sprite s;
 	Image i;
@@ -24,7 +24,8 @@ public:
 	Map();
 	void loadTextures(vector<Texture>* textureResourcesVec);
 	void update(IEC & iec, RenderWindow& window);
-	void draw(RenderWindow& window);
+	virtual void draw(RenderTarget& target, RenderStates states = RenderStates::Default) const override;
+
 
 	vector<Pointer> * getPointersVec();
 	Image * getMapImage();

@@ -12,7 +12,7 @@ void GUI_ItemsList::assignStorage(Storage* storage)
 	{
 		itemsVec.push_back(GUI_ItemsListItem(assignedStorage->getItemsVec()->at(i).getId(), assignedStorage->getItemsVec()->at(i).getAmount(),
 			assignedStorage->getItemsVec()->at(i).getIsReusable(), assignedStorage->getItemsVec()->at(i).getCondition()));
-
+		itemsVec.back().setRelatedItem(assignedStorage->getItemsVec()->at(i));
 	}
 
 	// initializing and load() of all just created items-list items
@@ -60,16 +60,11 @@ void GUI_ItemsList::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec,
 	//guiFont1 = font;
 	this->uiFontsVec = fontsVec;
 
-	s_border.setTexture(texturesResVec->at((int)ResourcesEnum::GUI_T));
+	s_border.setTexture(uiResVec[(int)UiResEnum::GUI_ITEMLIST]);
 
-	// load() underlying objects: buttons, GUI_Slider, items-list items(if they are)
-	/*upListButton.load("res/upListButton.png", "goUpList");
-	downListButton.load("res/downListButton.png", "goDownList");*/
 	upListButton.assignRes(uiResVec);
 	downListButton.assignRes(uiResVec);
-	/*slider.load({ (float)texturesResVec->at(ResourcesEnum::GUI_T).getSize().x + 3, upListButton.getGlobalBounds().height },
-		(float)texturesResVec->at(ResourcesEnum::GUI_T).getSize().y -
-		(upListButton.getGlobalBounds().height + downListButton.getGlobalBounds().height));*/
+	
 
 	for (unsigned int i = 0; i < itemsVec.size(); i++)
 	{
@@ -245,18 +240,38 @@ Item GUI_ItemsList::deleteItem(unsigned int itemVecIndex)
 	Item returnItem = *assignedStorage->getItem(itemVecIndex);
 	assignedStorage->deleteItem(itemVecIndex);
 
+	reassignListItemsToStorageItems();
+
 	liftItemsTale(itemVecIndex);
 	return returnItem;
 }
 
+Item GUI_ItemsList::deleteItem(GUI_ItemsListItem* listItem)
+{
+	for (int i = 0; i < itemsVec.size(); i++)
+	{
+		if (&itemsVec[i] == listItem)
+		{
+			itemsVec.erase(itemsVec.begin() + i);
+			Item returnItem = *assignedStorage->getItem(i);
+			assignedStorage->deleteItem(i);
+
+			reassignListItemsToStorageItems();
+
+			liftItemsTale(i);
+			return returnItem;
+		}
+	}
+}
 
 
-void GUI_ItemsList::addItem(Item newItem)
+
+void GUI_ItemsList::addItem(Item& newItem)
 {
 	if (newItem.getId() >= ItemsEnum::UNKNOWN && newItem.getId() < ItemsEnum::ITEMS_AMOUNT)
 	{
 		GUI_ItemsListItem item(newItem.getId(), newItem.getAmount(), newItem.getIsReusable(), newItem.getCondition());
-		//item.load(*resourcesVec, guiFont1);
+		item.setRelatedItem(newItem);
 		item.assignRes(*uiResVec, uiFontsVec, textureResVec);
 
 		if (itemsVec.size() >= 1)
@@ -297,11 +312,6 @@ void GUI_ItemsList::setPositionPercent(float percent)
 	setItemsPos({ baseUpperEdgePoint.x, baseUpperEdgePoint.y - percent * onePercentLenght });
 }
 
-vector<GUI_ItemsListItem>& GUI_ItemsList::getItemsVec()
-{
-	return itemsVec;
-}
-
 unsigned int GUI_ItemsList::getItemIndexCursorPointingAt(Vector2f mousePos)
 {
 	for (unsigned int i = 0; i < itemsVec.size(); i++)
@@ -337,6 +347,12 @@ bool GUI_ItemsList::isBorderIntersectsWithItem(int itemVectorIndex) const
 		&& itemsVec[itemVectorIndex].getSpriteBox()->getPosition().y + itemsVec[itemVectorIndex].getSpriteBox()->getGlobalBounds().height <= baseDownEdgePoint.y)
 		return true;
 	else return false;
+}
+
+void GUI_ItemsList::reassignListItemsToStorageItems()
+{
+	for (int i = 0; i < itemsVec.size(); i++)
+		itemsVec[i].setRelatedItem(assignedStorage->getItemsVec()->at(i));
 }
 
 

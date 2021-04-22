@@ -59,10 +59,14 @@ void GUI_ActionPanel::draw(RenderTarget& target, RenderStates states) const
 
 GUI_Button* GUI_ActionPanel::getActivatedButton()
 {
-	for (auto& btn : buttonsVec)
+	if (usedButton)
 	{
-		if (btn.getIsActivated()) return &btn;
+		if (usedButton->getIsActivated()) return usedButton;
 	}
+	/*for (auto& btn : buttonsVec)
+	{
+		if (btn.getIsActivated()) { return &btn; }
+	}*/
 	return nullptr;
 }
 
@@ -78,6 +82,15 @@ void GUI_ActionPanel::addActionButton(vector<Texture>& uiResVec, UiResEnum butto
 	//buttonsVec.back().setPosition({ pos.x, pos.y });
 
 	s_body.setTextureRect(IntRect(0, 0, s_body.getTextureRect().width + 50, s_body.getTextureRect().height));
+}
+
+void GUI_ActionPanel::setActive(bool isActive)
+{
+	active = isActive;
+	for (auto& button : buttonsVec)
+	{
+		button.expireActivation();
+	}
 }
 
 void GUI_ActionPanel::setPos(Vector2f newPos)

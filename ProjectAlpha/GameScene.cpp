@@ -1,7 +1,7 @@
 #include "GameScene.h"
 
 GameScene::GameScene():
-	player({ 300, 200 })
+	player({ 1000, 800 })
 {
 	ui.addGuiElement(new GUI_Clocks(), "clocks");
 	ui.addGuiElement(new GUI_Button(UiResEnum::GAMESCENE_BUTTON_BACKPACK), "button_backpack");
@@ -26,6 +26,8 @@ void GameScene::load(RenderWindow& window)
 	loadResources();
 	ui.load(&textureResourcesVec, window, &guiFont1);
 	//////////////////////////////////////
+
+	ui.getGuiElement<GUI_Clocks>("clocks")->setColor({32, 70, 49, 255});
 
 	ui.getGuiElement<GUI_Button>("button_backpack")->setScale({ 0.2, 0.2 });
 	ui.getGuiElement<GUI_Button>("button_backpack")->setPosition({ ui.getView().getSize().x / 2 - ui.getGuiElement<GUI_Button>("button_backpack")->getGlobalBounds().width / 2,
@@ -78,11 +80,11 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 			GUI_IndicatorLine* indicatorLinePtr;
 			if (indicatorLinePtr = dynamic_cast<GUI_IndicatorLine*>(element))
 			{
-				if (element->getName() == "health_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(PlayerStateIndicatorsEnum::HEALTH));
-				if (element->getName() == "sleep_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(PlayerStateIndicatorsEnum::SLEEP));
-				if (element->getName() == "temperature_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(PlayerStateIndicatorsEnum::TEMPERATURE));
-				if (element->getName() == "thirst_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(PlayerStateIndicatorsEnum::THIRST));
-				if (element->getName() == "hunger_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(PlayerStateIndicatorsEnum::HUNGER));
+				if (element->getName() == "health_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(SurvivalParametersEnum::HEALTH));
+				if (element->getName() == "sleep_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(SurvivalParametersEnum::SLEEP));
+				if (element->getName() == "temperature_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(SurvivalParametersEnum::TEMPERATURE));
+				if (element->getName() == "thirst_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(SurvivalParametersEnum::THIRST));
+				if (element->getName() == "hunger_line") indicatorLinePtr->setValue(player.getStateIndicatorNum(SurvivalParametersEnum::HUNGER));
 			}
 		}
 
@@ -170,8 +172,8 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 					unsigned int itemVecIndex;
 					itemVecIndex = p_inv->getItemIndexCursorPointingAt(iec.getMousePos(window, ui.getView()));
 					Item tempItem = p_inv->deleteItem(itemVecIndex);
-					l_inv->addItem(tempItem);
 					l_inv->getAssignedStorage()->addItem(tempItem);
+					l_inv->addItem(l_inv->getAssignedStorage()->getItemsVec()->back());
 				}
 			}
 			if (l_inv->getBorderSprite()->getGlobalBounds().contains(iec.getMousePos(window, ui.getView())) &&
@@ -182,8 +184,12 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 					unsigned int itemVecIndex;
 					itemVecIndex = l_inv->getItemIndexCursorPointingAt(iec.getMousePos(window, ui.getView()));
 					Item tempItem = l_inv->deleteItem(itemVecIndex);
-					p_inv->addItem(tempItem);
 					p_inv->getAssignedStorage()->addItem(tempItem);
+<<<<<<< HEAD
+					p_inv->addItem(p_inv->getAssignedStorage()->getItemsVec()->back());
+=======
+					p_inv->addItem(l_inv->getAssignedStorage()->getItemsVec()->back());
+>>>>>>> 39f7a4c96ffe9a380f7c26f1e43e7bf22f57c5c7
 				}
 			}
 		}
@@ -195,6 +201,7 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 			{
 				if (p_inv->isCursorPointingAtItem(iec.getMousePos(window, ui.getView())))
 				{
+					cout << "This happens\n";
 					inv_panel->setActive(true);
 					inv_panel->assignGuiElement(&p_inv->getItemsVec().at(p_inv->getItemIndexCursorPointingAt(iec.getMousePos(window, ui.getView()))));
 					GUI_ItemsListItem* assignedItem = dynamic_cast<GUI_ItemsListItem*>(inv_panel->getAssignedGuiElement());
@@ -233,7 +240,7 @@ void GameScene::draw(RenderWindow& window, VideoMode videoMode)
 		window.setView(view);
 
 		map.draw(window);
-		player.draw(window);
+		window.draw(player);
 
 		ui.draw(window);
 	}

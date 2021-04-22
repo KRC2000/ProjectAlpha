@@ -5,17 +5,4 @@ Item::Item(ItemsEnum itemId, int amount, bool reusable, int condition):
 {
 }
 
-void Item::applyItemConsumeEffect(float& health, float& sleep, float& temperature, float& thirst, float& hunger)
-{
-	readFileObj.open(effectsInfoFile);
-
-	string s;
-
-	do
-	{
-		readFileObj >> s;
-	} while (s != "ID" + ' ' + (int)itemId);
-
-	cout << s << endl;
-}
 

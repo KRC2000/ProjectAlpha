@@ -98,9 +98,29 @@ public:
 	/*itemVecIndex - index of the item in both GUI_ItemsListItem and assignedStorage vectors.
 	Deletes both GUI_ItemsListItem and Item, from assigned to item list storage*/
 	Item deleteItem(unsigned int itemVecIndex);
+	Item deleteItem(GUI_ItemsListItem* listItem);
 
 	/*Creating new GUI_ItemListItem that represents passed Item newItem*/
-	void addItem(Item newItem);
+	void addItem(Item& newItem);
+<<<<<<< HEAD
+
+	/* See setPositionPercent(). Used when content is scrolled with mouse wheel,
+	 so it's sliders turn to move on same related distance as content moved.
+	 This function returns this distance in percents*/
+	float getPositionPercent();
+	
+	/*If cursor is on item inside a item list - returns true*/
+	bool isCursorPointingAtItem(Vector2f mousePos);
+
+	/* Advanced shortcut for s_border.getGlobalBounds().intersects(itemsVec[i].getSprite()->getGlobalBounds)
+	 with a little bounds tweak*/
+	bool isBorderIntersectsWithItem(int itemVectorIndex) const;
+
+private:
+	void reassignListItemsToStorageItems();
+public:
+=======
+>>>>>>> 39f7a4c96ffe9a380f7c26f1e43e7bf22f57c5c7
 
 	////////// SETTERS
 
@@ -122,22 +142,11 @@ public:
 	Sprite* getBorderSprite() { return &s_border; };
 	Storage* getAssignedStorage() { return assignedStorage; };
 
-	/*Returns true on ticks when mouseWheelDelta != 0*/
 	bool isBeingScrolled() { return beingScrolled; };
 
-	vector<GUI_ItemsListItem>& getItemsVec();
+	vector<GUI_ItemsListItem>& getItemsVec() { return itemsVec; };
 
 	unsigned int getItemIndexCursorPointingAt(Vector2f mousePos);
-	bool isCursorPointingAtItem(Vector2f mousePos);
-
-	/* See setPositionPercent(). Used when content is scrolled with mouse wheel,
-	 so it's sliders turn to move on same related distance as content moved.
-	 This function returns this distance in percents*/
-	float getPositionPercent();
-
-	/* Advanced shortcut for s_border.getGlobalBounds().intersects(itemsVec[i].getSprite()->getGlobalBounds)
-	 with a little bounds tweak*/
-	bool isBorderIntersectsWithItem(int itemVectorIndex) const;
 
 	//////////////////
 

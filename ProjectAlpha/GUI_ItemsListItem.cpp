@@ -119,11 +119,6 @@ int GUI_ItemsListItem::getAlpha()
 	return s_box.getColor().a;
 }
 
-const Sprite* GUI_ItemsListItem::getSpriteBox() const
-{
-	return &s_box;
-}
-
 string GUI_ItemsListItem::getItemNameString(ItemsEnum itemId)
 {
 	string str;

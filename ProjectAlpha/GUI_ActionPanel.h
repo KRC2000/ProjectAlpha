@@ -34,7 +34,7 @@ public:
 
 	/*Set to true to allow updating and drawing*/
 	void assignGuiElement(GUI_Element* elementPtr) { assignedUiElement = elementPtr; };
-	void setActive(bool isActive) { active = isActive; };
+	void setActive(bool isActive) /*{ active = isActive; }*/;
 	void setPos(Vector2f newPos);
 
 	GUI_Element* getAssignedGuiElement() { return assignedUiElement; };

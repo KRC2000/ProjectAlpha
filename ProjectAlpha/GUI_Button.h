@@ -28,6 +28,8 @@ public:
 	virtual bool update(IEC& iec, RenderWindow& window, View& view) override;
 	virtual void draw(RenderTarget& target, RenderStates states) const override;
 
+	void expireActivation() { activated = false; };
+
 	////////// SETTERS
 	//
 	void setScale(Vector2f factor) { spriteIdle.setScale(factor); };
@@ -37,7 +39,7 @@ public:
 
 	////////// GETTERS
 	//
-	bool getIsActivated() { return activated; };
+	bool getIsActivated() { return activated;};
 	FloatRect getGlobalBounds() { return spriteIdle.getGlobalBounds(); };
 	string getName() { return name; };
 	//
