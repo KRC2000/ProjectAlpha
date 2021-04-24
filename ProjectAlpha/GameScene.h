@@ -5,6 +5,11 @@
 #include "Map.h"
 #include "UI.h"
 #include "GUI_Button.h"
+#include "GUI_Clocks.h"
+#include "GUI_IndicatorLine.h"
+#include "GUI_ItemsList.h"
+#include "GUI_ActionPanel.h"
+#include "GUI_Window.h"
 
 /*
 Inherited from class Scene

@@ -16,6 +16,8 @@ GameScene::GameScene():
 	ui.addGuiElement(new GUI_ItemsList(), "location_inventory");
 
 	ui.addGuiElement(new GUI_ActionPanel(), "inv_panel");
+
+	ui.addGuiElement(new GUI_Window(), "win0");
 }
 
 void GameScene::load(RenderWindow& window)

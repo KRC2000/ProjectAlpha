@@ -82,7 +82,7 @@
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="GUI_Window.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +174,7 @@
       <Filter>Enums</Filter>
     </ClInclude>
     <ClInclude Include="GUI_Window.h">
-      <Filter>Header Files</Filter>
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

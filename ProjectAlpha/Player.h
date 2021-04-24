@@ -5,6 +5,8 @@
 #include "UI.h"
 #include "Storage.h"
 #include "Item.h"
+#include "GUI_Clocks.h"
+#include "GUI_ItemsList.h"
 
 class Player: public Drawable
 {

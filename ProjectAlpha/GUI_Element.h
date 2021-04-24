@@ -1,5 +1,6 @@
 #pragma once
 #include "PrecompiledHeaders.h"
+#include "UiResEnum.h"
 
 class GUI_Element: public Drawable
 {

@@ -73,6 +73,8 @@ void UI::loadUiRes()
 	uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_BUTTON_USE].loadFromFile("res/hand.png");
 	uiResVec[(int)UiResEnum::GUI_ITEMSLISTITEM_CANVAS].loadFromFile("res/ItemBar.png");
 	uiResVec[(int)UiResEnum::GUI_SLIDER].loadFromFile("res/listScrollBar_style0.png");
+	uiResVec[(int)UiResEnum::GUI_WINDOW_BORDERS].loadFromFile("res/GUI_Window_bounds.png");
+	uiResVec[(int)UiResEnum::GUI_WINDOW_BACKGR].loadFromFile("res/GUI_Window_background.png");
 
 	for (int i = 0; i < (int)UiFontsEnum::FONTS_AMOUNT; i++)
 		uiFontsVec.push_back(Font());

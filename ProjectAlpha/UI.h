@@ -1,14 +1,15 @@
 #pragma once
 #include "PrecompiledHeaders.h"
-#include "GUI_Clocks.h"
-#include "GUI_ItemsList.h"
-#include "GUI_IndicatorLine.h"
-#include "GUI_ActionPanel.h"
-#include "GUI_Button.h"
+//#include "GUI_Clocks.h"
+//#include "GUI_ItemsList.h"
+//#include "GUI_IndicatorLine.h"
+//#include "GUI_ActionPanel.h"
+//#include "GUI_Button.h"
 
 #include "GUI_Element.h"
 
 #include "UiResEnum.h"
+#include "UiFontsEnum.h"
 
 class UI
 {
