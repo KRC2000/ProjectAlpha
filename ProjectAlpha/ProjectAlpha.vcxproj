@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GuiElementsContainer.cpp" />
     <ClCompile Include="GUI_Button.cpp" />
     <ClCompile Include="GUI_ActionPanel.cpp" />
     <ClCompile Include="GUI_Clocks.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GuiElementsContainer.h" />
     <ClInclude Include="GUIElementsEnum.h" />
     <ClInclude Include="GUI_Window.h" />
     <ClInclude Include="ScenesEnum.h" />

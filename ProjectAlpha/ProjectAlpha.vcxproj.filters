@@ -84,6 +84,9 @@
     <ClCompile Include="GUI_Window.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="GuiElementsContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="GUI_Window.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiElementsContainer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

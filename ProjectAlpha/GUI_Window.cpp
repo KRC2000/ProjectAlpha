@@ -3,6 +3,12 @@
 GUI_Window::GUI_Window(): GUI_Element(GUIElementsEnum::GUI_WINDOW)
 {
 	sVec.reserve((int)WindowSegments::AMOUNT);
+
+	windowView.setSize(backgrSize.x, backgrSize.y);
+	windowView.setCenter(0 + backgrSize.x / 2, 0 + backgrSize.y / 2);
+
+
+	addGuiElement(new GUI_Button(), "but0");
 }
 
 
@@ -44,19 +50,44 @@ void GUI_Window::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, ve
 	sVec[(int)WindowSegments::BACKGR].setTextureRect(IntRect(0, 0, backgrSize.x, backgrSize.y));
 
 	setPos(pos);
+
+	assignResToElements(uiResVec, fontsVec, texturesResVec);
 }
+
+bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
+{
+	viewportUpdate(view);
+
+	updateElements(iec, window, view);
+
+	//windowView.move(0.001, -0.1);
+
+	return false;
+}
+
 
 void GUI_Window::draw(RenderTarget& target, RenderStates states) const
 {
-	for (auto& s : sVec)
+	if (active)
 	{
-		target.draw(s);
+		for (auto& s : sVec)
+		{
+			target.draw(s);
+		}
+
+		View temp = target.getView();
+		target.setView(windowView);
+
+		drawElements(target, states);
+
+		target.setView(temp);
 	}
 }
 
 void GUI_Window::setPos(Vector2f newPos)
 {
 	pos = newPos;
+
 	sVec[(int)WindowSegments::UPLEFT_C].setPosition(pos);
 	sVec[(int)WindowSegments::UP].setPosition(pos.x + borderSize, pos.y);
 	sVec[(int)WindowSegments::RIGHT].setPosition(pos.x + borderSize + backgrSize.x, pos.y + borderSize);
@@ -66,5 +97,12 @@ void GUI_Window::setPos(Vector2f newPos)
 	sVec[(int)WindowSegments::DOWN].setPosition(pos.x + borderSize, pos.y + borderSize + backgrSize.y);
 	sVec[(int)WindowSegments::DOWNRIGHT_C].setPosition(pos.x + borderSize + backgrSize.x, pos.y + borderSize + backgrSize.y);
 	sVec[(int)WindowSegments::BACKGR].setPosition(pos.x + borderSize, pos.y + borderSize);
+
+}
+
+void GUI_Window::viewportUpdate(View uiView)
+{
+	FloatRect rect{ (pos.x + borderSize) / uiView.getSize().x, (pos.y + borderSize) / uiView.getSize().y, backgrSize.x / uiView.getSize().x, backgrSize.y / uiView.getSize().y };
+	windowView.setViewport(rect);
 }
 

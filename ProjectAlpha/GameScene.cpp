@@ -18,6 +18,7 @@ GameScene::GameScene():
 	ui.addGuiElement(new GUI_ActionPanel(), "inv_panel");
 
 	ui.addGuiElement(new GUI_Window(), "win0");
+	ui.getGuiElement<GUI_Window>("win0")->setActive(true);
 }
 
 void GameScene::load(RenderWindow& window)
