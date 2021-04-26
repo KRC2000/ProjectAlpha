@@ -3,31 +3,40 @@
 void GUI_Button::assignRes(vector<Texture>& uiResVec, std::vector<Font>* fontsVec, vector<Texture>* textureResVec)
 {
 	spriteIdle.setTexture(uiResVec[(int)buttonType]);
-	cout << uiResVec[(int)buttonType].getSize().x << endl;
 	spriteIdle.setTextureRect(IntRect(0, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
 }
 
 bool GUI_Button::update(IEC& iec, RenderWindow &window, View &view)
 {
-	if (spriteIdle.getGlobalBounds().contains(iec.getMousePos(window, view)))
-		spriteIdle.setTextureRect(IntRect(spriteIdle.getTexture()->getSize().x / 2, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
-	else spriteIdle.setTextureRect(IntRect(0, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
-
-	if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
+	if (active)
 	{
 		if (spriteIdle.getGlobalBounds().contains(iec.getMousePos(window, view)))
+			spriteIdle.setTextureRect(IntRect(spriteIdle.getTexture()->getSize().x / 2, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
+		else spriteIdle.setTextureRect(IntRect(0, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
+
+		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
 		{
-			activated = true;
-			iec.eventExpire(Mouse::Left);
-			return true;
+			if (spriteIdle.getGlobalBounds().contains(iec.getMousePos(window, view)))
+			{
+				activated = true;
+				iec.eventExpire(Mouse::Left);
+				return true;
+			}
 		}
+		activated = false;
 	}
-	activated = false;
 	return false;
 }
 
 void GUI_Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(spriteIdle);
-	//cout << "You drew correct shit!\n";
+	if (active)
+	{
+		target.draw(spriteIdle);
+	}
+}
+
+FloatRect GUI_Button::getGlobalElementBounds()
+{
+	return spriteIdle.getGlobalBounds();
 }

@@ -18,7 +18,12 @@ GameScene::GameScene():
 	ui.addGuiElement(new GUI_ActionPanel(), "inv_panel");
 
 	ui.addGuiElement(new GUI_Window(), "win0");
-	ui.getGuiElement<GUI_Window>("win0")->setActive(true);
+	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Button(), "but0");
+	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Button(), "but1");
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but0")->setPosition({100, 0});
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but0")->setActive(true);
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but1")->setPosition({0, 200});
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but1")->setActive(true);
 }
 
 void GameScene::load(RenderWindow& window)
@@ -35,6 +40,7 @@ void GameScene::load(RenderWindow& window)
 	ui.getGuiElement<GUI_Button>("button_backpack")->setScale({ 0.2, 0.2 });
 	ui.getGuiElement<GUI_Button>("button_backpack")->setPosition({ ui.getView().getSize().x / 2 - ui.getGuiElement<GUI_Button>("button_backpack")->getGlobalBounds().width / 2,
 		ui.getView().getSize().y - ui.getGuiElement<GUI_Button>("button_backpack")->getGlobalBounds().height });
+	ui.getGuiElement<GUI_Button>("button_backpack")->setActive(true);
 	
 	//Find every GUI_IndicatorLine in UI, place them vertically one after another, add title pictures
 	int posMultiplier = 0;
@@ -67,7 +73,6 @@ void GameScene::load(RenderWindow& window)
 	player.load(textureResourcesVec, ui);
 	map.loadTextures(&textureResourcesVec);
 
-	cout << "Game scene loaded!" << endl;
 }
 
 SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
@@ -200,7 +205,6 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 			{
 				if (p_inv->isCursorPointingAtItem(iec.getMousePos(window, ui.getView())))
 				{
-					cout << "This happens\n";
 					inv_panel->setActive(true);
 					inv_panel->assignGuiElement(&p_inv->getItemsVec().at(p_inv->getItemIndexCursorPointingAt(iec.getMousePos(window, ui.getView()))));
 					GUI_ItemsListItem* assignedItem = dynamic_cast<GUI_ItemsListItem*>(inv_panel->getAssignedGuiElement());
@@ -230,10 +234,13 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 						p_inv->deleteItem(listItem);
 						inv_panel->setActive(false);
 					}
-					cout << "Player eating\n";
 				}
-				if (button->getName() == "use") cout << "Player using\n";
-				if (button->getName() == "info") cout << "Player getting info\n";
+				if (button->getName() == "use") {}
+				if (button->getName() == "info")
+				{
+					ui.getGuiElement<GUI_Window>("win0")->setActive(true);
+					inv_panel->setActive(false);
+				}
 			}
 		}
 
@@ -260,7 +267,7 @@ void GameScene::draw(RenderWindow& window, VideoMode videoMode)
 
 void GameScene::unload()
 {
-	cout << "Game scene UNloaded!" << endl;
+
 }
 
 

@@ -12,16 +12,18 @@ class GUI_Slider: public GUI_Element
 	Vector2f basePoint, cursorOffset;
 	float pathLenght= 100;
 	bool grabbed = false;
+	bool active = false;
 public:
 	GUI_Slider(): GUI_Element(GUIElementsEnum::GUI_SLIDER) {};
 	virtual ~GUI_Slider() {};
 
 
 	virtual void assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec = nullptr, vector<Texture>* texturesResVec = nullptr) override;
+	// Returns true when scrolled
 	virtual bool update(IEC& iec, RenderWindow& window, View& view) override;
 	virtual void draw(RenderTarget& target, RenderStates states = RenderStates::Default) const override;
 
-
+	void setActive(bool isActive) { active = isActive; };
 	void setPositionPercent(float percent);
 	void setPosition(Vector2f newPos);
 	void setPathLenght(float pathLenght) { this->pathLenght = pathLenght - s_slider.getGlobalBounds().height; };

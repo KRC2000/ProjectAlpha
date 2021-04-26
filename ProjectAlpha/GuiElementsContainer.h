@@ -22,6 +22,8 @@ public:
 
 	void addGuiElement(GUI_Element* newElement, string name);
 
+	vector<GUI_Element*>& getElementsVec() { return elementsVec; };
+
 	template <class Element> Element* getGuiElement(string guiElementName);
 };
 

@@ -8,56 +8,44 @@ void GUI_Slider::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, ve
 
 bool GUI_Slider::update(IEC& iec, RenderWindow& window, View& view)
 {
-	if ((iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED) && 
-		s_slider.getGlobalBounds().contains(iec.getMousePos(window, view)))
+	if (active)
 	{
-		grabbed = true;
-		cursorOffset.y = iec.getMousePos(window, view).y - s_slider.getPosition().y;
+		if ((iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED) &&
+			s_slider.getGlobalBounds().contains(iec.getMousePos(window, view)))
+		{
+			grabbed = true;
+			cursorOffset.y = iec.getMousePos(window, view).y - s_slider.getPosition().y;
 
-		iec.eventExpire(Mouse::Left);
-	}
+			iec.eventExpire(Mouse::Left);
+		}
 
-	if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTRELEASED) grabbed = false;
-		
+		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTRELEASED) grabbed = false;
 
-	if (grabbed && s_slider.getPosition().y >= basePoint.y && s_slider.getPosition().y <= basePoint.y + pathLenght)
-	{
-		s_slider.setPosition({ s_slider.getPosition().x, iec.getMousePos(window, view).y - cursorOffset.y });
-		if (s_slider.getPosition().y < basePoint.y) 
-			s_slider.setPosition({ s_slider.getPosition().x, basePoint.y });
-		if (s_slider.getPosition().y > basePoint.y + pathLenght) 
-			s_slider.setPosition({ s_slider.getPosition().x, basePoint.y + pathLenght});
-		return true;
+
+		if (grabbed && s_slider.getPosition().y >= basePoint.y && s_slider.getPosition().y <= basePoint.y + pathLenght)
+		{
+			s_slider.setPosition({ s_slider.getPosition().x, iec.getMousePos(window, view).y - cursorOffset.y });
+			if (s_slider.getPosition().y < basePoint.y)
+				s_slider.setPosition({ s_slider.getPosition().x, basePoint.y });
+			if (s_slider.getPosition().y > basePoint.y + pathLenght)
+				s_slider.setPosition({ s_slider.getPosition().x, basePoint.y + pathLenght });
+			return true;
+		}
 	}
 	return false;
 }
 
 void GUI_Slider::draw(RenderTarget& target, RenderStates states) const
 {
-	target.draw(s_slider);
+	if (active)
+	{
+		target.draw(s_slider);
+	}
 }
 
 void GUI_Slider::setPositionPercent(float percent)
 {
 	s_slider.setPosition({ basePoint.x, basePoint.y + (pathLenght / 100) * percent });
-	/*if (getPositionPercent() > percent)
-	{
-		s_slider.move(0, -1);
-	}
-	if (getPositionPercent() < percent)
-	{
-		s_slider.move(0, 1);
-	}*/
-
-	/*if (percent < 1)
-	{
-		s_slider.setPosition(basePoint);
-	}
-	if (percent > 99)
-	{
-		s_slider.setPosition({ basePoint.x, basePoint.y + pathLenght});
-	}*/
-	
 }
 
 void GUI_Slider::setPosition(Vector2f newPos)

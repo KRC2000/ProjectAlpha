@@ -63,23 +63,18 @@ GUI_Button* GUI_ActionPanel::getActivatedButton()
 	{
 		if (usedButton->getIsActivated()) return usedButton;
 	}
-	/*for (auto& btn : buttonsVec)
-	{
-		if (btn.getIsActivated()) { return &btn; }
-	}*/
 	return nullptr;
 }
 
 void GUI_ActionPanel::addActionButton(vector<Texture>& uiResVec, UiResEnum buttonType, string buttonName)
 {
 	GUI_Button b(buttonType, buttonName);
-	//cout << "size" << buttonsVec.size() << endl;
+	
 	buttonsVec.push_back(b);
 	buttonsVec.back().assignRes(uiResVec);
-	//cout << "width" << buttonsVec.back().getGlobalBounds().width << endl;
 	buttonsVec.back().setScale({ 0.4, 0.4 });
 	buttonsVec.back().setPosition({ s_head.getPosition().x + buttonsVec.back().getGlobalBounds().width * (buttonsVec.size() - 1), s_head.getPosition().y + 6 });
-	//buttonsVec.back().setPosition({ pos.x, pos.y });
+	buttonsVec.back().setActive(true);
 
 	s_body.setTextureRect(IntRect(0, 0, s_body.getTextureRect().width + 50, s_body.getTextureRect().height));
 }

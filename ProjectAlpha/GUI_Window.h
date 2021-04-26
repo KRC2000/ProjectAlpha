@@ -3,19 +3,30 @@
 #include "GuiElementsContainer.h"
 #include "GUI_Element.h"
 #include "GUI_Button.h"
+#include "GUI_Slider.h"
 
 class GUI_Window :	public GUI_Element,
 					public GuiElementsContainer
 {
-	// Size of a canvas without borders and corners, "empty" space size
-	Vector2f backgrSize{ 800, 600 };
+	// Size of a canvas without borders and corners, but with buttons and scroller
+	Vector2f backgrSize{ 500, 200 };
 	Vector2f pos{ 300, 0 };
+	// Width and height of minimal rectangle that includes all elements
+	Vector2f contentOccupySize{ 0, 0 };
+	Vector2f defaultViewPos{};
 	int borderSize = 0;
+	int rightSideGap = 33 + 5;
 	bool active = false;
+	bool beingScrolled = false;
 
 	View windowView;
-	//View* uiView = nullptr;
 
+	GUI_Button b_close{ UiResEnum::BUTTON_CLOSE };
+	GUI_Button b_up{ UiResEnum::BUTTON_UP };
+	GUI_Button b_down{ UiResEnum::BUTTON_DOWN };
+	GUI_Slider slider;
+
+	// Window sprite-segments names
 	enum class WindowSegments
 	{
 		UPLEFT_C, UPRIGHT_C, DOWNRIGHT_C, DOWNLEFT_C,
@@ -24,9 +35,9 @@ class GUI_Window :	public GUI_Element,
 	};
 
 	vector<Sprite> sVec;
-
-	//vector<GUI_Element*> elementsVec;
-
+private:
+	void viewportUpdate(View uiView);
+	void calculateContentOccupySize();
 public:
 	GUI_Window();
 	virtual ~GUI_Window() {};
@@ -35,13 +46,23 @@ public:
 	virtual bool update(IEC& iec, RenderWindow& window, View& view) override;
 	virtual void draw(RenderTarget& target, RenderStates states = RenderStates::Default) const override;
 
-	void viewportUpdate(View uiView);
 
 	// SETTERS //////////////////
-
+	//
 	void setPos(Vector2f newPos);
 	void setActive(bool isActive) { active = isActive; };
-
+	void setVerticalPosPercent(float percent);
+	//
 	/////////////////////////////
+
+	// GETTERS //////////////////
+	//
+	virtual FloatRect getGlobalElementBounds() override;
+	float getVerticalPosPercent();
+	//
+	/////////////////////////////
+
+private:
+	void normalizeOutOfBoundsView();
 };
 

@@ -63,6 +63,9 @@ void UI::loadUiRes()
 
 	uiResVec[(int)UiResEnum::MAINMENU_BUTTON_DEFAULT].loadFromFile("res/mainMenuDefaultButton.png");
 	uiResVec[(int)UiResEnum::GAMESCENE_BUTTON_BACKPACK].loadFromFile("res/bagButton.png");
+	uiResVec[(int)UiResEnum::BUTTON_CLOSE].loadFromFile("res/button_close.png");
+	uiResVec[(int)UiResEnum::BUTTON_UP].loadFromFile("res/button_up.png");
+	uiResVec[(int)UiResEnum::BUTTON_DOWN].loadFromFile("res/button_down.png");
 	uiResVec[(int)UiResEnum::GUI_INDICATORLINE].loadFromFile("res/IndicatorLine.png");
 	uiResVec[(int)UiResEnum::GUI_ITEMLIST].loadFromFile("res/GUI_List.png");
 	uiResVec[(int)UiResEnum::GUI_ITEMLIST_BUTTON_UPLIST].loadFromFile("res/upListButton.png");
@@ -72,7 +75,7 @@ void UI::loadUiRes()
 	uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT].loadFromFile("res/eating.png");
 	uiResVec[(int)UiResEnum::GUI_ACTIONPANEL_BUTTON_USE].loadFromFile("res/hand.png");
 	uiResVec[(int)UiResEnum::GUI_ITEMSLISTITEM_CANVAS].loadFromFile("res/ItemBar.png");
-	uiResVec[(int)UiResEnum::GUI_SLIDER].loadFromFile("res/listScrollBar_style0.png");
+	uiResVec[(int)UiResEnum::GUI_SLIDER].loadFromFile("res/slider.png");
 	uiResVec[(int)UiResEnum::GUI_WINDOW_BORDERS].loadFromFile("res/GUI_Window_bounds.png");
 	uiResVec[(int)UiResEnum::GUI_WINDOW_BACKGR].loadFromFile("res/GUI_Window_background.png");
 

@@ -13,6 +13,7 @@ private:
 	UiResEnum buttonType;
 	Sprite spriteIdle;
 	string name = "Unnamed";
+	bool active = false;
 	bool activated = false;
 public:
 	GUI_Button(UiResEnum buttonType = UiResEnum::MAINMENU_BUTTON_DEFAULT, string name = "Unnamed") :
@@ -34,15 +35,19 @@ public:
 	//
 	void setScale(Vector2f factor) { spriteIdle.setScale(factor); };
 	void setPosition(Vector2f pos) { spriteIdle.setPosition(pos); };
+	void setActive(bool isActive) { active = isActive; };
 	//
 	//////////////////
 
 	////////// GETTERS
 	//
+	virtual FloatRect getGlobalElementBounds() override;
+	// Returns true if button was clicked this cycle tick
 	bool getIsActivated() { return activated;};
 	FloatRect getGlobalBounds() { return spriteIdle.getGlobalBounds(); };
 	string getName() { return name; };
 	//
 	//////////////////
+
 
 };

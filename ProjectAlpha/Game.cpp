@@ -98,7 +98,6 @@ void Game::goGameScene()
 	currentScenePtr->setActive(false, window);
 	gameScene.setActive(true, window);
 	currentScenePtr = &gameScene;
-	cout << "Switched to Game scene!" << endl;
 	
 }
 

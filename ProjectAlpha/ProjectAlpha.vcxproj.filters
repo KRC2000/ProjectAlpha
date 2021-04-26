@@ -170,9 +170,6 @@
     <ClInclude Include="GUI_Slider.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GUIElementsEnum.h">
-      <Filter>Enums</Filter>
-    </ClInclude>
     <ClInclude Include="ScenesEnum.h">
       <Filter>Enums</Filter>
     </ClInclude>
@@ -181,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="GuiElementsContainer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIElementsEnum.h">
+      <Filter>Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

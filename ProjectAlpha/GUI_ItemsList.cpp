@@ -141,7 +141,6 @@ bool GUI_ItemsList::update(IEC& iec, RenderWindow& window, View& view)
 				if (itemsVec[0].getSpriteBox()->getPosition().y > baseUpperEdgePoint.y)
 				{
 					setItemsPos({ baseUpperEdgePoint.x, baseUpperEdgePoint.y });
-					//cout << "Happened";
 				}
 				if (itemsVec[itemsVec.size() - 1].getSpriteBox()->getPosition().y + itemsVec[itemsVec.size() - 1].getSpriteBox()->getGlobalBounds().height < baseDownEdgePoint.y)
 				{
