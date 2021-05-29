@@ -8,24 +8,26 @@ void GUI_ItemsListItem::assignRes(vector<Texture>& uiResVec, vector<Font>* fonts
 	s_image.setScale({ 0.4, 0.4 });
 	//if (!f.loadFromFile("res/KarmaFuture.ttf")) cout << ">>>>>Font loading failed!" << endl;
 
-	itemNameText.setFont(fontsVec->at((int)UiFontsEnum::PIXELATED_3D_DEFAULT));
+	itemNameText.setFont(fontsVec->at((int)UiFontsEnum::KARMAFUTURE));
 	itemNameText.setString(getItemNameString(itemId));
 	itemNameText.setCharacterSize(100);
 	itemNameText.setScale({ 0.3, 0.3 });
 	itemNameText.setFillColor(sf::Color::White);
 
-	amountText.setFont(fontsVec->at((int)UiFontsEnum::PIXELATED_3D_DEFAULT));
+	amountText.setFont(fontsVec->at((int)UiFontsEnum::KARMAFUTURE));
 	amountText.setString("x" + to_string(amount));
 	amountText.setCharacterSize(100);
 	amountText.setScale({ 0.25, 0.25 });
 	amountText.setFillColor(sf::Color::White);
 
-	conditionText.setFont(fontsVec->at((int)UiFontsEnum::PIXELATED_3D_DEFAULT));
+	conditionText.setFont(fontsVec->at((int)UiFontsEnum::KARMAFUTURE));
 	conditionText.setString(to_string(condition) + "%");
 	conditionText.setCharacterSize(100);
 	conditionText.setScale({ 0.2, 0.2 });
 	conditionText.setFillColor(sf::Color::White);
 }
+
+//6число  прокофьева4 14:30
 
 bool GUI_ItemsListItem::update(IEC& iec, RenderWindow& window, View& view)
 {

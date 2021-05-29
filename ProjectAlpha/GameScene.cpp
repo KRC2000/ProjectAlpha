@@ -17,13 +17,25 @@ GameScene::GameScene():
 
 	ui.addGuiElement(new GUI_ActionPanel(), "inv_panel");
 
-	ui.addGuiElement(new GUI_Window(), "win0");
-	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Button(), "but0");
-	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Button(), "but1");
-	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but0")->setPosition({100, 0});
-	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but0")->setActive(true);
-	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but1")->setPosition({0, 200});
+	GUI_Element* mainWindow = &ui.addGuiElement(new GUI_Window(), "win0");
+	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Window(mainWindow), "win1");
+
+	//ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Button(), "but0");
+	
+	/*ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Button(), "but1");
+	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Button(), "but2");
+	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Button(), "but3");
+	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_TextDisplay(), "txt0");*/
+
+	//ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but0")->setPosition({0, 0});
+	//ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but0")->setActive(true);
+	/*ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but1")->setPosition({0, 200});
 	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but1")->setActive(true);
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but2")->setPosition({ 50, 700 });
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but2")->setActive(true);
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but3")->setPosition({ 0, 1200 });
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but3")->setActive(true);
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_TextDisplay>("txt0")->setActive(true);*/
 }
 
 void GameScene::load(RenderWindow& window)
@@ -68,6 +80,12 @@ void GameScene::load(RenderWindow& window)
 	ui.getGuiElement<GUI_ActionPanel>("inv_panel")->addActionButton(ui.getUiResVec(), UiResEnum::GUI_ACTIONPANEL_BUTTON_INFO, "info");
 	ui.getGuiElement<GUI_ActionPanel>("inv_panel")->addActionButton(ui.getUiResVec(), UiResEnum::GUI_ACTIONPANEL_BUTTON_USE, "use");
 	ui.getGuiElement<GUI_ActionPanel>("inv_panel")->addActionButton(ui.getUiResVec(), UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT, "eat");
+
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Window>("win1")->setSize({ 200, 900 });
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Window>("win1")->setPos({ 0, 0 });
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Window>("win1")->setActive(true);
+	Vector2f v = ui.getGuiElement<GUI_Window>("win0")->getContentOccupySize();
+	cout << v.x << " |||||" << v.y << endl;
 
 	/////////////////////////////////////
 	player.load(textureResourcesVec, ui);

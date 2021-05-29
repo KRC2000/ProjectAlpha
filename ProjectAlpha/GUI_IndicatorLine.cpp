@@ -5,7 +5,7 @@ void GUI_IndicatorLine::assignRes(vector<Texture>& uiResVec, vector<Font>* fonts
 	t_line = &uiResVec[(int)UiResEnum::GUI_INDICATORLINE];
 	t_line->setRepeated(true);
 
-	text.setFont(fontsVec->at((int)UiFontsEnum::PIXELATED_3D_DEFAULT));
+	text.setFont(fontsVec->at((int)UiFontsEnum::SPECIALELITE));
 	text.setCharacterSize(15);
 
 	s_lineHead.setTexture(*t_line);

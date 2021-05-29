@@ -36,9 +36,11 @@ class UI
 
 public:
 	UI();
+
+	// Sets view, loads resources to all gui elements
 	void load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font* font);
 
-	void addGuiElement(GUI_Element* newElement, string name);
+	GUI_Element& addGuiElement(GUI_Element* newElement, string name);
 
 	void update(IEC& iec, RenderWindow& window);
 	void draw(RenderWindow& window);

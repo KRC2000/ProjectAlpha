@@ -18,7 +18,7 @@ public:
 
 	void updateElements(IEC& iec, RenderWindow& window, View& view);
 
-	void drawElements(RenderTarget& target, RenderStates states) const;
+	void drawElements(RenderTarget& target, RenderStates states = RenderStates::Default) const;
 
 	void addGuiElement(GUI_Element* newElement, string name);
 

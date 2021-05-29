@@ -50,10 +50,11 @@ void UI::draw(RenderWindow& window)
 	window.setView(tempView);
 }
 
-void UI::addGuiElement(GUI_Element* newElement, string name)
+GUI_Element& UI::addGuiElement(GUI_Element* newElement, string name)
 {
 	newElement->setName(name);
 	guiElementsVec.push_back(newElement);
+	return *guiElementsVec.back();
 }
 
 void UI::loadUiRes()
@@ -82,7 +83,9 @@ void UI::loadUiRes()
 	for (int i = 0; i < (int)UiFontsEnum::FONTS_AMOUNT; i++)
 		uiFontsVec.push_back(Font());
 
-	uiFontsVec[(int)UiFontsEnum::PIXELATED_3D_DEFAULT].loadFromFile("res/KarmaFuture.ttf");
+	uiFontsVec[(int)UiFontsEnum::KARMAFUTURE].loadFromFile("res/fonts/KarmaFuture.ttf");
+	uiFontsVec[(int)UiFontsEnum::SPECIALELITE].loadFromFile("res/fonts/SpecialElite.ttf");
+	uiFontsVec[(int)UiFontsEnum::VINTAGEONE].loadFromFile("res/fonts/VintageOne.ttf");
 }
 
 

@@ -10,6 +10,7 @@
 #include "GUI_ItemsList.h"
 #include "GUI_ActionPanel.h"
 #include "GUI_Window.h"
+#include "GUI_TextDisplay.h"
 
 /*
 Inherited from class Scene
