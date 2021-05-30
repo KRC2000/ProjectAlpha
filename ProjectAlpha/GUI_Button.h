@@ -2,11 +2,13 @@
 #include "PrecompiledHeaders.h"
 #include "GUI_Element.h"
 #include "UiResEnum.h"
+#include "GUI_Interactable.h"
 
 using namespace sf;
 using namespace std;
 
-class GUI_Button: public GUI_Element
+class GUI_Button:	public GUI_Element,
+					public GUI_Interactable
 {
 private:
 	Texture* t = nullptr;
@@ -15,6 +17,7 @@ private:
 	string name = "Unnamed";
 	bool active = false;
 	bool activated = false;
+	bool applyTransform = false;
 public:
 	GUI_Button(UiResEnum buttonType = UiResEnum::MAINMENU_BUTTON_DEFAULT, string name = "Unnamed") :
 		GUI_Element(GUIElementsEnum::GUI_BUTTON),
@@ -36,6 +39,7 @@ public:
 	void setScale(Vector2f factor) { spriteIdle.setScale(factor); };
 	void setPosition(Vector2f pos) { spriteIdle.setPosition(pos); };
 	void setActive(bool isActive) { active = isActive; };
+	void setApplyTransform(bool applyTransform) { this->applyTransform = applyTransform; };
 	//
 	//////////////////
 

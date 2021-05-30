@@ -20,7 +20,7 @@ public:
 
 	void drawElements(RenderTarget& target, RenderStates states = RenderStates::Default) const;
 
-	void addGuiElement(GUI_Element* newElement, string name);
+	GUI_Element& addGuiElement(GUI_Element* newElement, string name);
 
 	vector<GUI_Element*>& getElementsVec() { return elementsVec; };
 
@@ -37,4 +37,5 @@ inline Element* GuiElementsContainer::getGuiElement(string guiElementName)
 			return dynamic_cast<Element*>(element);
 		}
 	}
+	return nullptr;
 }

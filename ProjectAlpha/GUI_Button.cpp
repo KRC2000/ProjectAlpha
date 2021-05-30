@@ -10,13 +10,15 @@ bool GUI_Button::update(IEC& iec, RenderWindow &window, View &view)
 {
 	if (active)
 	{
-		if (spriteIdle.getGlobalBounds().contains(iec.getMousePos(window, view)))
+		if (!applyTransform && spriteIdle.getGlobalBounds().contains(iec.getMousePos(window, view)) ||
+			applyTransform && spriteIdle.getGlobalBounds().contains(getTransformedMousePos(iec.getMousePos(window, view))))
 			spriteIdle.setTextureRect(IntRect(spriteIdle.getTexture()->getSize().x / 2, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
 		else spriteIdle.setTextureRect(IntRect(0, 0, spriteIdle.getTexture()->getSize().x / 2, spriteIdle.getTexture()->getSize().y));
 
 		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
 		{
-			if (spriteIdle.getGlobalBounds().contains(iec.getMousePos(window, view)))
+			if (!applyTransform && spriteIdle.getGlobalBounds().contains(iec.getMousePos(window, view)) ||
+				applyTransform && spriteIdle.getGlobalBounds().contains(getTransformedMousePos(iec.getMousePos(window, view))))
 			{
 				activated = true;
 				iec.eventExpire(Mouse::Left);

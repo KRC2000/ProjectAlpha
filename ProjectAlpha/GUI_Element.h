@@ -6,8 +6,9 @@ class GUI_Element: public Drawable
 {
 	string name;
 	GUIElementsEnum guiType;
+protected: GUI_Element* owner = nullptr;
 public:
-	GUI_Element(GUIElementsEnum guiType):guiType(guiType) {};
+	GUI_Element(GUIElementsEnum guiType, GUI_Element* owner = nullptr):guiType(guiType), owner(owner) {};
 	virtual ~GUI_Element() {};
 
 	// Must be overloaded

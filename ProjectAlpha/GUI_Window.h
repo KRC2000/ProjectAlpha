@@ -5,9 +5,11 @@
 #include "GUI_Button.h"
 #include "GUI_Slider.h"
 #include "GUI_RenderTextureContainer.h"
+#include "GUI_Interactable.h"
 
 class GUI_Window :	public GUI_Element,
 					public GUI_RenderTextureContainer,
+					//public GUI_Interactable,
 					public GuiElementsContainer
 {
 	// Size of a canvas without borders and corners, but with buttons and scrollers
@@ -30,7 +32,6 @@ class GUI_Window :	public GUI_Element,
 	GUI_Button b_down{ UiResEnum::BUTTON_DOWN };
 	GUI_Slider slider;
 
-	GUI_Element* owner;
 
 	// Window sprite-segments names
 	enum class WindowSegments

@@ -153,7 +153,6 @@
     <ClCompile Include="GUI_IndicatorLine.cpp" />
     <ClCompile Include="GUI_ItemsList.cpp" />
     <ClCompile Include="GUI_ItemsListItem.cpp" />
-    <ClCompile Include="GUI_RenderTextureContainer.cpp" />
     <ClCompile Include="GUI_TextDisplay.cpp" />
     <ClCompile Include="GUI_Window.cpp" />
     <ClCompile Include="IEC.cpp" />
@@ -171,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="GuiElementsContainer.h" />
     <ClInclude Include="GUIElementsEnum.h" />
+    <ClInclude Include="GUI_Interactable.h" />
     <ClInclude Include="GUI_RenderTextureContainer.h" />
     <ClInclude Include="GUI_TextDisplay.h" />
     <ClInclude Include="GUI_Transform.h" />
