@@ -152,7 +152,8 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 		/*if (getGuiElement<GUI_Button>("but_close")->getIsActivated())
 			setActive(false);*/
 
-
+		//if (getGuiElement<GUI_Button>("but_close")->getIsActivated())
+			//setActive(false);
 
 		/*if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
 		{

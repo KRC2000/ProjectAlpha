@@ -39,6 +39,7 @@ public:
 	void setScale(Vector2f factor) { spriteIdle.setScale(factor); };
 	void setPosition(Vector2f pos) { spriteIdle.setPosition(pos); };
 	void setActive(bool isActive) { active = isActive; };
+	void setApplyTransform(bool applyTransform) { this->applyTransform = applyTransform; };
 	//
 	//////////////////
 
