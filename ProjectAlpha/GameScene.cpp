@@ -17,9 +17,28 @@ GameScene::GameScene():
 
 	ui.addGuiElement(new GUI_ActionPanel(), "inv_panel");
 
-	GUI_Element* mainWindow = &ui.addGuiElement(new GUI_Window(), "win0");
-	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Window(mainWindow), "win1");
+	GUI_Element* win0_element = &ui.addGuiElement(new GUI_Window(), "win0");
+	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Window(win0_element), "win1");
 
+	GUI_Window* win0 = ui.getGuiElement<GUI_Window>("win0");
+	GUI_Window* win1 = win0->getGuiElement<GUI_Window>("win1");
+
+	win1->applyParentalTransforms(win0->getParentalTransforms());
+
+	win0->addGuiElement(new GUI_Button(), "but0");
+	win0->getGuiElement<GUI_Button>("but0")->setActive(true);
+	win1->addGuiElement(new GUI_Button(), "but0");
+	win1->getGuiElement<GUI_Button>("but0")->setActive(true);
+	win1->addGuiElement(new GUI_Button(), "but1");
+	win1->getGuiElement<GUI_Button>("but1")->setActive(true);
+
+
+	win0->getGuiElement<GUI_Button>("but0")->applyTransformOnInteraction(win0->getParentalTransforms());
+	win1->getGuiElement<GUI_Button>("but0")->applyTransformOnInteraction(win1->getParentalTransforms());
+	win1->getGuiElement<GUI_Button>("but1")->applyTransformOnInteraction(win1->getParentalTransforms());
+	//GUI_Element* secondWindow = &ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Window(mainWindow), "win1");
+	/*ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Window(mainWindow), "win1");
+	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Window>("win1")->addGuiElement(new GUI_Button(), "but0");*/
 	//ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Button(), "but0");
 	
 	/*ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Button(), "but1");
@@ -81,11 +100,33 @@ void GameScene::load(RenderWindow& window)
 	ui.getGuiElement<GUI_ActionPanel>("inv_panel")->addActionButton(ui.getUiResVec(), UiResEnum::GUI_ACTIONPANEL_BUTTON_USE, "use");
 	ui.getGuiElement<GUI_ActionPanel>("inv_panel")->addActionButton(ui.getUiResVec(), UiResEnum::GUI_ACTIONPANEL_BUTTON_EAT, "eat");
 
-	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Window>("win1")->setSize({ 200, 900 });
-	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Window>("win1")->setPos({ 0, 0 });
-	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Window>("win1")->setActive(true);
+	GUI_Window* win0 = ui.getGuiElement<GUI_Window>("win0");
+	GUI_Window* win1 = ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Window>("win1");
+	//win0->setSize({ 300, 300 });
+	//win1->setSize({ 200, 900 });
+	//win1->setPos({ 50, 0 });
+	win1->setActive(true);
 	Vector2f v = ui.getGuiElement<GUI_Window>("win0")->getContentOccupySize();
-	cout << v.x << " |||||" << v.y << endl;
+	//cout << v.x << " |||||" << v.y << endl;
+	
+	//win1->applyParentalTransforms(win0->getParentalTransforms());
+	//cout << win0->getParentalTransforms().size() << endl;
+	//cout << win1->getParentalTransforms().size() << endl;
+
+	/*win0->getGuiElement<GUI_Button>("but0")->applyTransformOnInteraction(win0->getParentalTransforms());
+	win1->getGuiElement<GUI_Button>("but0")->applyTransformOnInteraction(win1->getParentalTransforms());*/
+
+	win0->getGuiElement<GUI_Button>("but0")->setApplyTransform(true);
+	win1->getGuiElement<GUI_Button>("but0")->setApplyTransform(true);
+	win1->getGuiElement<GUI_Button>("but1")->setApplyTransform(true);
+	win1->getGuiElement<GUI_Button>("but1")->setPosition({200, 1300});
+	//win0->setSize({ 1000, 700 });
+	win0->setPos({ 100, 0 });
+	win1->setPos({ 100, 400 });
+	win1->setSize({ 300, 400 });
+
+	//win1->getGuiElement<GUI_Button>("but0")->getTransformedMousePos()
+	//win1->applyTransformOnInteraction(win0->getParentalTransforms());
 
 	/////////////////////////////////////
 	player.load(textureResourcesVec, ui);
@@ -97,6 +138,10 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 {
 	if (active)
 	{
+		//Vector2f pos = ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Window>("win1")->getGuiElement<GUI_Button>("but0")->getTransformedMousePos(iec.getMousePos(window, ui.getView()));
+		//Vector2f pos = ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Button>("but0")->getTransformedMousePos(iec.getMousePos(window, ui.getView()));
+		//cout << pos.x << " \\\ " << pos.y << endl;
+
 		ui.update(iec, window);
 		map.update(iec, window);
 		

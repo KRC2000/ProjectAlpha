@@ -29,9 +29,9 @@ void GuiElementsContainer::draw(RenderTarget& target, RenderStates states) const
 	}
 }
 
-void GuiElementsContainer::addGuiElement(GUI_Element* newElement, string name)
+GUI_Element& GuiElementsContainer::addGuiElement(GUI_Element* newElement, string name)
 {
-
 	newElement->setName(name);
 	elementsVec.push_back(newElement);
+	return *elementsVec.back();
 }

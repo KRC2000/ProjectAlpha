@@ -1,9 +1,8 @@
 #include "GUI_Window.h"
 
 GUI_Window::GUI_Window(GUI_Element* owner): 
-	GUI_Element(GUIElementsEnum::GUI_WINDOW),
-	GUI_RenderTextureContainer(rt, rts),
-	owner(owner)
+	GUI_Element(GUIElementsEnum::GUI_WINDOW, owner),
+	GUI_RenderTextureContainer(rt, rts)
 {
 	sVec.reserve((int)WindowSegments::AMOUNT);
 
@@ -68,6 +67,18 @@ void GUI_Window::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, ve
 	slider.setPosition({ b_up.getGlobalBounds().left, b_up.getGlobalBounds().top + b_up.getGlobalBounds().height + 5 });
 	slider.setPathLenght((b_down.getGlobalBounds().top - 5) - (b_up.getGlobalBounds().top + b_up.getGlobalBounds().height + 5));
 
+	b_close.setApplyTransform(true);
+	b_up.setApplyTransform(true);
+	b_down.setApplyTransform(true);
+	slider.setApplyTransform(true);
+	GUI_RenderTextureContainer* owner_rtc = dynamic_cast<GUI_RenderTextureContainer*>(GUI_Element::owner);
+	if (owner_rtc)
+	{
+		b_close.applyTransformOnInteraction(owner_rtc->getParentalTransforms());
+		b_up.applyTransformOnInteraction(owner_rtc->getParentalTransforms());
+		b_down.applyTransformOnInteraction(owner_rtc->getParentalTransforms());
+		slider.applyTransformOnInteraction(owner_rtc->getParentalTransforms());
+	}
 
 	recalculateContentOccupySize();
 }
@@ -129,7 +140,7 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 		}
 
 		//if (getGlobalElementBounds().contains(iec.getMousePos(window, view)))
-		updateElements(iec, window, rtView);
+		updateElements(iec, window, view);
 		//Transform t =  rtView.getTransform();
 		 
 		//View v;
@@ -138,16 +149,18 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 		//rtView.setViewport({(pos.x + borderSize) / view.getSize().x, (pos.y + borderSize) / view.getSize().y, backgrSize.x / view.getSize().x, backgrSize.y / view.getSize().y });
 
 
-		if (getGuiElement<GUI_Button>("but_close")->getIsActivated())
-			setActive(false);
+		/*if (getGuiElement<GUI_Button>("but_close")->getIsActivated())
+			setActive(false);*/
 
-		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
+
+
+		/*if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
 		{
 			if (!getGlobalElementBounds().contains(iec.getMousePos(window, view)))
 				setActive(false);
 			
 			iec.eventExpire(Mouse::Left);
-		}
+		}*/
 
 		beingScrolled = false;
 		if (getGlobalElementBounds().contains(iec.getMousePos(window, view)))
@@ -213,13 +226,18 @@ void GUI_Window::setPos(Vector2f newPos)
 	sVec[(int)WindowSegments::DOWNRIGHT_C].setPosition(pos.x + borderSize + backgrSize.x, pos.y + borderSize + backgrSize.y);
 	sVec[(int)WindowSegments::BACKGR].setPosition(pos.x + borderSize, pos.y + borderSize);
 
-	b_close.setPosition({ pos.x + borderSize + backgrSize.x - b_close.getGlobalBounds().width, (float)borderSize });
+	b_close.setPosition({ pos.x + borderSize + backgrSize.x - b_close.getGlobalBounds().width, pos.y + borderSize });
 	b_up.setPosition({ b_close.getGlobalBounds().left, b_close.getGlobalBounds().top + b_close.getGlobalBounds().height + 5 });
-	b_down.setPosition({ b_close.getGlobalBounds().left, backgrSize.y + borderSize - b_down.getGlobalBounds().height });
+	b_down.setPosition({ b_close.getGlobalBounds().left, pos.y + backgrSize.y + borderSize - b_down.getGlobalBounds().height });
 	slider.setPosition({ b_up.getGlobalBounds().left, b_up.getGlobalBounds().top + b_up.getGlobalBounds().height + 5 });
 	slider.setPathLenght((b_down.getGlobalBounds().top - 5) - (b_up.getGlobalBounds().top + b_up.getGlobalBounds().height + 5));
 
 	rts.setPosition({ pos.x + borderSize, pos.y + borderSize });
+
+	recalculateContentOccupySize();
+
+	GUI_Window* ownerWindow = dynamic_cast<GUI_Window*>(owner);
+	if (ownerWindow) ownerWindow->recalculateContentOccupySize();
 }
 
 void GUI_Window::setSize(Vector2f newSize)

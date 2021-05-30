@@ -88,10 +88,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GUI_TextDisplay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI_RenderTextureContainer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,14 +185,17 @@
     <ClInclude Include="GUIElementsEnum.h">
       <Filter>Enums</Filter>
     </ClInclude>
-    <ClInclude Include="GUI_TextDisplay.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GUI_Transform.h">
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="GUI_RenderTextureContainer.h">
-      <Filter>Header Files</Filter>
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_TextDisplay.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_Interactable.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

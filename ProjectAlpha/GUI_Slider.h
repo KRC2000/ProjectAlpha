@@ -1,9 +1,11 @@
 #pragma once
 #include "PrecompiledHeaders.h"
 #include "GUI_Element.h"
+#include "GUI_Interactable.h"
 #include "UiResEnum.h"
 
-class GUI_Slider: public GUI_Element
+class GUI_Slider:	public GUI_Element,
+					public GUI_Interactable
 {
 	Sprite s_slider;
 	Texture t_slider;

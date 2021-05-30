@@ -10,6 +10,7 @@ class GUI_RenderTextureContainer
 	GUI_Transform transform;
 	vector<GUI_Transform> parentsTransformsVec;
 public:
+	virtual ~GUI_RenderTextureContainer() {};
 	GUI_RenderTextureContainer(RenderTexture& render_t, Sprite& render_tHolder):
 		transform(render_t, render_tHolder)
 	{
@@ -18,7 +19,7 @@ public:
 
 	void applyParentalTransforms(vector<GUI_Transform> parentsTransformsVec)
 	{
-		parentsTransformsVec.clear();
+		this->parentsTransformsVec.clear();
 		this->parentsTransformsVec = parentsTransformsVec;
 		this->parentsTransformsVec.push_back(transform);
 	}

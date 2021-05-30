@@ -10,11 +10,15 @@ bool GUI_Slider::update(IEC& iec, RenderWindow& window, View& view)
 {
 	if (active)
 	{
+		Vector2f mousePos;
+		if (applyTransform) mousePos = getTransformedMousePos(iec.getMousePos(window, view));
+		else mousePos = iec.getMousePos(window, view);
+
 		if ((iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED) &&
-			s_slider.getGlobalBounds().contains(iec.getMousePos(window, view)))
+			s_slider.getGlobalBounds().contains(mousePos))
 		{
 			grabbed = true;
-			cursorOffset.y = iec.getMousePos(window, view).y - s_slider.getPosition().y;
+			cursorOffset.y = mousePos.y - s_slider.getPosition().y;
 
 			iec.eventExpire(Mouse::Left);
 		}
@@ -24,7 +28,7 @@ bool GUI_Slider::update(IEC& iec, RenderWindow& window, View& view)
 
 		if (grabbed && s_slider.getPosition().y >= basePoint.y && s_slider.getPosition().y <= basePoint.y + pathLenght)
 		{
-			s_slider.setPosition({ s_slider.getPosition().x, iec.getMousePos(window, view).y - cursorOffset.y });
+			s_slider.setPosition({ s_slider.getPosition().x, mousePos.y - cursorOffset.y });
 			if (s_slider.getPosition().y < basePoint.y)
 				s_slider.setPosition({ s_slider.getPosition().x, basePoint.y });
 			if (s_slider.getPosition().y > basePoint.y + pathLenght)
