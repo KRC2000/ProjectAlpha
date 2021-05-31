@@ -1,18 +1,16 @@
 #pragma once
 #include "PrecompiledHeaders.h"
-//#include "GUI_Clocks.h"
-//#include "GUI_ItemsList.h"
-//#include "GUI_IndicatorLine.h"
-//#include "GUI_ActionPanel.h"
-//#include "GUI_Button.h"
 
 #include "GUI_Element.h"
-
+#include "GUI_LayerSys.h"
 #include "UiResEnum.h"
 #include "UiFontsEnum.h"
 
 class UI
 {
+public:
+	GUI_LayerSys layerSys;
+private:
 	vector<GUI_Element*> guiElementsVec;
 
 	/*Global textures storage reference to spread among object's load() functions*/

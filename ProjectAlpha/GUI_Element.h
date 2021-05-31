@@ -6,7 +6,9 @@ class GUI_Element: public Drawable
 {
 	string name;
 	GUIElementsEnum guiType;
-protected: GUI_Element* owner = nullptr;
+protected: 
+	GUI_Element* owner = nullptr;
+	bool active = false;
 public:
 	GUI_Element(GUIElementsEnum guiType, GUI_Element* owner = nullptr):guiType(guiType), owner(owner) {};
 	virtual ~GUI_Element() {};
@@ -23,5 +25,7 @@ public:
 	const GUIElementsEnum getType() { return guiType; };
 	const string getName() { return name; };
 	void setName(string newName) { name = newName; };
+	void setActive(bool active) { this->active = active; };
+	bool isActive() { return active; };
 };
 

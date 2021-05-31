@@ -19,9 +19,11 @@ GameScene::GameScene():
 
 	GUI_Element* win0_element = &ui.addGuiElement(new GUI_Window(), "win0");
 	ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Window(win0_element), "win1");
+	ui.addGuiElement(new GUI_Window(), "win2");
 
 	GUI_Window* win0 = ui.getGuiElement<GUI_Window>("win0");
 	GUI_Window* win1 = win0->getGuiElement<GUI_Window>("win1");
+	//win1->setActive(true);
 
 	win1->applyParentalTransforms(win0->getParentalTransforms());
 
@@ -36,6 +38,8 @@ GameScene::GameScene():
 	win0->getGuiElement<GUI_Button>("but0")->applyTransformOnInteraction(win0->getParentalTransforms());
 	win1->getGuiElement<GUI_Button>("but0")->applyTransformOnInteraction(win1->getParentalTransforms());
 	win1->getGuiElement<GUI_Button>("but1")->applyTransformOnInteraction(win1->getParentalTransforms());
+
+	
 	//GUI_Element* secondWindow = &ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Window(mainWindow), "win1");
 	/*ui.getGuiElement<GUI_Window>("win0")->addGuiElement(new GUI_Window(mainWindow), "win1");
 	ui.getGuiElement<GUI_Window>("win0")->getGuiElement<GUI_Window>("win1")->addGuiElement(new GUI_Button(), "but0");*/
@@ -105,7 +109,7 @@ void GameScene::load(RenderWindow& window)
 	//win0->setSize({ 300, 300 });
 	//win1->setSize({ 200, 900 });
 	//win1->setPos({ 50, 0 });
-	win1->setActive(true);
+	//win1->setActive(true);
 	Vector2f v = ui.getGuiElement<GUI_Window>("win0")->getContentOccupySize();
 	//cout << v.x << " |||||" << v.y << endl;
 	
@@ -122,12 +126,17 @@ void GameScene::load(RenderWindow& window)
 	win1->getGuiElement<GUI_Button>("but1")->setPosition({200, 1300});
 	//win0->setSize({ 1000, 700 });
 	win0->setPos({ 100, 0 });
-	win1->setPos({ 100, 400 });
+	win1->setPos({ -100, 400 });
 	win1->setSize({ 300, 400 });
 
 	//win1->getGuiElement<GUI_Button>("but0")->getTransformedMousePos()
 	//win1->applyTransformOnInteraction(win0->getParentalTransforms());
 
+	ui.layerSys.addStaticLayer(*win0);
+	ui.layerSys.addStaticLayer(*ui.getGuiElement<GUI_Window>("win2"));
+	win0->setActive(true);
+	win1->setActive(true);
+	ui.getGuiElement<GUI_Window>("win2")->setActive(true);
 	/////////////////////////////////////
 	player.load(textureResourcesVec, ui);
 	map.loadTextures(&textureResourcesVec);
@@ -301,7 +310,7 @@ SceneType GameScene::update(IEC& iec, RenderWindow& window, VideoMode videoMode)
 				if (button->getName() == "use") {}
 				if (button->getName() == "info")
 				{
-					ui.getGuiElement<GUI_Window>("win0")->setActive(true);
+					//ui.getGuiElement<GUI_Window>("win0")->setActive(true);
 					inv_panel->setActive(false);
 				}
 			}

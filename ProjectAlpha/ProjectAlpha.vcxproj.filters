@@ -90,6 +90,9 @@
     <ClCompile Include="GUI_TextDisplay.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="GUI_LayerSys.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="GUI_Interactable.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_LayerSys.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

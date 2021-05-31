@@ -20,7 +20,7 @@ class GUI_Window :	public GUI_Element,
 	Vector2f defaultViewPos{};
 	int borderSize = 0;
 	int rightSideGap = 33 + 5;
-	bool active = false;
+	//bool active = false;
 	bool beingScrolled = false;
 
 	View rtView;
@@ -57,7 +57,7 @@ public:
 	// SETTERS //////////////////
 	//
 	void setPos(Vector2f newPos);
-	void setActive(bool isActive) { active = isActive; };
+	//void setActive(bool isActive) { active = isActive; };
 	void setSize(Vector2f newSize);
 	//
 	/////////////////////////////

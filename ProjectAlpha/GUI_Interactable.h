@@ -10,11 +10,29 @@ class GUI_Interactable
 	vector<GUI_Transform> parentsTransformsVec;
 protected: 
 	bool applyTransform = false;
-public:
+public:	
 	void applyTransformOnInteraction(vector<GUI_Transform> transformVec)
 	{
 		parentsTransformsVec.clear();
 		parentsTransformsVec = transformVec;
+	};
+
+	bool getIsCursorInsideOwnerRenderTexture(Vector2f pos)
+	{
+		if (parentsTransformsVec.size() > 0)
+		{
+			for (int i = 0; i < parentsTransformsVec.size() - 1; i++)
+			{
+				pos -= parentsTransformsVec[i].render_tHolder->getPosition();
+				pos = parentsTransformsVec[i].render_t->mapPixelToCoords((Vector2i)pos);
+			}
+			if (parentsTransformsVec.back().render_tHolder->getGlobalBounds().contains(pos)) return true;
+			else return false;
+		}
+		else
+		{
+			return true;
+		}
 	};
 
 	Vector2f getTransformedMousePos(Vector2f pos)

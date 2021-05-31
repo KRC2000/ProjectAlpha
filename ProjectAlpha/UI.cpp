@@ -25,8 +25,9 @@ void UI::load(vector<Texture>* texturesResourcesVec, RenderWindow& window, Font*
 
 void UI::update(IEC& iec, RenderWindow& window)
 {
-	for (auto& element : guiElementsVec)
-		element->update(iec, window, view);
+	/*for (auto& element : guiElementsVec)
+		element->update(iec, window, view);*/
+	layerSys.update(iec, window, view);
 }
 
 void UI::draw(RenderWindow& window)

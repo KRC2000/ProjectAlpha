@@ -15,7 +15,7 @@ private:
 	UiResEnum buttonType;
 	Sprite spriteIdle;
 	string name = "Unnamed";
-	bool active = false;
+	//bool active = false;
 	bool activated = false;
 
 public:
@@ -38,7 +38,7 @@ public:
 	//
 	void setScale(Vector2f factor) { spriteIdle.setScale(factor); };
 	void setPosition(Vector2f pos) { spriteIdle.setPosition(pos); };
-	void setActive(bool isActive) { active = isActive; };
+	//void setActive(bool isActive) { active = isActive; };
 	void setApplyTransform(bool applyTransform) { this->applyTransform = applyTransform; };
 	//
 	//////////////////
