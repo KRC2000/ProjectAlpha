@@ -9,19 +9,21 @@
 
 class GUI_Window :	public GUI_Element,
 					public GUI_RenderTextureContainer,
-					//public GUI_Interactable,
+					public GUI_Interactable,
 					public GuiElementsContainer
 {
 	// Size of a canvas without borders and corners, but with buttons and scrollers
 	Vector2f backgrSize{ 600, 700 };
 	Vector2f pos{ 300, 0 };
+	Vector2f grabOffset{};
 	// Width and height of minimal rectangle that includes all elements
 	Vector2f contentOccupySize{ 0, 0 };
 	Vector2f defaultViewPos{};
 	int borderSize = 0;
 	int rightSideGap = 33 + 5;
-	//bool active = false;
 	bool beingScrolled = false;
+	bool grabbed = false;
+	bool resized = false;
 
 	View rtView;
 	RenderTexture rt;

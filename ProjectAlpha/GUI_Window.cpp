@@ -108,8 +108,6 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 {
 	if (active)
 	{
-		//viewportUpdate(view);
-
 		if (b_close.update(iec, window, view))
 			setActive(false);
 
@@ -138,6 +136,12 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 			b_down.setActive(true);
 			slider.setActive(true);
 		}
+		else
+		{
+			b_up.setActive(false);
+			b_down.setActive(false);
+			slider.setActive(false);
+		}
 
 		//if (getGlobalElementBounds().contains(iec.getMousePos(window, view)))
 		updateElements(iec, window, view);
@@ -163,6 +167,51 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 			iec.eventExpire(Mouse::Left);
 		}*/
 
+		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
+		{
+			if (sVec[(int)WindowSegments::DOWNRIGHT_C].getGlobalBounds().contains(getTransformedMousePos(iec.getMousePos(window, view))))
+			{
+				resized = true;
+				grabOffset = getTransformedMousePos(iec.getMousePos(window, view)) - sVec[(int)WindowSegments::DOWNRIGHT_C].getPosition();
+			}
+
+		}
+
+		if (resized)
+		{
+			Vector2f border{ (float)borderSize, (float)borderSize };
+			Vector2f newSize = getTransformedMousePos(iec.getMousePos(window, view)) - (pos + border) - grabOffset;
+			setSize(newSize);
+			cout << newSize.x << " \\\ " << newSize.y << endl;
+		}
+
+		
+		
+		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
+		{
+			if (sVec[(int)WindowSegments::UP].getGlobalBounds().contains(getTransformedMousePos(iec.getMousePos(window, view))))
+			{
+				grabbed = true;
+				grabOffset = getTransformedMousePos(iec.getMousePos(window, view)) - pos;
+			}
+
+		}
+
+		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTRELEASED)
+		{
+			if (grabbed) grabbed = false;
+			if (resized) resized = false;
+		}
+
+		if (grabbed)
+		{
+			setPos(getTransformedMousePos(iec.getMousePos(window, view)) - grabOffset);
+			if (owner)
+			{
+				dynamic_cast<GUI_Window*>(owner)->recalculateContentOccupySize();
+			}
+		}
+
 		beingScrolled = false;
 		if (getGlobalElementBounds().contains(iec.getMousePos(window, view)))
 		{
@@ -176,8 +225,9 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 			}
 		}
 
-		//rtView.move(0, 01);
+
 		rt.setView(rtView);
+		rt.setRepeated(false);
 		rt.clear({0, 0, 0, 0});
 		drawElements(rt);
 		rt.display();
@@ -244,6 +294,7 @@ void GUI_Window::setPos(Vector2f newPos)
 void GUI_Window::setSize(Vector2f newSize)
 {
 	backgrSize = newSize;
+	
 	if (rt.create(backgrSize.x - rightSideGap, backgrSize.y)) cout << "CREATED\n";
 	rtView.setSize(rt.getSize().x, rt.getSize().y);
 	defaultViewPos = { (float)rt.getSize().x / 2, (float)rt.getSize().y / 2 };
