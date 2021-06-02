@@ -39,10 +39,12 @@ void UI::draw(RenderWindow& window)
 	window.setView(view);
 	///////////////////////////
 
-	for (auto& element : guiElementsVec)
+	/*for (auto& element : guiElementsVec)
 	{
 		window.draw(*element);
-	}
+	}*/
+
+	window.draw(layerSys);
 
 	///////////////////////////
 

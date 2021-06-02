@@ -132,8 +132,8 @@ void GameScene::load(RenderWindow& window)
 	//win1->getGuiElement<GUI_Button>("but0")->getTransformedMousePos()
 	//win1->applyTransformOnInteraction(win0->getParentalTransforms());
 
-	ui.layerSys.addStaticLayer(*win0);
-	ui.layerSys.addStaticLayer(*ui.getGuiElement<GUI_Window>("win2"));
+	ui.layerSys.addDynamicLayer(*win0);
+	ui.layerSys.addDynamicLayer(*ui.getGuiElement<GUI_Window>("win2"));
 	win0->setActive(true);
 	win1->setActive(true);
 	ui.getGuiElement<GUI_Window>("win2")->setActive(true);
