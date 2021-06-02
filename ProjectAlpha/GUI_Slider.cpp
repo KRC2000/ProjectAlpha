@@ -10,31 +10,35 @@ bool GUI_Slider::update(IEC& iec, RenderWindow& window, View& view)
 {
 	if (active)
 	{
-		Vector2f mousePos;
-		if (applyTransform) mousePos = getTransformedMousePos(iec.getMousePos(window, view));
-		else mousePos = iec.getMousePos(window, view);
-
-		if ((iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED) &&
-			s_slider.getGlobalBounds().contains(mousePos))
+		if (getIsCursorInsideOwnerRenderTexture(iec.getMousePos(window, view)))
 		{
-			grabbed = true;
-			cursorOffset.y = mousePos.y - s_slider.getPosition().y;
+			Vector2f mousePos;
+			if (applyTransform) mousePos = getTransformedMousePos(iec.getMousePos(window, view));
+			else mousePos = iec.getMousePos(window, view);
 
-			iec.eventExpire(Mouse::Left);
+			if ((iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED) &&
+				s_slider.getGlobalBounds().contains(mousePos))
+			{
+				grabbed = true;
+				cursorOffset.y = mousePos.y - s_slider.getPosition().y;
+
+				iec.eventExpire(Mouse::Left);
+			}
+
+			if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTRELEASED) grabbed = false;
+
+
+			if (grabbed && s_slider.getPosition().y >= basePoint.y && s_slider.getPosition().y <= basePoint.y + pathLenght)
+			{
+				s_slider.setPosition({ s_slider.getPosition().x, mousePos.y - cursorOffset.y });
+				if (s_slider.getPosition().y < basePoint.y)
+					s_slider.setPosition({ s_slider.getPosition().x, basePoint.y });
+				if (s_slider.getPosition().y > basePoint.y + pathLenght)
+					s_slider.setPosition({ s_slider.getPosition().x, basePoint.y + pathLenght });
+				return true;
+			}
 		}
 
-		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTRELEASED) grabbed = false;
-
-
-		if (grabbed && s_slider.getPosition().y >= basePoint.y && s_slider.getPosition().y <= basePoint.y + pathLenght)
-		{
-			s_slider.setPosition({ s_slider.getPosition().x, mousePos.y - cursorOffset.y });
-			if (s_slider.getPosition().y < basePoint.y)
-				s_slider.setPosition({ s_slider.getPosition().x, basePoint.y });
-			if (s_slider.getPosition().y > basePoint.y + pathLenght)
-				s_slider.setPosition({ s_slider.getPosition().x, basePoint.y + pathLenght });
-			return true;
-		}
 	}
 	return false;
 }

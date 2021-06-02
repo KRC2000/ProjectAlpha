@@ -21,18 +21,23 @@ public:
 	{
 		if (parentsTransformsVec.size() > 0)
 		{
-			for (int i = 0; i < parentsTransformsVec.size() - 1; i++)
+			bool contains = true;
+			Vector2f transitionalPos = pos;
+			for (int i = 0; i < parentsTransformsVec.size(); i++)
 			{
-				pos -= parentsTransformsVec[i].render_tHolder->getPosition();
-				pos = parentsTransformsVec[i].render_t->mapPixelToCoords((Vector2i)pos);
+				if (i == 0) transitionalPos = pos;
+				else
+				{
+					transitionalPos -= parentsTransformsVec[i-1].render_tHolder->getPosition();
+					transitionalPos = parentsTransformsVec[i-1].render_t->mapPixelToCoords((Vector2i)transitionalPos);
+				}
+
+				if (!parentsTransformsVec[i].render_tHolder->getGlobalBounds().contains(transitionalPos)) contains = false;
+
 			}
-			if (parentsTransformsVec.back().render_tHolder->getGlobalBounds().contains(pos)) return true;
-			else return false;
+			return contains;
 		}
-		else
-		{
-			return true;
-		}
+		else return true;
 	};
 
 	Vector2f getTransformedMousePos(Vector2f pos)
