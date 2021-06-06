@@ -25,7 +25,7 @@ class GUI_Window :	public GUI_Element,
 	bool grabbed = false;
 	bool resized = false;
 
-	View rtView;
+	//View rtView;
 	RenderTexture rt;
 	Sprite rts;
 

@@ -6,10 +6,13 @@ GUI_Window::GUI_Window(GUI_Element* owner):
 {
 	sVec.reserve((int)WindowSegments::AMOUNT);
 
-	if (rt.create(backgrSize.x - rightSideGap, backgrSize.y)) cout << "CREATED\n";
-	rtView.setSize(rt.getSize().x, rt.getSize().y);
-	defaultViewPos = { (float)rt.getSize().x / 2, (float)rt.getSize().y / 2 };
-	rtView.setCenter(defaultViewPos);
+
+	if (rt.create(2000, 2000)) cout << "CREATED\n";
+	rts.setTexture(rt.getTexture());
+	rts.setTextureRect(IntRect(0, 0, backgrSize.x - rightSideGap, backgrSize.y));
+	//rtView.setSize(rt.getSize().x, rt.getSize().y);
+	defaultViewPos = { 0, 0 };
+	//rtView.setCenter(defaultViewPos);
 
 }
 
@@ -113,13 +116,17 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 
 		if (b_up.update(iec, window, view))
 		{
-			rtView.move(0, -30);
+			IntRect rect = { rts.getTextureRect().left, rts.getTextureRect().top - 30, rts.getTextureRect().width, rts.getTextureRect().height };
+			rts.setTextureRect(rect);
+			//rtView.move(0, -30);
 			normalizeOutOfBoundsView();
 			slider.setPositionPercent(getVerticalPosPercent());
 		}
 		if (b_down.update(iec, window, view))
 		{
-			rtView.move(0, 30);
+			IntRect rect = { rts.getTextureRect().left, rts.getTextureRect().top + 30, rts.getTextureRect().width, rts.getTextureRect().height };
+			rts.setTextureRect(rect);
+			//rtView.move(0, 30);
 			normalizeOutOfBoundsView();
 			slider.setPositionPercent(getVerticalPosPercent());
 		}
@@ -217,8 +224,13 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 		{
 			if (iec.getMouseWheelDelta() != 0)
 			{
-				if (contentOccupySize.y > rtView.getSize().y)
-					rtView.move(0, 10 * -iec.getMouseWheelDelta());
+				//if (contentOccupySize.y > rtView.getSize().y)
+				if (contentOccupySize.y > rts.getTextureRect().height)
+				{
+					IntRect rect = { rts.getTextureRect().left, rts.getTextureRect().top + 10 * -iec.getMouseWheelDelta(), rts.getTextureRect().width, rts.getTextureRect().height };
+					rts.setTextureRect(rect);
+				}
+					//rtView.move(0, 10 * -iec.getMouseWheelDelta());
 				iec.expireMouseWheelDelta();
 				beingScrolled = true;
 				normalizeOutOfBoundsView();
@@ -226,7 +238,7 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 		}
 
 
-		rt.setView(rtView);
+		//rt.setView(rtView);
 		rt.setRepeated(false);
 		rt.clear({0, 0, 0, 0});
 		drawElements(rt);
@@ -282,6 +294,7 @@ void GUI_Window::setPos(Vector2f newPos)
 	b_down.setPosition({ b_close.getGlobalBounds().left, pos.y + backgrSize.y + borderSize - b_down.getGlobalBounds().height });
 	slider.setPosition({ b_up.getGlobalBounds().left, b_up.getGlobalBounds().top + b_up.getGlobalBounds().height + 5 });
 	slider.setPathLenght((b_down.getGlobalBounds().top - 5) - (b_up.getGlobalBounds().top + b_up.getGlobalBounds().height + 5));
+	slider.setPositionPercent(getVerticalPosPercent());
 
 	rts.setPosition({ pos.x + borderSize, pos.y + borderSize });
 
@@ -295,10 +308,12 @@ void GUI_Window::setSize(Vector2f newSize)
 {
 	backgrSize = newSize;
 	
-	if (rt.create(backgrSize.x - rightSideGap, backgrSize.y)) cout << "CREATED\n";
-	rtView.setSize(rt.getSize().x, rt.getSize().y);
-	defaultViewPos = { (float)rt.getSize().x / 2, (float)rt.getSize().y / 2 };
-	rtView.setCenter(defaultViewPos);
+	rts.setTextureRect(IntRect(rts.getTextureRect().left, rts.getTextureRect().top, backgrSize.x - rightSideGap, backgrSize.y));
+
+	//if (rt.create(backgrSize.x - rightSideGap, backgrSize.y)) cout << "CREATED\n";
+	//rtView.setSize(rt.getSize().x, rt.getSize().y);
+	//defaultViewPos = { (float)rt.getSize().x / 2, (float)rt.getSize().y / 2 };
+	//rtView.setCenter(defaultViewPos);
 
 
 	sVec[(int)WindowSegments::UPLEFT_C].setTextureRect(IntRect(0, 0, borderSize, borderSize));
@@ -324,6 +339,7 @@ void GUI_Window::setSize(Vector2f newSize)
 	b_down.setPosition({ b_close.getGlobalBounds().left, backgrSize.y + borderSize - b_down.getGlobalBounds().height });
 	slider.setPosition({ b_up.getGlobalBounds().left, b_up.getGlobalBounds().top + b_up.getGlobalBounds().height + 5 });
 	slider.setPathLenght((b_down.getGlobalBounds().top - 5) - (b_up.getGlobalBounds().top + b_up.getGlobalBounds().height + 5));
+	slider.setPositionPercent(getVerticalPosPercent());
 
 	setPos(pos);
 
@@ -341,20 +357,25 @@ FloatRect GUI_Window::getGlobalElementBounds()
 
 void GUI_Window::setVerticalPosPercent(float percent)
 {
-	float endPoint = contentOccupySize.y - rtView.getSize().y / 2;
+	//float endPoint = contentOccupySize.y - rtView.getSize().y / 2;
+	float endPoint = contentOccupySize.y - rts.getTextureRect().height;
 	float allPath = endPoint - defaultViewPos.y;
 	float percentOfPath = allPath / 100;
-	rtView.setCenter(defaultViewPos.x, defaultViewPos.y + percentOfPath * percent);
+	IntRect rect = { (int)defaultViewPos.x , (int)(defaultViewPos.y + percentOfPath * percent), rts.getTextureRect().width, rts.getTextureRect().height };
+	rts.setTextureRect(rect);
+	//rtView.setCenter(defaultViewPos.x, defaultViewPos.y + percentOfPath * percent);
 }
 
 float GUI_Window::getVerticalPosPercent()
 {
-	if (contentOccupySize.y <= rtView.getSize().y)
+	//if (contentOccupySize.y <= rtView.getSize().y)
+	if (contentOccupySize.y <= rts.getTextureRect().height)
 	{
 		return 0.f;
 	}
 	else
 	{
-		return (rtView.getCenter().y - defaultViewPos.y) / (((contentOccupySize.y - rtView.getSize().y / 2) - defaultViewPos.y) / 100);
+		//return (rtView.getCenter().y - defaultViewPos.y) / (((contentOccupySize.y - rtView.getSize().y / 2) - defaultViewPos.y) / 100);
+		return (rts.getTextureRect().top / ((contentOccupySize.y - rts.getTextureRect().height) / 100));
 	}
 }

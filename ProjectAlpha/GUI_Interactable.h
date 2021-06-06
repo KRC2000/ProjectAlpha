@@ -29,7 +29,9 @@ public:
 				else
 				{
 					transitionalPos -= parentsTransformsVec[i-1].render_tHolder->getPosition();
-					transitionalPos = parentsTransformsVec[i-1].render_t->mapPixelToCoords((Vector2i)transitionalPos);
+					transitionalPos += {0, (float)parentsTransformsVec[i-1].render_tHolder->getTextureRect().top};
+
+					//transitionalPos = parentsTransformsVec[i-1].render_t->mapPixelToCoords((Vector2i)transitionalPos);
 				}
 
 				if (!parentsTransformsVec[i].render_tHolder->getGlobalBounds().contains(transitionalPos)) contains = false;
@@ -38,6 +40,7 @@ public:
 			return contains;
 		}
 		else return true;
+		//return true;
 	};
 
 	Vector2f getTransformedMousePos(Vector2f pos)
@@ -45,7 +48,8 @@ public:
 		for (auto& transform : parentsTransformsVec)
 		{
 			pos -= transform.render_tHolder->getPosition();
-			pos = transform.render_t->mapPixelToCoords((Vector2i)pos);
+			pos += {0 , (float)transform.render_tHolder->getTextureRect().top };
+			//pos = transform.render_t->mapPixelToCoords((Vector2i)pos);
 		}
 		return pos;
 	};
