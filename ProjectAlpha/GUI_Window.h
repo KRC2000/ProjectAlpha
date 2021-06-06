@@ -25,7 +25,8 @@ class GUI_Window :	public GUI_Element,
 	bool grabbed = false;
 	bool resized = false;
 
-	View rtView;
+	Clock timer;
+
 	RenderTexture rt;
 	Sprite rts;
 
@@ -42,10 +43,9 @@ class GUI_Window :	public GUI_Element,
 		UP, DOWN, LEFT, RIGHT, BACKGR, 
 		AMOUNT
 	};
-
 	vector<Sprite> sVec;
+
 private:
-	//void viewportUpdate(View uiView);
 	void recalculateContentOccupySize();
 public:
 	GUI_Window(GUI_Element* owner = nullptr);
@@ -59,8 +59,8 @@ public:
 	// SETTERS //////////////////
 	//
 	void setPos(Vector2f newPos);
-	//void setActive(bool isActive) { active = isActive; };
 	void setSize(Vector2f newSize);
+	virtual void setActive(bool active);
 	//
 	/////////////////////////////
 

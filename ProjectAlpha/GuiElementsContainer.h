@@ -3,6 +3,11 @@
 
 #include "GUI_Element.h"
 
+
+/*
+Parental class for GUI_Element-s that contain multiple GUI_Element.
+In GUI_Element that contains 
+*/
 class GuiElementsContainer: public Drawable
 {
 	vector<GUI_Element*> elementsVec;

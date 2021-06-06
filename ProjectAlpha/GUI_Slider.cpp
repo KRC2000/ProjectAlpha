@@ -53,7 +53,8 @@ void GUI_Slider::draw(RenderTarget& target, RenderStates states) const
 
 void GUI_Slider::setPositionPercent(float percent)
 {
-	s_slider.setPosition({ basePoint.x, basePoint.y + (pathLenght / 100) * percent });
+	if (percent >= 0 && percent <= 100)
+		s_slider.setPosition({ basePoint.x, basePoint.y + (pathLenght / 100) * percent });
 }
 
 void GUI_Slider::setPosition(Vector2f newPos)

@@ -2,6 +2,10 @@
 #include "PrecompiledHeaders.h"
 #include "UiResEnum.h"
 
+
+/* 
+Must-have parent class for all GUI_Elements
+*/
 class GUI_Element: public Drawable
 {
 	string name;

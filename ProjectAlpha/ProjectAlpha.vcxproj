@@ -151,6 +151,7 @@
     <ClCompile Include="GUI_Clocks.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GUI_Element.cpp" />
     <ClCompile Include="GUI_IndicatorLine.cpp" />
     <ClCompile Include="GUI_ItemsList.cpp" />
     <ClCompile Include="GUI_ItemsListItem.cpp" />
