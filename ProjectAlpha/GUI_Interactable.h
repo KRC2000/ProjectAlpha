@@ -50,7 +50,7 @@ public:
 		for (auto& transform : parentsTransformsVec)
 		{
 			pos -= transform.render_tHolder->getPosition();
-			pos += {0 , (float)transform.render_tHolder->getTextureRect().top };
+			pos = transform.render_t->mapPixelToCoords((Vector2i)pos);
 		}
 		return pos;
 	};
