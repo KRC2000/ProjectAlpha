@@ -7,7 +7,7 @@ using namespace std;
 
 /*
 Parental class for GUI_Element's that require mouse position for proper functionality
-To get mouse position inside such elements class use getTransformedMousePos
+To get mouse position inside such elements class use getTransformedMousePos()
 */
 class GUI_Interactable
 {
@@ -33,7 +33,8 @@ public:
 				else
 				{
 					transitionalPos -= parentsTransformsVec[i-1].render_tHolder->getPosition();
-					transitionalPos += {0, (float)parentsTransformsVec[i-1].render_tHolder->getTextureRect().top};
+					transitionalPos += {(float)parentsTransformsVec[i - 1].render_tHolder->getTextureRect().left,
+										(float)parentsTransformsVec[i-1].render_tHolder->getTextureRect().top};
 				}
 
 				if (!parentsTransformsVec[i].render_tHolder->getGlobalBounds().contains(transitionalPos)) contains = false;
@@ -50,7 +51,9 @@ public:
 		for (auto& transform : parentsTransformsVec)
 		{
 			pos -= transform.render_tHolder->getPosition();
-			pos += {0 , (float)transform.render_tHolder->getTextureRect().top };
+			pos += {(float)transform.render_tHolder->getTextureRect().left, 
+				(float)transform.render_tHolder->getTextureRect().top};
+			//pos = transform.render_t->mapPixelToCoords((Vector2i)pos);
 		}
 		return pos;
 	};

@@ -7,8 +7,6 @@ using namespace std;
 
 class GUI_RenderTextureContainer
 {
-	//Sprite* rtHolder;
-	//vector<Sprite*> parentsRtHoldersVec;
 	GUI_Transform transform;
 	vector<GUI_Transform> parentsTransformsVec;
 public:
