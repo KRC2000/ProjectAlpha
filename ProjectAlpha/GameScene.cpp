@@ -71,13 +71,22 @@ void GameScene::load(RenderWindow& window)
 	ui.load(&textureResourcesVec, window, &guiFont1);
 	//////////////////////////////////////
 
+	ui.layerSys.addStaticLayer(*ui.getGuiElement<GUI_Clocks>("clocks"));
 	ui.getGuiElement<GUI_Clocks>("clocks")->setColor({32, 70, 49, 255});
 
-	ui.getGuiElement<GUI_Button>("button_backpack")->setScale({ 0.2, 0.2 });
-	ui.getGuiElement<GUI_Button>("button_backpack")->setPosition({ ui.getView().getSize().x / 2 - ui.getGuiElement<GUI_Button>("button_backpack")->getGlobalBounds().width / 2,
+	GUI_Button* backPack_b = ui.getGuiElement<GUI_Button>("button_backpack");
+	ui.layerSys.addStaticLayer(*backPack_b);
+	backPack_b->setScale({ 0.2, 0.2 });
+	backPack_b->setPosition({ ui.getView().getSize().x / 2 - ui.getGuiElement<GUI_Button>("button_backpack")->getGlobalBounds().width / 2,
 		ui.getView().getSize().y - ui.getGuiElement<GUI_Button>("button_backpack")->getGlobalBounds().height });
-	ui.getGuiElement<GUI_Button>("button_backpack")->setActive(true);
+	backPack_b->setActive(true);
 	
+
+	ui.layerSys.addStaticLayer(*ui.getGuiElement<GUI_IndicatorLine>("health_line"));
+	ui.layerSys.addStaticLayer(*ui.getGuiElement<GUI_IndicatorLine>("sleep_line"));
+	ui.layerSys.addStaticLayer(*ui.getGuiElement<GUI_IndicatorLine>("temperature_line"));
+	ui.layerSys.addStaticLayer(*ui.getGuiElement<GUI_IndicatorLine>("thirst_line"));
+	ui.layerSys.addStaticLayer(*ui.getGuiElement<GUI_IndicatorLine>("hunger_line"));
 	//Find every GUI_IndicatorLine in UI, place them vertically one after another, add title pictures
 	int posMultiplier = 0;
 	for (auto element : ui.getGuiElementsVec())
@@ -95,6 +104,9 @@ void GameScene::load(RenderWindow& window)
 		}
 	}
 
+
+	ui.layerSys.addDynamicLayer(*ui.getGuiElement<GUI_ItemsList>("player_inventory"));
+	ui.layerSys.addDynamicLayer(*ui.getGuiElement<GUI_ItemsList>("location_inventory"));
 	ui.getGuiElement<GUI_ItemsList>("player_inventory")->setPosition({ ui.getView().getSize().x / 2 + 40, ui.getView().getSize().y / 2 - (float)textureResourcesVec[(int)ResourcesEnum::GUI_T].getSize().y / 2 });
 	ui.getGuiElement<GUI_ItemsList>("location_inventory")->setPosition({ ui.getView().getSize().x / 2 - (float)textureResourcesVec[(int)ResourcesEnum::GUI_T].getSize().x - 40,
 		ui.getView().getSize().y / 2 - (float)textureResourcesVec[(int)ResourcesEnum::GUI_T].getSize().y / 2 });

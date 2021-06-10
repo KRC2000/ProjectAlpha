@@ -10,9 +10,7 @@ GUI_Window::GUI_Window(GUI_Element* owner):
 	if (rt.create(2000, 2000)) cout << "CREATED\n";
 	rts.setTexture(rt.getTexture());
 	rts.setTextureRect(IntRect(0, 0, backgrSize.x - rightSideGap, backgrSize.y));
-	//rtView.setSize(rt.getSize().x, rt.getSize().y);
 	defaultViewPos = { 0, 0 };
-	//rtView.setCenter(defaultViewPos);
 
 }
 
