@@ -51,9 +51,11 @@ public:
 		for (auto& transform : parentsTransformsVec)
 		{
 			pos -= transform.render_tHolder->getPosition();
-			pos += {(float)transform.render_tHolder->getTextureRect().left, 
-				(float)transform.render_tHolder->getTextureRect().top};
+			pos += {0 , (float)transform.render_tHolder->getTextureRect().top };
+<<<<<<<<< Temporary merge branch 1
 			//pos = transform.render_t->mapPixelToCoords((Vector2i)pos);
+=========
+>>>>>>>>> Temporary merge branch 2
 		}
 		return pos;
 	};
