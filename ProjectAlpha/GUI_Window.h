@@ -25,6 +25,11 @@ class GUI_Window :	public GUI_Element,
 	bool grabbed = false;
 	bool resized = false;
 
+	bool closable = false;
+	bool resizable = false;
+	bool moovable = false;
+	bool scrollable = true;
+
 	Clock timer;
 
 	RenderTexture rt;

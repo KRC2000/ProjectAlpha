@@ -57,7 +57,7 @@ void GUI_Window::assignRes(vector<Texture>& uiResVec, vector<Font>* fontsVec, ve
 	assignResToElements(uiResVec, fontsVec, texturesResVec);
 
 	b_close.assignRes(uiResVec);
-	b_close.setActive(true);
+	if (closable) b_close.setActive(true);
 	b_up.assignRes(uiResVec);
 	b_down.assignRes(uiResVec);
 	slider.assignRes(uiResVec);
@@ -156,9 +156,12 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 
 		if (contentOccupySize.y > backgrSize.y)
 		{
-			b_up.setActive(true);
-			b_down.setActive(true);
-			slider.setActive(true);
+			if (scrollable)
+			{
+				b_up.setActive(true);
+				b_down.setActive(true);
+				slider.setActive(true);
+			}
 		}
 		else
 		{
@@ -192,15 +195,37 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 			iec.eventExpire(Mouse::Left);
 		}*/
 
+		// if LMB was just clicked
 		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
 		{
+			// If down-right window corner is grabbed
 			if (sVec[(int)WindowSegments::DOWNRIGHT_C].getGlobalBounds().contains(getTransformedMousePos(iec.getMousePos(window, view))))
 			{
-				resized = true;
-				grabOffset = getTransformedMousePos(iec.getMousePos(window, view)) - sVec[(int)WindowSegments::DOWNRIGHT_C].getPosition();
+				if (resizable)
+				{
+					resized = true;
+					grabOffset = getTransformedMousePos(iec.getMousePos(window, view)) - sVec[(int)WindowSegments::DOWNRIGHT_C].getPosition();
+				}
 			}
 
+			// If upper element of window is grabbed
+			if (sVec[(int)WindowSegments::UP].getGlobalBounds().contains(getTransformedMousePos(iec.getMousePos(window, view))))
+			{
+				if (moovable)
+				{
+					grabbed = true;
+					grabOffset = getTransformedMousePos(iec.getMousePos(window, view)) - pos;
+				}
+			}
 		}
+		
+		// if LMB was just released
+		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTRELEASED)
+		{
+			if (grabbed) grabbed = false;
+			if (resized) resized = false;
+		}
+
 
 		if (resized)
 		{
@@ -208,24 +233,6 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 			Vector2f newSize = getTransformedMousePos(iec.getMousePos(window, view)) - (pos + border) - grabOffset;
 			setSize(newSize);
 			cout << newSize.x << " \\\ " << newSize.y << endl;
-		}
-
-		
-		
-		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTPRESSED)
-		{
-			if (sVec[(int)WindowSegments::UP].getGlobalBounds().contains(getTransformedMousePos(iec.getMousePos(window, view))))
-			{
-				grabbed = true;
-				grabOffset = getTransformedMousePos(iec.getMousePos(window, view)) - pos;
-			}
-
-		}
-
-		if (iec.getMouseButtonState(Mouse::Left) == IEC::KeyState::JUSTRELEASED)
-		{
-			if (grabbed) grabbed = false;
-			if (resized) resized = false;
 		}
 
 		if (grabbed)
@@ -237,23 +244,23 @@ bool GUI_Window::update(IEC& iec, RenderWindow& window, View& view)
 			}
 		}
 
-		beingScrolled = false;
-		if (getGlobalElementBounds().contains(iec.getMousePos(window, view)))
-		{
-			if (iec.getMouseWheelDelta() != 0)
-			{
-				//if (contentOccupySize.y > rtView.getSize().y)
-				if (contentOccupySize.y > rts.getTextureRect().height)
-				{
-					IntRect rect = { rts.getTextureRect().left, rts.getTextureRect().top + 10 * -iec.getMouseWheelDelta(), rts.getTextureRect().width, rts.getTextureRect().height };
-					rts.setTextureRect(rect);
-				}
-					//rtView.move(0, 10 * -iec.getMouseWheelDelta());
-				iec.expireMouseWheelDelta();
-				beingScrolled = true;
-				normalizeOutOfBoundsView();
-			}
-		}
+		//beingScrolled = false;
+		//if (getGlobalElementBounds().contains(iec.getMousePos(window, view)))
+		//{
+		//	if (iec.getMouseWheelDelta() != 0)
+		//	{
+		//		//if (contentOccupySize.y > rtView.getSize().y)
+		//		if (contentOccupySize.y > rts.getTextureRect().height)
+		//		{
+		//			IntRect rect = { rts.getTextureRect().left, rts.getTextureRect().top + 10 * -iec.getMouseWheelDelta(), rts.getTextureRect().width, rts.getTextureRect().height };
+		//			rts.setTextureRect(rect);
+		//		}
+		//			//rtView.move(0, 10 * -iec.getMouseWheelDelta());
+		//		iec.expireMouseWheelDelta();
+		//		beingScrolled = true;
+		//		normalizeOutOfBoundsView();
+		//	}
+		//}
 
 
 		//rt.setView(rtView);
